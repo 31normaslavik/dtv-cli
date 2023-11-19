@@ -1,7 +1,7 @@
 # dtv-cli
 Downloads translated videos from English into Russian from YouTube using Yandex API
 
-### Install 
+### Run 
 ```
 git clone https://github.com/31normaslavik/dtv-cli.git 
 
