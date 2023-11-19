@@ -7,7 +7,9 @@ Downloads translated videos from English into Russian from YouTube using Yandex 
 
 ### Dependencies
 https://github.com/FOSWLY/vot-cli
+
 https://github.com/yt-dlp/yt-dlp
+
 https://github.com/FFmpeg/FFmpeg
 
 ### Run 
