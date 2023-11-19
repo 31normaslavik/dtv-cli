@@ -1,6 +1,11 @@
 # dtv-cli
 Downloads translated videos from English into Russian from YouTube using Yandex API
 
+### Dependencies
+https://github.com/FOSWLY/vot-cli
+https://github.com/yt-dlp/yt-dlp
+https://github.com/FFmpeg/FFmpeg
+
 ### Run 
 ```
 git clone https://github.com/31normaslavik/dtv-cli.git 
