@@ -12,7 +12,7 @@ https://github.com/yt-dlp/yt-dlp
 
 https://github.com/FFmpeg/FFmpeg
 
-### Run 
+### Install 
 ```
 git clone https://github.com/31normaslavik/dtv-cli.git 
 
