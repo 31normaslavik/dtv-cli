@@ -3,7 +3,7 @@
 нейросети Yandex с английского на русский.
 Первая beta версия. 
 
-Downloads translated videos from English into Russian from YouTube using Yandex API
+Downloads translated videos and playlists from English into Russian from YouTube using Yandex API
 
 ### Dependencies
 https://github.com/FOSWLY/vot-cli
@@ -20,11 +20,9 @@ cd dtv-cli
 
 cmake -H. -B_build
 
-cmake --build _build
+sudo cmake --build _build --target install --config Release
 
-cd _build
-
-./dtv-cli --output /path/my_video/ --format webm1080 "https://www.youtube.com/watch?v=HEsaAMLsUbE"
+dtv-cli --output /path/to/my_video/ --format webm1080 "https://www.youtube.com/watch?v=HEsaAMLsUbE"
 ```
 
 ### How use
