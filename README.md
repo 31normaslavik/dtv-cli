@@ -27,5 +27,5 @@ dtv-cli --output ./playlist4 --format mp4_2160_60_10 "https://www.youtube.com/wa
 
 ### How use
 ```
-dtv-cli --output ./ --format [ mp4[_4320 _2160 _1440 _1080 _720 _480 _360] webm[_2160 _1440 _1080 _720 _480 _360] ] [_30 30_10 _60 _60_10]  urls
+dtv-cli --output ./ --format [ mp4[_4320 _2160 _1440 _1080 _720 _480 _360] webm[_2160 _1440 _1080 _720 _480 _360] ] [_30 _30_10 _60 _60_10]  urls
 ```
