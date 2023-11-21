@@ -22,10 +22,10 @@ cmake -H. -B_build
 
 sudo cmake --build _build --target install --config Release
 
-dtv-cli --output /path/to/my_video/ --format webm1080 "https://www.youtube.com/watch?v=HEsaAMLsUbE"
+dtv-cli --output ./playlist4 --format mp4_2160_60_10 "https://www.youtube.com/watch?v=HEsaAMLsUbE"
 ```
 
 ### How use
 ```
-dtv-cli --output ./ --format [ mp4[1080,720,480], webm[1080,720,480] ]  urls
+dtv-cli --output ./ --format [ mp4[_4320 _2160 _1440 _1080 _720 _480 _360] webm[_2160 _1440 _1080 _720 _480 _360] ] [_30 30_10 _60 _60_10]  urls
 ```
