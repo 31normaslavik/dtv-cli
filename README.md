@@ -27,6 +27,10 @@ sudo cmake --build _build --target install --config Release
 ```
 dtv-cli --output ./ --format [ mp4[_4320 _2160 _1440 _1080 _720 _480 _360] webm[_2160 _1440 _1080 _720 _480 _360] ] [_30 _30_10 _60 _60_10]  urls
 
+Format container_resolution_framesPerSecond_hdr
+For example mp4_1080_60_10  This means that the video will be downloaded in 1080p resolution with 60 fps and the color depth will be hdr
+If the specified video quality is not available, then an available one will be downloaded, but with a worse quality
+
 // The video will be saved in the playlist4 directory
 dtv-cli --output ./playlist4 --format mp4_2160_60_10 "https://www.youtube.com/watch?v=HEsaAMLsUbE"
 
