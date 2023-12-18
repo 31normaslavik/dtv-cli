@@ -21,7 +21,6 @@ cd dtv-cli
 cmake -H. -B_build
 
 sudo cmake --build _build --target install --config Release
-
 ```
 
 ### How use
