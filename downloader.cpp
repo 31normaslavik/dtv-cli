@@ -386,7 +386,7 @@ namespace dtv {
         split_video_.output = new_title + split_video_.output;
     }
 
-    Downloader::Downloader(const std::set<std::string>& urls, const std::string& pathToSave,
+    Downloader::Downloader(const std::set<std::string>& urls, const std::filesystem::path &pathToSave,
         const std::string& format):
             path_{std::make_shared<dtv::FsDirectories>(pathToSave)},
             format_{format}

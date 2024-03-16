@@ -146,7 +146,7 @@ namespace dtv {
 
     class Downloader {
         public:
-        explicit Downloader(const std::set<std::string>& urls, const std::string& pathToSave,
+        explicit Downloader(const std::set<std::string>& urls, const std::filesystem::path& pathToSave,
         const std::string& format);
 
         ~Downloader() = default;
