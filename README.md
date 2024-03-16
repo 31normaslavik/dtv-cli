@@ -3,16 +3,21 @@
 нейросети Yandex с английского на русский.
 Первая beta версия. 
 
-Downloads translated videos and playlists from English into Russian from YouTube using Yandex API
+Downloads translated videos and playlists from English into Russian 
+from YouTube using Yandex API
 
-### Dependencies
-https://github.com/FOSWLY/vot-cli
 
-https://github.com/yt-dlp/yt-dlp
 
-https://github.com/FFmpeg/FFmpeg
+### DEPENDENCIES
 
-### Install 
+[vot-cli](https://github.com/FOSWLY/vot-cli)
+
+[yt-dlp](https://github.com/yt-dlp/yt-dlp)
+
+[FFmpeg](https://github.com/FFmpeg/FFmpeg)
+
+
+### INSTALL 
 ```
 git clone https://github.com/31normaslavik/dtv-cli.git 
 
@@ -22,10 +27,30 @@ cmake -H. -B_build
 
 sudo cmake --build _build --target install --config Release
 
-dtv-cli --output ./playlist4 --format mp4_2160_60_10 "https://www.youtube.com/watch?v=HEsaAMLsUbE"
 ```
 
-### How use
+
+### HOW USE
 ```
-dtv-cli --output ./ --format [ mp4[_4320 _2160 _1440 _1080 _720 _480 _360] webm[_2160 _1440 _1080 _720 _480 _360] ] [_30 _30_10 _60 _60_10]  urls
+#Format mp4, 1080p, fps 30, path current
+dtv-cli -u "url1"
+
+#Format mp4, 480p, fps 30, path ./playlist4
+dtv-cli --output ./playlist4 --format mp4 --resolution 480 --urls "url1" "url2"
+
+#Format mp4, 1080p, fps 60, path ./playlist1
+dtv-cli --output ./playlist1 --format mp4 --resolution 1080 --fps --urls "url"
+
+#Format mp4, 2160p, fps 60, HDR, path ./playlist4
+dtv-cli --output ./playlist4 --format mp4 --resolution 2160 --fps --hdr --urls "url1" "url2"
+
+#Format webm, 2160p, fps 60, HDR, path /home/user/Videos
+dtv-cli -o /home/user/Videos -f webm -r 2160 --fps --hdr -u "url1" "url2" "url3"
+
+#Format mp4, 4320p, fps 60, HDR, path ./myvideos
+dtv-cli -o ./myvideos -f mp4 -r 7680x4320 --fps --hdr -u "url1" "url2" "url3"
+
+#Format webm, 1080p, fps 30, path current
+dtv-cli -f webm -u "url1"
 ```
+
