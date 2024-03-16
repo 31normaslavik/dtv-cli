@@ -18,17 +18,8 @@ from YouTube using Yandex API
 
 
 ### INSTALL 
-```
-git clone https://github.com/31normaslavik/dtv-cli.git 
 
-cd dtv-cli
-
-cmake -H. -B_build
-
-sudo cmake --build _build --target install --config Release
-
-```
-
+``git clone https://github.com/31normaslavik/dtv-cli.git && cd dtv-cli && cmake -H. -B_build && sudo cmake --build _build --target install --config Release``
 
 ### HOW USE
 ```
