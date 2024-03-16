@@ -12,7 +12,7 @@ namespace dtv {
         namespace fs = std::filesystem;
     }
 
-    FsDirectories::FsDirectories(const std::string& pathToSave,
+        FsDirectories::FsDirectories(const std::filesystem::path& pathToSave,
                                  const std::string& pathToTemp, const size_t length) {
 
         this->pathToSave = fs_init_full_path(pathToSave);

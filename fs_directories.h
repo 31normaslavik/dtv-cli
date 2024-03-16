@@ -13,7 +13,7 @@ namespace dtv {
 
     class FsDirectories {
     public:
-        explicit FsDirectories(const std::string& pathToSave, const std::string& pathToTemp = "dtv-cli",
+        explicit FsDirectories(const std::filesystem::path& pathToSave, const std::string& pathToTemp = "dtv-cli",
                                size_t length = 6);
 
         [[nodiscard]] std::filesystem::path getPathToSave() const noexcept;
