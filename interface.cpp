@@ -1,7 +1,6 @@
 #include "interface.h"
 
 #include <fstream>
-#include <iostream>
 #include <utility>
 
 VideoYoutube::VideoYoutube(std::string id, std::string title,

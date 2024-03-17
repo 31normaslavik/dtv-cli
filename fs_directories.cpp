@@ -63,7 +63,7 @@ namespace dtv {
     fs::path FsDirectories::fs_init_full_path(const std::string& pathToSave) {
         if (pathToSave.starts_with(".") && pathToSave.size() == 1) {
             return fs::path(std::getenv("PWD"));
-        } else if (pathToSave.starts_with("." + fs::path::preferred_separator)) {
+        } else if (pathToSave.starts_with("." + std::to_string(fs::path::preferred_separator))) {
             return fs::path (std::string(std::getenv("PWD")) + fs::path::preferred_separator + pathToSave.substr(2));
         } else if (!pathToSave.starts_with("/")) {
             return fs::path(std::string(std::getenv("PWD")) + fs::path::preferred_separator + pathToSave);

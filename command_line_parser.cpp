@@ -1,23 +1,9 @@
 #include "command_line_parser.h"
 
 ParserLine command_line_parser(int argc, char *argv[]) {
-    //namespace opt = boost::program_options;
-    // std::cerr << "dtv-cli --output ./ "
-    //              "--format [mp4 webm] [_4320 _2160 _1440 _1080 _720 _480 _360]
-    //              "
-    //              "[_30 _30_10 _60 _60_10]  urls\n" << std::endl;
-
-    // Constructing an options describing variable and giving it a
-    // textual description "All options".
     opt::options_description general("All options");
 
-    // When we are adding options, first parameter is a name
-    // to be used in command line. Second parameter is a type
-    // of that option, wrapped in value<> class. Third parameter
-    // must be a short description of that option.
-
     std::string format;
-    //std::vector<std::string> urls;
 
     general.add_options()("help,h", "This help\n")
         ("format,f", opt::value<std::string>(&format)->default_value("mp4"),
@@ -113,13 +99,10 @@ ParserLine command_line_parser(int argc, char *argv[]) {
             std::cout << examples << std::endl;
             exit(0);
         }
-        //std::cout << "Format: " + format << std::endl;
     }
 
     if (std::string resolution; vm.count("resolution")) {
         resolution = vm["resolution"].as<std::string>();
-        //          << std::endl;
-        // 4320 2160 1440 1080 720 480 360
         if (resolution != "360" && resolution != "480" && resolution != "720" &&
             resolution != "1080" && resolution != "1440" && resolution != "2160" &&
             resolution != "4320") {
@@ -135,21 +118,16 @@ ParserLine command_line_parser(int argc, char *argv[]) {
             }
             format.append("_").append(resolution);
         }
-    } /*else {
-    format.append("_").append(resolution).append("p");
-  }*/
+    }
 
     if (vm.count("fps")) {
         format += "_60";
-        //std::cout << "Fps: " << format << std::endl;
     } else {
         format += "_30";
-        //std::cout << "Fps: " << format << std::endl;
     }
 
     if (vm.count("hdr")) {
         format += "_10";
-        //std::cout << "HDR: " << format << std::endl;
     }
 
     if (vm.count("output")) {
