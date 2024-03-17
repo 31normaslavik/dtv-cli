@@ -1,11 +1,12 @@
 # dtv-cli
+```
 Скачивание роликов и плейлистов с youtube с переводом от
 нейросети Yandex с английского на русский.
 Первая beta версия. 
 
 Downloads translated videos and playlists from English into Russian 
 from YouTube using Yandex API
-
+```
 
 
 ### DEPENDENCIES
