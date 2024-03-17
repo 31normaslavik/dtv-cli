@@ -2,8 +2,6 @@
 ```
 Скачивание роликов и плейлистов с youtube с переводом от
 нейросети Yandex с английского на русский.
-Первая beta версия. 
-
 Downloads translated videos and playlists from English into Russian 
 from YouTube using Yandex API
 ```
@@ -49,5 +47,8 @@ dtv-cli -o ./myvideos -f mp4 -r 7680x4320 --fps --hdr -u "url1" "url2" "url3"
 
 #Format webm, 1080p, fps 30, path current
 dtv-cli -f webm -u "url1"
-```
 
+
+# If the specified directories where the videos should be saved do not exist, 
+# they will be created automatically
+```
