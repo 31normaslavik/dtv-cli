@@ -38,9 +38,9 @@ namespace dtv {
         return pathToTemp;
     }
 
-    FsDirectories::~FsDirectories() {
-        std::filesystem::remove_all(pathToTemp);
-    }
+    // FsDirectories::~FsDirectories() {
+    //     //std::filesystem::remove_all(pathToTemp);
+    // }
 
     // void FsDirectories::setPathToTempDirectory() const noexcept {
     //     fs::current_path(pathToTemp);

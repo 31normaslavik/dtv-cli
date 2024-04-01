@@ -19,8 +19,9 @@ namespace dtv {
         [[nodiscard]] std::filesystem::path getPathToSave() const noexcept;
         [[nodiscard]] std::filesystem::path getPathToTemp() const noexcept;
 
-        //void setPathToTempDirectory() const noexcept;
-        ~FsDirectories();
+        // void setPathToTempDirectory() const noexcept;
+
+        // ~FsDirectories();
 
     private:
         [[nodiscard]] std::string tempDirGenerate(const std::string& dir, std::size_t length) const noexcept;
