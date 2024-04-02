@@ -1,6 +1,6 @@
-#include "commandline.h"
-#include "fs_directories.h"
-#include "interface/interface.h"
+#include "../command/commandline.h"
+#include "../fs/fs_directories.h"
+#include "../interface/interface.h"
 
 #pragma once
 

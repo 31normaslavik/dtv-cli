@@ -1,5 +1,5 @@
 #include "mergevideofile.h"
-#include "presentation.h"
+#include "../presentation/presentation.h"
 
 dtv::MergeVideoFile::MergeVideoFile(std::shared_ptr<Video> video, std::shared_ptr<FsDirectories> path): video_(video), path_(path)
 {

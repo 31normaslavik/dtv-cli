@@ -13,28 +13,36 @@ set(Boost_USE_MULTITHREADED ON)
 find_package(Boost 1.83 REQUIRED COMPONENTS json program_options)
 include_directories(${BOOST_INCLUDE_DIRS})
 
-add_library(downloader STATIC downloader.cpp downloader.h fs_directories.cpp
-                              fs_directories.h
-                              mergevideofile.h mergevideofile.cpp
-                              downloadingmedia.h downloadingmedia.cpp
-                              dataloader.h dataloader.cpp)
+# add_library(downloader STATIC downloader.cpp downloader.h fs_directories.cpp
+# fs_directories.h mergevideofile.h mergevideofile.cpp downloadingmedia.h
+# downloadingmedia.cpp dataloader.h dataloader.cpp)
 
-add_library(presentation STATIC presentation.cpp presentation.h)
+# add_library(presentation STATIC presentation.cpp presentation.h)
 
-add_library(commandline STATIC commandline.cpp commandline.h)
+# add_library(commandline STATIC commandline.cpp commandline.h)
 
 add_executable(dtv-cli main.cpp)
 
 add_subdirectory(interface)
 add_subdirectory(jsondata)
 add_subdirectory(command_line_parser)
+add_subdirectory(command)
+add_subdirectory(download)
+add_subdirectory(fs)
+add_subdirectory(merge)
+add_subdirectory(presentation)
 
-target_link_libraries(dtv-cli PRIVATE downloader commandline presentation)
-target_link_libraries(dtv-cli PRIVATE cmdlineparser)
 target_link_libraries(
   dtv-cli
-  PUBLIC
-  interface jsondata)
+  PRIVATE
+  interface jsondata
+            downloader
+            commandline
+            presentation
+            cmdlineparser
+            downloader
+            fs_directories
+            merge)
 
 include(GNUInstallDirs)
 install(

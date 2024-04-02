@@ -4,8 +4,8 @@
 
 #include "downloader.h"
 #include "downloadingmedia.h"
-#include "mergevideofile.h"
-#include "interface/interface.h"
+#include "../merge/mergevideofile.h"
+#include "../interface/interface.h"
 #include <iostream>
 //#include <utility>
 

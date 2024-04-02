@@ -1,5 +1,5 @@
-#include "commandline.h"
-#include "presentation.h"
+#include "../command/commandline.h"
+#include "../presentation/presentation.h"
 #include <regex>
 
 dtv::CommandLine::CommandLine(const std::vector<std::string> &urls,

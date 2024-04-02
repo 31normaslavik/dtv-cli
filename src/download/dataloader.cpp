@@ -1,11 +1,11 @@
 #include "dataloader.h"
-#include "commandline.h"
-#include "fs_directories.h"
-#include "interface/interface.h"
-#include "interface/videoninegag.h"
-#include "interface/videovimeo.h"
-#include "interface/videoyoutube.h"
-#include "jsondata/jsondata.h"
+#include "../command/commandline.h"
+#include "../fs/fs_directories.h"
+#include "../interface/interface.h"
+#include "../interface/videoninegag.h"
+#include "../interface/videovimeo.h"
+#include "../interface/videoyoutube.h"
+#include "../jsondata/jsondata.h"
 #include <iostream>
 #include <set>
 

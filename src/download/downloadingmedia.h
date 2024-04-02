@@ -1,5 +1,5 @@
-#include "commandline.h"
-#include "fs_directories.h"
+#include "../command/commandline.h"
+#include "../fs/fs_directories.h"
 
 #include <string>
 #include <vector>

@@ -1,14 +1,9 @@
-//
-// Created by pancake on 12/12/23.
-//
 #pragma once
 
 #include "dataloader.h"
-#include "fs_directories.h"
-#include "interface/interface.h"
-#include "commandline.h"
-
-#include <set>
+#include "../fs/fs_directories.h"
+#include "../interface/interface.h"
+#include "../command/commandline.h"
 
 namespace dtv {
 

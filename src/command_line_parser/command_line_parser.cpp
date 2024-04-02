@@ -1,5 +1,5 @@
 #include "command_line_parser.h"
-#include "../commandline.h"
+#include "../command/commandline.h"
 
 dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
     namespace opt = boost::program_options;
