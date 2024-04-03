@@ -34,15 +34,9 @@ add_subdirectory(presentation)
 
 target_link_libraries(
   dtv-cli
-  PRIVATE
-  interface jsondata
-            downloader
-            commandline
-            presentation
-            cmdlineparser
-            downloader
-            fs_directories
-            merge)
+  PRIVATE # interface jsondata
+          downloader commandline presentation cmdlineparser fs_directories
+          merge)
 
 include(GNUInstallDirs)
 install(
