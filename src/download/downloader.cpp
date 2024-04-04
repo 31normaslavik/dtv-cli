@@ -5,7 +5,7 @@
 #include "downloader.h"
 #include "downloadingmedia.h"
 #include "../merge/mergevideofile.h"
-#include "../interface/interface.h"
+#include "../interface/video.h"
 #include <iostream>
 //#include <utility>
 

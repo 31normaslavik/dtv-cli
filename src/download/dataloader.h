@@ -1,6 +1,6 @@
 #include "../command/commandline.h"
 #include "../fs/fs_directories.h"
-#include "../interface/interface.h"
+#include "../interface/video.h"
 
 #pragma once
 

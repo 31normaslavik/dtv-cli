@@ -1,13 +1,14 @@
 add_library(
   interface STATIC
-  interface.cpp
-  interface.h
+  video.cpp
+  video.h
   videoyoutube.cpp
   videoyoutube.h
   videovimeo.cpp
   videovimeo.h
   videoninegag.cpp
-  videoninegag.h)
+  videoninegag.h
+  interface.h)
 
 # target_link_libraries(interface PUBLIC Boost::json)
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "interface.h"
+#include "video.h"
 
 namespace dtv {
 

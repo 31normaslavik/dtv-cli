@@ -5,6 +5,6 @@ add_library(
 target_link_libraries(
   downloader
   PRIVATE
-  interface jsondata)
+  interface jsondata merge)
 
 target_include_directories(downloader PUBLIC .)

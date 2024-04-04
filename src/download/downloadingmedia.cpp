@@ -41,6 +41,6 @@ int dtv::DownloadingMedia::DownloaderVotCli(const Source& source, const std::str
     }
     else{
         return std::system(
-            std::string(R"(vot-cli --reslang ")" + language + R"(" --output="." ")" + source.url_ + "\"").c_str());
+            std::string(R"LLL(vot-cli --reslang ")LLL" + language + R"LLL(" --output="." ")LLL" + source.url_ + "\"").c_str());
     }
 }

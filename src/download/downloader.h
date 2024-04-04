@@ -2,7 +2,7 @@
 
 #include "dataloader.h"
 #include "../fs/fs_directories.h"
-#include "../interface/interface.h"
+#include "../interface/video.h"
 #include "../command/commandline.h"
 
 namespace dtv {

@@ -2,7 +2,7 @@
 
 
 #include "../fs/fs_directories.h"
-#include "../interface/interface.h"
+#include "../interface/video.h"
 
 #include <memory>
 
@@ -28,6 +28,7 @@ private:
     int MergeFfmpeg(const std::string& video, const std::string& voice,
                     const std::string& audio, const std::string& output);
 
+
     void InitVideo();
     void InitVoice();
     void InitAudio();
@@ -40,7 +41,7 @@ private:
         std::string video_;
         std::string voice_;
         std::string audio_;
-        std::string output_;
+        std::string extension_;
     } split_video_;
 };
 
