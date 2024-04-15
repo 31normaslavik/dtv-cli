@@ -1,8 +1,10 @@
-#include "../command/commandline.h"
-#include "../fs/fs_directories.h"
-#include "../interface/video.h"
-
 #pragma once
+
+#include <commandline.h>
+#include <fs_directories.h>
+#include <video.h>
+
+
 
 
 namespace dtv {
@@ -11,14 +13,14 @@ namespace dtv {
 
 class DataLoader {
 public:
-    explicit DataLoader(const std::set<Source,cmpSource>& urls,
-                        std::shared_ptr<FsDirectories> path);
+    explicit DataLoader(const std::vector< std::string > &urls,
+                        std::shared_ptr<FsDirectories> path_ptr, const std::string &format);
 
     /**
          * \brief
          * \return Info aboout all videos.
          */
-    std::shared_ptr<dtv::VideoData> VideoData();
+    [[nodiscard]] std::shared_ptr<dtv::VectorPtrVideos> VideoData();
 
 private:
     /**
@@ -28,13 +30,13 @@ private:
 
          * \param urls creates a set of urls to download
          */
-    void DownloadJsonsToDisk(const std::set<Source, cmpSource> &urls) const;
+    void DownloadJsonsToDisk(const std::vector<std::string> &urls) const;
 
     /**
          * \brief
          * \return read vector of path to json files on disk
          */
-    [[nodiscard]] std::vector<std::filesystem::directory_entry> JsonListOnDisk() const;
+    [[nodiscard]] std::vector<std::filesystem::directory_entry> CreateListJsonFromDisk() const;
 
     /**
         * \brief Populates a VideoData object from json
@@ -43,8 +45,13 @@ private:
         */
     void FillingInVideoData();
 
-    std::shared_ptr<FsDirectories> path_;
-    std::shared_ptr<dtv::VideoData> video_data_;
+    std::string createFormatForUrl(const std::string & url);
+
+
+    std::shared_ptr<FsDirectories> path_ptr_;
+    std::shared_ptr<dtv::VectorPtrVideos> video_data_ptr_;
+    std::string format_;
+
 };
 
 

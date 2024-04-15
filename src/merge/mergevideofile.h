@@ -1,47 +1,75 @@
 #pragma once
 
 
-#include "../fs/fs_directories.h"
-#include "../interface/video.h"
+#include "fs_directories.h"
+#include "video.h"
 
 #include <memory>
 
 namespace dtv {
 
+class Source;
+
 
 class MergeVideoFile {
 public:
-    explicit MergeVideoFile(std::shared_ptr<dtv::Video> video, std::shared_ptr<dtv::FsDirectories> path);
+    explicit MergeVideoFile(std::shared_ptr<dtv::Video> video_ptr, std::shared_ptr<dtv::FsDirectories> path_ptr);
 
-    // ~MergeVideoFile();
+    ~MergeVideoFile();
+
+
+    /**
+     * @brief Init
+     */
+    void Init();
 
 private:
+
+    // NOTE Создавать папку при скачивании плейлиста
     /**
-         * \brief Merges all thre audio tracks of a video
-         * \param video video file
-         * \param voice voice file
-         * \param audio audio file
-         * \param output output file
-        * \return if the files are merged successfully, 0 is returned,
-         *           otherwise 1
-         */
-    int MergeFfmpeg(const std::string& video, const std::string& voice,
-                    const std::string& audio, const std::string& output);
+     * @brief MoveOnDisk
+     */
+    void MoveOnDisk();
+
+    /**
+     * @brief Merges all thre audio tracks of a video
+     */
+    void MergeFfmpeg();
 
 
+
+    /**
+     * @brief InitVideo
+     */
     void InitVideo();
+
+    /**
+     * @brief InitVoice
+     */
     void InitVoice();
+
+    /**
+     * @brief InitAudio
+     */
     void InitAudio();
+
+    /**
+     * @brief InitOutput
+     */
     void InitOutput();
 
-    std::shared_ptr<dtv::Video> video_;
-    std::shared_ptr<dtv::FsDirectories> path_;
+    std::shared_ptr<dtv::Video> video_ptr_;
+    std::shared_ptr<dtv::FsDirectories> path_ptr_;
+    std::shared_ptr<std::vector<Source>> resources_ptr_;
 
+    // FIXME Поменять string на filesystem?
     struct SplitVideoData {
         std::string video_;
         std::string voice_;
         std::string audio_;
+        std::string output_;
         std::string extension_;
+        std::string tempf_;
     } split_video_;
 };
 

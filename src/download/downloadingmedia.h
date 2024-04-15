@@ -1,10 +1,9 @@
-#include "../command/commandline.h"
-#include "../fs/fs_directories.h"
-
-#include <string>
-#include <vector>
-
 #pragma once
+
+
+#include <commandline.h>
+#include <fs_directories.h>
+#include <video.h>
 
 
 namespace dtv {
@@ -16,9 +15,14 @@ namespace dtv {
      */
 class DownloadingMedia {
 public:
-    explicit DownloadingMedia(std::vector<Source> resources);
+    //explicit DownloadingMedia(std::shared_ptr<std::vector<Source>> &resources_ptr);
 
-    void Download();
+    explicit DownloadingMedia(std::shared_ptr<Video> video_ptr);
+
+    /**
+     * @brief Download
+     */
+    void Download(bool subtitles = false);
 
 private:
     /**
@@ -26,14 +30,11 @@ private:
         *         file to disk with the selected quality.
                   The video and audio tracks will be
                   downloaded to the disk separately.
-         * \param url link to specific video
-         * \param format format for selecting the quality
-         *              and format of video and audio
          * \return if the files are downloaded
          *          successfully, 0 is returned,
          *          otherwise 1
          */
-    int DownloaderYtDlp(const Source &source);
+    [[nodiscard]] int DownloaderYtDlp();
 
     /**
          * \brief Using the Yandex api to download a translation
@@ -54,17 +55,17 @@ private:
          * en - English,
          * kk - Kazakh
          *
-         * \param url link to specific video
+         * \param source
          * \param language language of the audio track
          * \param subtitles subtitle of the audio track
          * \return if the files are downloaded
          *           successfully, 0 is returned,
          *           otherwise 1
          */
-    int DownloaderVotCli(const Source &source, const std::string& language = "ru", bool subtitles = false);
+    [[nodiscard]] int DownloaderVotCli(bool subtitles);
 
-    std::shared_ptr<FsDirectories> path_;
-    std::vector<Source> resources_;
+    std::shared_ptr<FsDirectories> path_ptr_;
+    std::shared_ptr< Video> video_ptr_;
 };
 
 } // namespace dtv
