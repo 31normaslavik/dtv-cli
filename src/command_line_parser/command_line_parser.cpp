@@ -1,5 +1,4 @@
 #include "command_line_parser.h"
-#include "../command/commandline.h"
 
 dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
     namespace opt = boost::program_options;
@@ -80,13 +79,12 @@ dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
     }
 
     if (vm.count("urls")) {
-        std::cout << "Urls: " << vm["urls"].as<std::vector<std::string>>()
-                  << std::endl;
+        std::cout << "urls:\n" << vm["urls"].as<std::vector<std::string>>()
+                  << "\n";
         for (const auto &url : vm["urls"].as<std::vector<std::string>>())
             if (url.find("https://") == std::string::npos) {
-                std::cerr << "The link to the video is incorrect: " << url << std::endl;
+                std::cerr << "The link to the video is incorrect: " << url << "\n";
                 //exit(0);
-
             }
 
     } else {
@@ -133,20 +131,15 @@ dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
     }
 
     if (vm.count("output")) {
-        std::cout << "Path: " << vm["output"].as<std::filesystem::path>()
-                  << std::endl;
+        std::cout << "path to save files: " << vm["output"].as<std::filesystem::path>()
+                  << "\n\n";
     }
 
-    //std::vector<std::string> urls = vm["urls"].as<std::vector<std::string>>();
     dtv::CommandLine line(vm["urls"].as<std::vector<std::string>>(),
                           vm["output"].as<std::filesystem::path>(),
                           format);
-    //parse.format. = format;
-    //parse.urls.insert(urls.cbegin(), urls.cend());
-    //parse.pathToSave = vm["output"].as<std::filesystem::path>();
 
     return line;
-
 }
 
 
