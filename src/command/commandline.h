@@ -1,40 +1,26 @@
 #pragma once
 
 #include <filesystem>
-#include <set>
 #include <string>
 #include <vector>
 
 namespace dtv{
 
-struct Source{
-    explicit Source(const std::string& resource, const std::string& url, const std::string& format);
-    std::string resource_;
-    std::string url_;
-    std::string format_;
-    bool unavailable_ = false;
-
-};
-
-struct cmpSource{
-    bool operator()(const Source& ls, const Source& rs) const{
-        return (ls.resource_ != rs.resource_ || ls.url_ != rs.url_ || ls.format_ != rs.format_);
-    }
-};
-
 class CommandLine{
 public:
     explicit CommandLine(const std::vector<std::string>& urls,
-                         const std::filesystem::path& pathToSave, const std::string& format);
+                         const std::filesystem::path& path_to_save, const std::string& format);
 
     std::filesystem::path Path() const;
-    //std::string getFormat();
-    std::set<Source,cmpSource> Resources() const;
+
+    [[nodiscard]] std::string Format() const;
+
+    [[nodiscard]] std::vector< std::string > Urls() const;
 
 private:
     std::filesystem::path path_to_save_;
-    // url resource
-    std::set<Source,cmpSource> resources_list_;
+    std::vector< std::string > urls_;
+    std::string format_;
 };
 
 
