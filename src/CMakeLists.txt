@@ -4,22 +4,31 @@ set(Boost_USE_RELEASE_LIBS ON) # only find release libs
 set(Boost_USE_MULTITHREADED ON)
 # set(Boost_USE_STATIC_RUNTIME   OFF)
 
-find_package(Boost 1.8 REQUIRED COMPONENTS json program_options)
+find_package(Boost 1.82 REQUIRED COMPONENTS json program_options)
 include_directories(${BOOST_INCLUDE_DIRS})
 
 add_executable(dtv-cli main.cpp)
 
-add_subdirectory(interface)
-add_subdirectory(jsondata)
-add_subdirectory(command_line_parser)
 add_subdirectory(command)
+add_subdirectory(command_line_parser)
 add_subdirectory(download)
 add_subdirectory(fs)
+add_subdirectory(interface)
+add_subdirectory(jsondata)
 add_subdirectory(merge)
 add_subdirectory(presentation)
 
-target_link_libraries(dtv-cli PRIVATE downloader commandline presentation
-                                      cmdlineparser fs_directories)
+message("CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
+
+target_link_libraries(
+  dtv-cli
+  PUBLIC downloader
+         # commandline
+         commandline
+         # presentation
+         cmdlineparser
+         # fs_directories merge
+)
 
 include(GNUInstallDirs)
 install(

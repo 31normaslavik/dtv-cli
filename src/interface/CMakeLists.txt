@@ -7,8 +7,7 @@ add_library(
   videovimeo.cpp
   videovimeo.h
   videoninegag.cpp
-  videoninegag.h
-  interface.h)
+  videoninegag.h)
 
 # target_link_libraries(interface PUBLIC Boost::json)
 
