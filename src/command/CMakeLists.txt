@@ -1,7 +1,7 @@
 add_library(commandline STATIC commandline.cpp commandline.h)
 
-include_directories("${CMAKE_SOURCE_DIR}/src/presentation")
+add_library(cmdlineparser STATIC command_line_parser.cpp command_line_parser.h)
 
-target_link_libraries(commandline PUBLIC presentation)
+target_link_libraries(cmdlineparser PRIVATE Boost::program_options commandline)
 
-target_include_directories(commandline PUBLIC .)
+target_include_directories(cmdlineparser PUBLIC .)

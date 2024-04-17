@@ -1,9 +1,4 @@
-//
-// Created by pancake on 12/14/23.
-//
 #include "presentation.h"
-#include <charconv>
-#include <format>
 #include <map>
 #include <stdexcept>
 #include <utility>
@@ -123,24 +118,33 @@ std::string dtv::Format::CombinateFormat(FormatVideo format, const std::string &
 
     if (resource == "youtube"){
         switch (format) { /* YOUTUBE */
-        case dtv::FormatVideo::MP4_7680x4320_60_10:
+            case dtv::FormatVideo::MP4_7680x4320_60_10:
                 format_to_string << std::to_underlying(FormatVideo::MP4_7680x4320_60_10) << "/";
+                [[fallthrough]];
             case dtv::FormatVideo::MP4_3840x2160_60_10:
-                format_to_string << std::to_underlying(FormatVideo::MP4_3840x2160_60_10) << '/';
+                format_to_string << std::to_underlying(FormatVideo::MP4_3840x2160_60_10) << "/";
+                [[fallthrough]];
             case dtv::FormatVideo::MP4_3840x2160_30:
                 format_to_string << std::to_underlying(FormatVideo::MP4_3840x2160_30)    << "/";
+                [[fallthrough]];
             case dtv::FormatVideo::MP4_2560x1440_60_10:
                 format_to_string << std::to_underlying(FormatVideo::MP4_2560x1440_60_10) << "/";
+                [[fallthrough]];
             case dtv::FormatVideo::MP4_2560x1440_30:
                 format_to_string << std::to_underlying(FormatVideo::MP4_2560x1440_30)    << "/";
+                [[fallthrough]];
             case dtv::FormatVideo::MP4_1920x1080_60_10:
                 format_to_string << std::to_underlying(FormatVideo::MP4_1920x1080_60_10) << "/";
+                [[fallthrough]];
             case dtv::FormatVideo::MP4_1920x1080_60:
                 format_to_string << std::to_underlying(FormatVideo::MP4_1920x1080_60)    << "/";
+                [[fallthrough]];
             case dtv::FormatVideo::MP4_1920x1080_30:
                 format_to_string << std::to_underlying(FormatVideo::MP4_1920x1080_30)    << "/";
+                [[fallthrough]];
             case dtv::FormatVideo::MP4_1280x720_30:
                 format_to_string << std::to_underlying(FormatVideo::MP4_1280x720_30)     << "/";
+                [[fallthrough]];
             case dtv::FormatVideo::MP4_854x480_30: {
                 format_to_string << std::to_underlying(FormatVideo::MP4_854x480_30)      << "/bestvideo,";
                 format_to_string << "140/139/599/bestaudio";
@@ -149,24 +153,34 @@ std::string dtv::Format::CombinateFormat(FormatVideo format, const std::string &
 
             case FormatVideo::WEBM_3840x2160_60_10:
                 format_to_string << std::to_underlying(FormatVideo::WEBM_3840x2160_60_10) << "/";
+                [[fallthrough]];
             case FormatVideo::WEBM_3840x2160_60:
                 format_to_string << std::to_underlying(FormatVideo::WEBM_3840x2160_60)    << "/";
+                [[fallthrough]];
             case FormatVideo::WEBM_3840x2160_30:
                 format_to_string << std::to_underlying(FormatVideo::WEBM_3840x2160_30)    << "/";
+                [[fallthrough]];
             case FormatVideo::WEBM_2560x1440_60_10:
                 format_to_string << std::to_underlying(FormatVideo::WEBM_2560x1440_60_10) << "/";
+                [[fallthrough]];
             case FormatVideo::WEBM_2560x1440_60:
                 format_to_string << std::to_underlying(FormatVideo::WEBM_2560x1440_60)    << "/";
+                [[fallthrough]];
             case FormatVideo::WEBM_2560x1440_30:
                 format_to_string << std::to_underlying(FormatVideo::WEBM_2560x1440_30)    << "/";
+                [[fallthrough]];
             case FormatVideo::WEBM_1920x1080_60_10:
                 format_to_string << std::to_underlying(FormatVideo::WEBM_1920x1080_60_10) << "/";
+                [[fallthrough]];
             case FormatVideo::WEBM_1920x1080_60:
                 format_to_string << std::to_underlying(FormatVideo::WEBM_1920x1080_60)    << "/";
+                [[fallthrough]];
             case FormatVideo::WEBM_1920x1080_30:
                 format_to_string << std::to_underlying(FormatVideo::WEBM_1920x1080_30)    << "/";
+                [[fallthrough]];
             case FormatVideo::WEBM_1280x720_30:
                 format_to_string << std::to_underlying(FormatVideo::WEBM_1280x720_30)     << "/";
+                [[fallthrough]];
             case FormatVideo::WEBM_854x480_30: {
                 format_to_string << std::to_underlying(FormatVideo::WEBM_854x480_30)      << "/bestvideo,";
                 format_to_string << "251/250/249/600/bestaudio";
@@ -182,10 +196,13 @@ std::string dtv::Format::CombinateFormat(FormatVideo format, const std::string &
         switch (format) {
             case FormatVideo::MP4_460x816_460sv_h265:
                 format_to_string << "460sv-h265"    << "/";
+                [[fallthrough]];
             case FormatVideo::MP4_460x816_460sv:
                 format_to_string << "460sv"         <<  "/";
+                [[fallthrough]];
             case FormatVideo::WEBM_460x816_460sv_vp9:
                 format_to_string << "460sv-vp9"     << "/";
+                [[fallthrough]];
             case FormatVideo::WEBM_460x816_460sv_vp8:
                 format_to_string << "460sv-vp8"     << "/b*";
             break;

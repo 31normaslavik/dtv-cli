@@ -1,5 +1,5 @@
-add_library(jsondata STATIC jsondata.h jsondata.cpp)
+add_library(jsondata_c STATIC jsondata.h jsondata.cpp)
 
-target_link_libraries(jsondata PUBLIC Boost::json)
+target_link_libraries(jsondata_c PRIVATE Boost::json)
 
-target_include_directories(jsondata PUBLIC .)
+target_include_directories(jsondata_c PUBLIC .)

@@ -1,9 +1,10 @@
 #include "dataloader.h"
-#include "presentation.h"
-#include "videoninegag.h"
-#include "videovimeo.h"
-#include "videoyoutube.h"
+
 #include "jsondata.h"
+#include "presentation.h"
+#include "commandline.h"
+#include "videosource.h"
+
 #include <iostream>
 #include <regex>
 
@@ -60,7 +61,7 @@ void dtv::DataLoader::FillingInVideoData() {
 
         JsonExtractorInfo const ex(json);
 
-        std::shared_ptr<JsonData> json_data = ex.GetJsonData();
+        std::shared_ptr<dtv::JsonData> json_data = ex.GetJsonData();
 
         std::shared_ptr<Video> video;
 

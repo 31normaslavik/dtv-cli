@@ -1,7 +1,11 @@
 #pragma once
 
-#include <boost/json.hpp>
+#define BOOST_JSON_STACK_BUFFER_SIZE 1024
+
+#include <boost/json/object.hpp>
 #include <filesystem>
+
+namespace dtv {
 
 
 class JsonData {
@@ -35,7 +39,7 @@ public:
     [[nodiscard]] virtual std::string Vcodec() const;
     [[nodiscard]] virtual std::string Acodec() const;
     [[nodiscard]] virtual std::string _type() const;
-    [[nodiscard]] virtual std::vector<std::string> Categories() const;
+    // [[nodiscard]] virtual std::vector<std::string> Categories() const;
     [[nodiscard]] virtual int64_t Playlist_index() const;
     [[nodiscard]] virtual int64_t Vbr() const;
     [[nodiscard]] virtual int64_t Asr() const;
@@ -48,7 +52,7 @@ public:
     [[nodiscard]] virtual int64_t Duration() const;
     [[nodiscard]] virtual int64_t Age_limit() const;
 
-    virtual ~JsonData() = default;
+    // virtual ~JsonData() = default;
 
 private:
     boost::json::object obj_;
@@ -86,3 +90,4 @@ private:
     boost::json::object obj_;
 };
 
+} // namespace dtv

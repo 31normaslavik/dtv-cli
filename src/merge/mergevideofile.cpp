@@ -31,14 +31,17 @@ void dtv::MergeVideoFile::MoveOnDisk()
                                path_ptr_->GetPathToSave() / (split_video_.output_ + split_video_.extension_),
                                fs::copy_options::overwrite_existing);
 
-    std::cout << "the [" + split_video_.output_ + split_video_.extension_ + "] file has been successfully created\n\n";
+    std::cout << "The [" + split_video_.output_ + split_video_.extension_ + "] file has been successfully created\n\n";
 
-    fs::remove(path_ptr_->GetPathToTemp() / (split_video_.output_ + split_video_.extension_));
-    fs::remove(path_ptr_->GetPathToTemp() / (split_video_.video_));
-    fs::remove(path_ptr_->GetPathToTemp() / (split_video_.audio_));
-    fs::remove(path_ptr_->GetPathToTemp() / (split_video_.voice_));
-
-    if(! split_video_.tempf_.empty())
+    if(fs::exists(path_ptr_->GetPathToTemp() / (split_video_.output_ + split_video_.extension_)))
+        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.output_ + split_video_.extension_));
+    if(fs::exists(path_ptr_->GetPathToTemp() / (split_video_.video_)))
+        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.video_));
+    if(fs::exists(path_ptr_->GetPathToTemp() / (split_video_.audio_)))
+        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.audio_));
+    if(fs::exists(path_ptr_->GetPathToTemp() / (split_video_.voice_)))
+        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.voice_));
+    if(fs::exists(path_ptr_->GetPathToTemp() / (split_video_.tempf_)))
         fs::remove(path_ptr_->GetPathToTemp() / (split_video_.tempf_));
 
 }
@@ -383,5 +386,8 @@ dtv::MergeVideoFile::~MergeVideoFile() {
     }
     if (std::filesystem::exists(split_video_.output_)) {
         std::filesystem::remove(split_video_.output_);
+    }
+    if (std::filesystem::exists(split_video_.tempf_)) {
+        std::filesystem::remove(split_video_.tempf_);
     }
 }

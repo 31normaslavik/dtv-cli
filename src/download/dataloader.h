@@ -1,15 +1,9 @@
 #pragma once
 
-#include <commandline.h>
-#include <fs_directories.h>
-#include <video.h>
-
-
-
+#include "fs_directories.h"
+#include "video.h"
 
 namespace dtv {
-
-
 
 class DataLoader {
 public:

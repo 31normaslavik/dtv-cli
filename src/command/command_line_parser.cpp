@@ -1,6 +1,6 @@
 #include "command_line_parser.h"
 
-dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
+const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
     namespace opt = boost::program_options;
     opt::options_description general("All options");
 
@@ -94,7 +94,6 @@ dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
 
     if (vm.count("format")) {
         if (format != "mp4" && format != "webm") {
-            // throw std::runtime_error("Invalid format is specified");
             std::cerr << "Invalid format is specified" << std::endl;
             std::cout << examples << std::endl;
             exit(0);

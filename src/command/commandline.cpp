@@ -7,6 +7,7 @@ dtv::CommandLine::CommandLine(const std::vector<std::string> &urls,
     path_to_save_{path_to_save},
     format_{format}
 
+// TODO заменить на boost::url
 {
     for(const auto& url: urls){
         for(const auto& res : resources){
