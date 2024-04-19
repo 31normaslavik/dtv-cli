@@ -21,12 +21,13 @@ dtv::DataLoader::DataLoader(const std::vector<std::string> &urls,
 void dtv::DataLoader::DownloadJsonsToDisk(const std::vector<std::string> &urls) const {
 
     for (const auto& url: urls) {
-        std::system(
+        _flushall();
+        system(
             std::string("yt-dlp \"" + url + "\" \
                         --write-info-json --no-write-playlist-metafiles --skip-download \
                         --parse-metadata \"video::(?P<thumbnails>)\" \
                         --parse-metadata \"video::(?P<thumbnail>)\" --parse-metadata \"video::(?P<tags>)\" \
-                        --replace-in-metadata \"title,uploader\" \"[ @#$%^&*()<>?/\\-]\" \"_\" ").c_str());
+                        --replace-in-metadata \"title,uploader\" \"[ @#$%^&*()<>?/\\\"-]\" \"_\" ").c_str());
         std::cout << "\n";
     }
 }
@@ -37,7 +38,7 @@ std::vector<std::filesystem::directory_entry> dtv::DataLoader::CreateListJsonFro
     for (const auto& entry:
          std::filesystem::directory_iterator(path_ptr_ -> GetPathToTemp())) {
 
-        std::cout << entry.path().filename() << " "
+        std::cout << entry.path().filename().string() << " "
                   << std::filesystem::file_size(entry.path().filename()) / 1024
                   << " KiB" << std::endl;
 
@@ -64,7 +65,7 @@ void dtv::DataLoader::FillingInVideoData() {
         std::shared_ptr<dtv::JsonData> json_data = ex.GetJsonData();
 
         std::shared_ptr<Video> video;
-
+        
         if (json_data->_type() != "video"){
             std::cerr << json_data -> Webpage_url() << " is not video source" << std::endl;
             continue;

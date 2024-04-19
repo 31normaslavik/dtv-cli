@@ -11,7 +11,7 @@ namespace dtv {
         FsDirectories::FsDirectories(const std::filesystem::path& pathToSave,
                                  const std::string& pathToTemp, const size_t length) {
 
-            this->path_to_save_ = FsInitFullPath(pathToSave);
+            this->path_to_save_ = FsInitFullPath(pathToSave.string());
             if (!fs::exists(this->path_to_save_))
                 fs::create_directories(this->path_to_save_);
 
@@ -23,7 +23,7 @@ namespace dtv {
 
 
         fs::current_path(this->path_to_temp_);
-        std::cout << "current temp path: " << fs::current_path() << "\n\n";
+        std::cout << "Current temp path: " << fs::current_path() << "\n\n";
     }
 
         fs::path FsDirectories::GetPathToSave() const noexcept {
@@ -35,7 +35,8 @@ namespace dtv {
     }
 
     FsDirectories::~FsDirectories() {
-        std::filesystem::remove_all(path_to_temp_);
+        if(fs::exists(path_to_temp_))
+            std::filesystem::remove_all(path_to_temp_);
     }
 
     std::string FsDirectories::TempDirGenerate(const std::string& dir,
@@ -53,12 +54,17 @@ namespace dtv {
     }
 
     fs::path FsDirectories::FsInitFullPath(const std::string& pathToSave) const noexcept {
+        fs::path p;
+
         if (pathToSave.starts_with(".") && pathToSave.size() == 1) {
-            return fs::path(std::getenv("PWD"));
+            return p = fs::current_path();
+
         } else if (pathToSave.starts_with("." + std::to_string(fs::path::preferred_separator))) {
-            return fs::path (std::string(std::getenv("PWD")) + fs::path::preferred_separator + pathToSave.substr(2));
-        } else if (!pathToSave.starts_with("/")) {
-            return fs::path(std::string(std::getenv("PWD")) + fs::path::preferred_separator + pathToSave);
+            return p = fs::current_path() / pathToSave.substr(2);
+        
+        } else if (!pathToSave.starts_with(fs::path::preferred_separator)) {
+            return p = fs::current_path() / pathToSave;
+        
         } else {
             return fs::path(pathToSave);
         }

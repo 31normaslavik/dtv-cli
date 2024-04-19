@@ -50,3 +50,4 @@ _build*
 .idea/*
 
 CMakeLists.txt.user
+/.vs

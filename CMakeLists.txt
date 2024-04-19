@@ -6,6 +6,7 @@ set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+if(LINUX)
 set(CMAKE_CXX_FLAGS
     "${CMAKE_CXX_FLAGS}
     -Wall                     \
@@ -35,5 +36,6 @@ set(CMAKE_CXX_FLAGS
     -Wno-parentheses          \
     -fdiagnostics-show-option")
 message("CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
+endif()
 
 add_subdirectory(src)

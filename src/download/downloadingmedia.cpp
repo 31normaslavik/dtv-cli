@@ -20,16 +20,19 @@ void dtv::DownloadingMedia::Download(bool subtitles) {
 }
 
 int dtv::DownloadingMedia::DownloaderYtDlp() {
+    _flushall();
     return std::system(
         std::string(R"(yt-dlp ")" +
                     video_ptr_->WebpageUrl() + R"(" -f ")" +
                     video_ptr_->WebpageUrlFormat()[video_ptr_->WebpageUrl()] + R"TTT(" -o "%(title)s.___)TTT" +
-                    video_ptr_->Extractor() + R"TTT(___%(format_id)s.%(display_id)s.%(ext)s")TTT").c_str());
+                    video_ptr_->Extractor() + R"TTT(___%(format_id)s.%(display_id)s.%(ext)s")TTT" + " \
+                    --replace-in-metadata \"title,uploader\" \"[ @#$%^&*()<>?/\\\"-]\" \"_\" ").c_str());
     std::cout << "\n";
 }
 
 int dtv::DownloadingMedia::DownloaderVotCli(bool subtitles) {
 // FIXME Разобрать синтаксис
+    _flushall();
     if (subtitles) {
         return std::system(std::string(R"(vot-cli --reslang ")" +
                                        video_ptr_->Language() + R"(" --subs --output="." ")" +

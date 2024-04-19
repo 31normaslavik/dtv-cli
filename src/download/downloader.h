@@ -14,7 +14,7 @@ namespace dtv {
     public:
         explicit Downloader(const CommandLine &line);
 
-        ~Downloader() = default;
+        //~Downloader() = default;
 
         void DownloadVideosWithTranslate(const std::string &language = "ru", bool subtitles = false);
 
