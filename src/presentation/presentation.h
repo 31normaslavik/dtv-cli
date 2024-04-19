@@ -2,7 +2,7 @@
 
 #include <string>
 
-
+// TODO Добавить новые форматы youtube
 /*
 
 YOUTUBE
@@ -11,23 +11,48 @@ ID  EXT   RESOLUTION FPS HDR CH │    FILESIZE    TBR PROTO │ VCODEC         
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 599 m4a   audio only          2 │     2.70MiB    31k https │ audio only           mp4a.40.5   31k 22k ultralow, m4a_dash
 600 webm  audio only          2 │     3.20MiB    36k https │ audio only           opus        36k 48k ultralow, webm_dash
+599-drc m4a   audio only      2 │  593.58KiB   31k   https │ audio only          mp4a.40.5   31k 22k [ru] ultralow, DRC, m4a_dash
+600-drc webm  audio only      2 │  648.85KiB   34k   https │ audio only          opus        34k 48k [ru] ultralow, DRC, webm_dash
 139 m4a   audio only          2 │     4.28MiB    49k https │ audio only           mp4a.40.5   49k 22k low, m4a_dash
 249 webm  audio only          2 │     4.65MiB    53k https │ audio only           opus        53k 48k low, webm_dash
 250 webm  audio only          2 │     6.20MiB    71k https │ audio only           opus        71k 48k low, webm_dash
+249-drc webm  audio only      2 │  955.45KiB   50k   https │ audio only          opus        50k 48k [ru] low, DRC, webm_dash
+250-drc webm  audio only      2 │    1.10MiB   59k   https │ audio only          opus        59k 48k [ru] low, DRC, webm_dash
+139     m4a   audio only      2 │  939.46KiB   49k   https │ audio only          mp4a.40.5   49k 22k [ru] low, m4a_dash
 140 m4a   audio only          2 │    11.36MiB   129k https │ audio only           mp4a.40.2  129k 44k medium, m4a_dash
 251 webm  audio only          2 │    11.94MiB   136k https │ audio only           opus       136k 48k medium, webm_dash
+140-drc m4a   audio only      2 │    2.43MiB  130k https   │ audio only          mp4a.40.2  130k 44k [ru] medium, DRC, m4a_dash
+251-drc webm  audio only      2 │    2.17MiB  116k https   │ audio only          opus       116k 48k [ru] medium, DRC, webm_dash
+233 mp4   audio only            │                  m3u8    │ audio only          unknown             [ru] Default
+234 mp4   audio only            │                  m3u8    │ audio only          unknown             [ru] Default
+597 mp4   256x144     15        │  698.31KiB   36k https   │ avc1.4d400b      36k video only          144p, mp4_dash
+602 mp4   256x144     15        │ ~  2.23MiB  118k m3u8    │ vp09.00.10.08   118k video only
+598 webm  256x144     15        │  556.46KiB   29k https   │ vp9              29k video only          144p, webm_dash
+269 mp4   256x144     30        │ ~  3.61MiB  192k m3u8    │ avc1.4D400C     192k video only
+160 mp4   256x144     30        │    2.23MiB  119k https   │ avc1.4D400C     119k video only          144p, mp4_dash
+603 mp4   256x144     30        │ ~  3.60MiB  191k m3u8    │ vp09.00.11.08   191k video only
+278 webm  256x144     30        │    1.68MiB   89k https   │ vp09.00.11.08    89k video only          144p, webm_dash
+229 mp4   426x240     30        │ ~  6.72MiB  357k m3u8    │ avc1.4D4015     357k video only
+133 mp4   426x240     30        │    4.93MiB  262k https   │ avc1.4D4015     262k video only          240p, mp4_dash
+604 mp4   426x240     30        │ ~  7.32MiB  389k m3u8    │ vp09.00.20.08   389k video only
+242 webm  426x240     30        │    3.60MiB  192k https   │ vp09.00.20.08   192k video only          240p, webm_dash
+230 mp4   640x360     30        │ ~ 15.34MiB  814k m3u8    │ avc1.4D401E     814k video only
+18  mp4   640x360     30  2     │   12.60MiB  671k https   │ avc1.42001E          mp4a.40.2       44k [ru] 360p
+605 mp4   640x360     30        │ ~ 12.55MiB  666k m3u8    │ vp09.00.21.08   666k video only
 134 mp4   640x360     30        │   40.44MiB     70k https │ avc1.4D401E      70k video only          360p, mp4_dash
 396 mp4   640x360     30        │   45.76MiB     79k https │ av01.0.01M.08    79k video only          360p, mp4_dash
 243 webm  640x360     30        │   72.03MiB    124k https │ vp09.00.21.08   124k video only          360p, webm_dash
 696 mp4   640x360     60 10     │    47.56MiB   542k https │ av01.0.04M.10   542k video only          360p60 HDR, mp4_dash
 332 webm  640x360     60 10     │    84.98MiB   969k https │ vp09.02.30.10   969k video only          360p60 HDR, webm_dash
-135 mp4   854x480     30        │   61.47MiB    106k https │ avc1.4D401F     106k video only          480p, mp4_dash
+231     mp4   854x480     30    │ ~ 26.35MiB 1399k m3u8  │ avc1.4D401F   1399k video only
+606     mp4   854x480     30    │ ~ 20.73MiB 1100k m3u8  │ vp09.00.30.08 1100k video only
 397 mp4   854x480     30        │   78.83MiB    136k https │ av01.0.04M.08   136k video only          480p, mp4_dash
 244 webm  854x480     30        │  119.23MiB    205k https │ vp09.00.30.08   205k video only          480p, webm_dash
 135 mp4   854x480     30        │    52.05MiB   593k https │ avc1.4D401F     593k video only          480p, mp4_dash
-244 webm  854x480     30        │    57.15MiB   651k https │ vp09.00.30.08   651k video only          480p, webm_dash
 697 mp4   854x480     60 10     │    91.93MiB  1048k https │ av01.0.05M.10  1048k video only          480p60 HDR, mp4_dash
 333 webm  854x480     60 10     │   165.11MiB  1882k https │ vp09.02.31.10  1882k video only          480p60 HDR, webm_dash
+232     mp4   1280x720    30    │ ~ 46.14MiB 2450k m3u8  │ avc1.64001F   2450k video only
+609     mp4   1280x720    30    │ ~ 35.89MiB 1905k m3u8  │ vp09.00.31.08 1905k video only
 22  mp4   1280x720    30      2 │ ≈ 164.85MiB  1835k https │ avc1.64001F          mp4a.40.2       44k 720p
 136 mp4   1280x720    30        │   149.68MiB  1706k https │ avc1.4d401f    1706k video only          720p, mp4_dash
 398 mp4   1280x720    30        │   159.65MiB   275k https │ av01.0.05M.08   275k video only          720p, mp4_dash
@@ -79,20 +104,6 @@ ID         EXT  RESOLUTION │ PROTO │ VCODEC  ACODEC
 */
 
 namespace dtv{
-
-
-
-/*
-        599 m4a   audio only
-        600 webm  audio only
-        139 m4a   audio only
-        249 webm  audio only
-        250 webm  audio only
-        140 m4a   audio only
-        251 webm  audio only
-
- */
-
 
 
 // const EXTENSION extension(const std::string& ext) {
@@ -186,15 +197,15 @@ enum class FormatVideo: int32_t {
 };
 
 enum class FormatAudio: int32_t {
-    MP4_233    = 233, // │                    m3u8  │ audio only unknown             Default
-    MP4_234    = 234, // │                    m3u8  │ audio only unknown             Default
-    M4A_2_599  = 599, // │     2.70MiB    31k https │ audio only mp4a.40.5   31k 22k ultralow, m4a_dash
-    WEBM_2_600 = 600, // │     3.20MiB    36k https │ audio only opus        36k 48k ultralow, webm_dash
-    M4A_2_139  = 139, // │     4.28MiB    49k https │ audio only mp4a.40.5   49k
-    WEBM_2_249 = 249, // │     4.65MiB    53k https │ audio only opus        53k
-    WEBM_2_250 = 250, // │     6.20MiB    71k https │ audio only opus        71k
-    M4A_2_140  = 140, // │     11.36MiB   129k https │ audio only mp4a.40.2  129k
-    WEBM_2_251 = 251, // │     11.94MiB   136k https │ audio only opus       136k
+    MP4_233    = 233, // │                  m3u8   │ audio only unknown             Default
+    MP4_234    = 234, // │                  m3u8   │ audio only unknown             Default
+    M4A_2_599  = 599, // │  2.70MiB    31k  https  │ audio only mp4a.40.5   31k 22k ultralow, m4a_dash
+    WEBM_2_600 = 600, // │  3.20MiB    36k  https  │ audio only opus        36k 48k ultralow, webm_dash
+    M4A_2_139  = 139, // │  4.28MiB    49k  https  │ audio only mp4a.40.5   49k
+    WEBM_2_249 = 249, // │  4.65MiB    53k  https  │ audio only opus        53k
+    WEBM_2_250 = 250, // │  6.20MiB    71k  https  │ audio only opus        71k
+    M4A_2_140  = 140, // │  11.36MiB   129k https  │ audio only mp4a.40.2  129k
+    WEBM_2_251 = 251, // │  11.94MiB   136k https  │ audio only opus       136k
     UNKNOWNA   = -1
 };
 
