@@ -25,7 +25,7 @@ namespace dtv {
             video_downloader.Download();
 
             dtv::MergeVideoFile split_video(video_ptr, path_ptr_);
-            split_video.Init();
+            split_video.Processing();
 
         }
     }    

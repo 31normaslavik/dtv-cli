@@ -20,7 +20,7 @@ void dtv::DownloadingMedia::Download(bool subtitles) {
 }
 
 int dtv::DownloadingMedia::DownloaderYtDlp() {
-    _flushall();
+    // _flushall();
     return std::system(
         std::string(R"(yt-dlp ")" +
                     video_ptr_->WebpageUrl() + R"(" -f ")" +
@@ -32,7 +32,7 @@ int dtv::DownloadingMedia::DownloaderYtDlp() {
 
 int dtv::DownloadingMedia::DownloaderVotCli(bool subtitles) {
 // FIXME Разобрать синтаксис
-    _flushall();
+    // _flushall();
     if (subtitles) {
         return std::system(std::string(R"(vot-cli --reslang ")" +
                                        video_ptr_->Language() + R"(" --subs --output="." ")" +

@@ -21,7 +21,7 @@ dtv::DataLoader::DataLoader(const std::vector<std::string> &urls,
 void dtv::DataLoader::DownloadJsonsToDisk(const std::vector<std::string> &urls) const {
 
     for (const auto& url: urls) {
-        _flushall();
+        // _flushall();
         system(
             std::string("yt-dlp \"" + url + "\" \
                         --write-info-json --no-write-playlist-metafiles --skip-download \

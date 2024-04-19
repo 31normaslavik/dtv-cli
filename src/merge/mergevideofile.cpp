@@ -12,7 +12,7 @@ dtv::MergeVideoFile::MergeVideoFile(std::shared_ptr<Video> video_ptr,
 
 }
 
-void dtv::MergeVideoFile::Init()
+void dtv::MergeVideoFile::Processing()
 {
         InitVideo();
         InitAudio();
@@ -32,18 +32,6 @@ void dtv::MergeVideoFile::MoveOnDisk()
                                fs::copy_options::overwrite_existing);
 
     std::cout << "The [" + split_video_.output_ + split_video_.extension_ + "] file has been successfully created\n\n";
-
-    if(fs::exists(path_ptr_->GetPathToTemp() / (split_video_.output_ + split_video_.extension_)))
-        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.output_ + split_video_.extension_));
-    if(fs::exists(path_ptr_->GetPathToTemp() / (split_video_.video_)))
-        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.video_));
-    if(fs::exists(path_ptr_->GetPathToTemp() / (split_video_.audio_)))
-        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.audio_));
-    if(fs::exists(path_ptr_->GetPathToTemp() / (split_video_.voice_)))
-        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.voice_));
-    if(fs::exists(path_ptr_->GetPathToTemp() / (split_video_.tempf_)))
-        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.tempf_));
-
 }
 
 void dtv::MergeVideoFile::MergeFfmpeg() {
@@ -368,20 +356,23 @@ void dtv::MergeVideoFile::InitOutput() {
     split_video_.output_ = new_title /*+ split_video_.output_*/;
 }
 
+// TODO убрать многочисленный вызов ->GetPathToTemp()
+// сделать код более лакончиным
 dtv::MergeVideoFile::~MergeVideoFile() {
-    if (std::filesystem::exists(split_video_.video_)) {
-        std::filesystem::remove(split_video_.video_);
-    }
-    if (std::filesystem::exists(split_video_.voice_)) {
-        std::filesystem::remove(split_video_.voice_);
-    }
-    if (std::filesystem::exists(split_video_.audio_)) {
-        std::filesystem::remove(split_video_.audio_);
-    }
-    if (std::filesystem::exists(split_video_.output_)) {
-        std::filesystem::remove(split_video_.output_);
-    }
-    if (std::filesystem::exists(split_video_.tempf_)) {
-        std::filesystem::remove(split_video_.tempf_);
-    }
+    namespace fs = std::filesystem;
+
+    if(!(split_video_.output_ + split_video_.extension_).empty())
+        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.output_ + split_video_.extension_));
+
+    if(!split_video_.video_.empty())
+        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.video_));
+
+    if(!split_video_.audio_.empty())
+        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.audio_));
+
+    if(!split_video_.voice_.empty())
+        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.voice_));
+
+    if(!split_video_.tempf_.empty())
+        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.tempf_));
 }
