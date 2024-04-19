@@ -375,4 +375,5 @@ dtv::MergeVideoFile::~MergeVideoFile() {
 
     if(!split_video_.tempf_.empty())
         fs::remove(path_ptr_->GetPathToTemp() / (split_video_.tempf_));
+
 }
