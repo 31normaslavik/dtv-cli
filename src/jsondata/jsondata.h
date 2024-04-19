@@ -51,8 +51,7 @@ public:
     [[nodiscard]] virtual int64_t N_entries() const;
     [[nodiscard]] virtual int64_t Duration() const;
     [[nodiscard]] virtual int64_t Age_limit() const;
-
-    // virtual ~JsonData() = default;
+    virtual ~JsonData() = default;
 
 private:
     boost::json::object obj_;
@@ -63,21 +62,21 @@ class JsonDataYoutube: public JsonData{
 public:
     explicit JsonDataYoutube(const boost::json::value& value);
     explicit JsonDataYoutube(const std::filesystem::directory_entry& entry);
-
+    virtual ~JsonDataYoutube() = default;
 };
 
 class JsonDataVimeo: public JsonData{
 public:
     explicit JsonDataVimeo(const boost::json::value& value);
     explicit JsonDataVimeo(const std::filesystem::directory_entry& entry);
-
+    virtual ~JsonDataVimeo() = default;
 };
 
 class JsonDataNineGag: public JsonData{
 public:
     explicit JsonDataNineGag(const boost::json::value& value);
     explicit JsonDataNineGag(const std::filesystem::directory_entry &entry);
-
+    virtual ~JsonDataNineGag() = default;
 };
 
 class JsonExtractorInfo{
@@ -86,6 +85,8 @@ public:
     explicit JsonExtractorInfo(const std::filesystem::directory_entry &entry);
 
     [[nodiscard]] virtual std::shared_ptr<JsonData> GetJsonData()  const;
+
+    virtual ~JsonExtractorInfo() = default;
 private:
     boost::json::object obj_;
 };
