@@ -35,8 +35,25 @@ namespace dtv {
     }
 
     FsDirectories::~FsDirectories() {
-        if(fs::exists(path_to_temp_))
-            std::filesystem::remove_all(path_to_temp_);
+        if (fs::exists(path_to_temp_)) {
+
+            std::error_code er;
+            fs::current_path(fs::temp_directory_path(), er);
+            if (er) {
+                std::cerr << " Can't remove dir: " << path_to_temp_ << std::endl;
+                std::cerr << er << std::endl;
+                std::cerr << "Value code: " << er.value() << "\n[" << er.message().c_str() << "]" << std::endl;
+            }
+
+            er.clear();
+
+            std::filesystem::remove_all(path_to_temp_, er);
+            if (er) {
+                std::cerr << " Can't remove dir: " << path_to_temp_ << std::endl;
+                std::cerr << er << std::endl;
+                std::cerr << "Value code: " << er.value() << "\n[" << er.message().c_str() << "]" << std::endl;
+            }
+        }
     }
 
     std::string FsDirectories::TempDirGenerate(const std::string& dir,
