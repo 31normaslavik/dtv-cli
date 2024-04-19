@@ -3,13 +3,12 @@
 #include <iostream>
 
 int main(int argc, char** argv) try {
-    //using std::cout;
-    //using std::endl;
+
+    setlocale(LC_ALL, "ru_RU.utf8");
+    printf("Current locale: %s\n", setlocale(LC_ALL, NULL));
 
     dtv::CommandLine line = dtv::command_line_parser(argc, argv);
-
     dtv::Downloader downloader(line);
-    
     downloader.DownloadVideosWithTranslate();
     return 0;
 
