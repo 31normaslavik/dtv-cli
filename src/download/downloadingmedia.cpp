@@ -21,29 +21,36 @@ void dtv::DownloadingMedia::Download(bool subtitles) {
 
 int dtv::DownloadingMedia::DownloaderYtDlp() {
     // _flushall();
-    return std::system(
+    
+    int result{};
+    result = system(
         std::string(R"(yt-dlp ")" +
                     video_ptr_->WebpageUrl() + R"(" -f ")" +
                     video_ptr_->WebpageUrlFormat()[video_ptr_->WebpageUrl()] + R"TTT(" -o "%(title)s.___)TTT" +
                     video_ptr_->Extractor() + R"TTT(___%(format_id)s.%(display_id)s.%(ext)s")TTT" + " \
                     --replace-in-metadata \"title,uploader\" \"[ @#$%^&*()<>?/\\\"-]\" \"_\" ").c_str());
-    std::cout << "\n";
+    std::cout << std::endl;
+    return result;
 }
 
 int dtv::DownloadingMedia::DownloaderVotCli(bool subtitles) {
 // FIXME Разобрать синтаксис
     // _flushall();
+    
+    int result{};
     if (subtitles) {
-        return std::system(std::string(R"(vot-cli --reslang ")" +
-                                       video_ptr_->Language() + R"(" --subs --output="." ")" +
-                                       video_ptr_->WebpageUrl() + R"(" && vot-cli --reslang ")" +
-                                       video_ptr_->Language() + R"(" --output="." ")" +
-                                       video_ptr_->WebpageUrl() + R"(")").c_str());
-        std::cout << "\n";
+        result = system(std::string(R"(vot-cli --reslang ")" +
+                    video_ptr_->Language() + R"(" --subs --output="." ")" +
+                    video_ptr_->WebpageUrl() + R"(" && vot-cli --reslang ")" +
+                    video_ptr_->Language() + R"(" --output="." ")" +
+                    video_ptr_->WebpageUrl() + R"(")").c_str());
+        std::cout << std::endl;
+        return result;
     }
     else{
-        return std::system(
+        result = system(
             std::string(R"LLL(vot-cli --reslang ")LLL" + video_ptr_->Language() + R"LLL(" --output="." ")LLL" + video_ptr_->WebpageUrl() + "\"").c_str());
-        std::cout << "\n";
+        std::cout << std::endl;
+        return result;
     }
 }
