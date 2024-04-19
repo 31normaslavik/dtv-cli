@@ -1,20 +1,23 @@
 # dtv-cli
 ```
-Скачивание роликов и плейлистов с переводом от
-нейросети Yandex с английского на русский.
 
-Downloads translated videos and playlists from English into Russian 
-using Yandex API
+```
+#### Скачивание роликов и плейлистов с переводом от нейросети Yandex с английского на русский.
 
-Supported:
+#### Downloads translated videos and playlists from English into Russian using Yandex API
+```
+
+```
+
+#### Supported:
 [youtube.com](https://youtube.com)
 [9gag.com](https://9gag.com)
 
-Resource support coming soon:
+#### Resource support coming soon:
 [watch this](https://github.com/FOSWLY/vot-cli/wiki/%5BEN%5D-Supported-sites)
 ```
 
-
+```
 ### DEPENDENCIES
 
 [vot-cli](https://github.com/FOSWLY/vot-cli)
@@ -25,14 +28,20 @@ Resource support coming soon:
 
 [Boost](https://www.boost.org/)
 
+```
+
+```
 
 ### INSTALL 
+
+#### LINUX
 
 ```
 git clone https://github.com/31normaslavik/dtv-cli.git && \
 cd dtv-cli && \
 cmake -H. -B_build && \
 sudo cmake --build _build --target install --config Release
+
 ```
 
 ### HOW USE
@@ -58,9 +67,10 @@ dtv-cli -o ./myvideos -f mp4 -r 7680x4320 --fps --hdr -u "url1" "url2" "url3"
 #Format webm, 1080p, fps 30, path current
 dtv-cli -f webm -u "url1"
 
-dtv-cli автоматически создаст пути директорий. Если был указан путь куда следует сохранить видео, 
-но в системе эти директории отсутсвуют - они будут созданы
-
-The dtv-cli will automatically create directory paths. If the path to save the video was specified,
-but these directories are missing in the system, they will be created
 ```
+
+#### dtv-cli автоматически создаст пути директорий. Если был указан путь куда следует сохранить видео, 
+#### но в системе эти директории отсутсвуют - они будут созданы
+
+#### The dtv-cli will automatically create directory paths. If the path to save the video was specified,
+#### but these directories are missing in the system, they will be created
