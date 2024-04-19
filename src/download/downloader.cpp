@@ -15,7 +15,8 @@ namespace dtv {
     void Downloader::DownloadVideosWithTranslate(const std::string& language, bool subtitles) {
 
         videos_ptr_ = data_loader_ptr_->VideoData()->GetAllData();
-        std::cout << "Общее количество видео из всех url: " << videos_ptr_.size() << std::endl;
+        std::cout << "Total number of videos from all urls : " << videos_ptr_.size() << std::endl;
+        
         std::cout << "\n";
 
         for(const auto& video_ptr: videos_ptr_)
