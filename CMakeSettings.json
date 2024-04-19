@@ -9,7 +9,14 @@
       "installRoot": "${projectDir}\\_build_Debug\\install\\${name}",
       "cmakeCommandArgs": "",
       "buildCommandArgs": "",
-      "ctestCommandArgs": ""
+      "ctestCommandArgs": "",
+      "variables": [
+        {
+          "name": "CMAKE_MAKE_PROGRAM",
+          "value": "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe",
+          "type": "FILEPATH"
+        }
+      ]
     },
     {
       "name": "x64-Release",

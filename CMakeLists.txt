@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.24.2)
 
 project(dtv-cli LANGUAGES CXX)
 
-set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -36,6 +36,23 @@ set(CMAKE_CXX_FLAGS
     -Wno-parentheses          \
     -fdiagnostics-show-option")
 message("CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
+endif()
+
+if(MSVC)
+set(CMAKE_CXX_FLAGS
+    "${CMAKE_CXX_FLAGS} /Wall /EHsc /sdl")
+message("CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
+endif()
+
+# Включение горячей перезагрузки для компиляторов MSVC, если поддерживается.
+if (POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+endif()
+
+if(MSVC)
+  #target_compile_options(dtv-cli PUBLIC "/ZI")
+  #target_link_options(dtv-cli PUBLIC "/INCREMENTAL")
 endif()
 
 add_subdirectory(src)
