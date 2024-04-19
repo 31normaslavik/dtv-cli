@@ -126,6 +126,7 @@ void dtv::DataLoader::FillingInVideoData() {
 
 std::shared_ptr<dtv::VectorPtrVideos> dtv::DataLoader::VideoData() { return video_data_ptr_; }
 
+// TODO заменить regex на boost::url
 std::string dtv::DataLoader::createFormatForUrl(const std::string &url)
 {
     for(const auto& res : resources){
