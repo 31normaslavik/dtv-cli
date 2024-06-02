@@ -1,142 +1,84 @@
 #pragma once
 
-#include <map>
 #include <memory>
 #include <string>
 #include <vector>
 
 namespace dtv {
 
-// TODO Сделать главным классом хранения данных видео
-// А в наследуемых классах перегружать только методы, которые дают сбой при выполнении
-// TODO --parse-metadata \"video::(?P<automatic_captions>)\" Добавить методы для субтитров
-class Video {
-public:
+struct Format;
 
-    [[nodiscard]] std::string Id() const;
-    void Id(const std::string &id);
-    [[nodiscard]] std::string Title() const;
-    void Title(const std::string &title);
-    [[nodiscard]] std::string Fulltitle() const;
-    void Fulltitle(const std::string &fulltitle);
-    [[nodiscard]] std::string Description() const;
-    void Description(const std::string &description);
+struct Video {
 
-    [[nodiscard]] std::map<std::string, std::string> WebpageUrlFormat() const;
-    void WebpageUrlFormat(const std::string &webpage_url, const std::string &format);
+std::string id; //(string): Video identifier
+std::string title; // (string): Video title
+std::vector<Format> formats; // (list) formats
+std::string fulltitle; // (string): Video title ignoring live timestamp and generic title
+std::string ext; // (string): Video filename extension
+std::string alt_title; // (string): A secondary title of the video
+std::string description; // (string): The description of the video
+std::string display_id; // (string): An alternative identifier for the video
+std::string uploader; // (string): Full name of the video uploader
+std::string uploader_id; // (string): Nickname or id of the video uploader
+std::string uploader_url; // (string): URL to the video uploader's profile
+std::string license; // (string): License name the video is licensed under
+std::vector<std::string> creators; // (list): The creators of the video
+std::string creator; // (string): The creators of the video; comma-separated
+double timestamp; // (numeric): UNIX timestamp of the moment the video became available
+std::string upload_date; // (string): Video upload date in UTC (YYYYMMDD)
+double release_timestamp; // (numeric): UNIX timestamp of the moment the video was released
+std::string release_date; // (string): The date (YYYYMMDD) when the video was released in UTC
+double release_year; // (numeric): Year (YYYY) when the video or album was released
+double modified_timestamp; // (numeric): UNIX timestamp of the moment the video was last modified
+std::string modified_date; // (string): The date (YYYYMMDD) when the video was last modified in UTC
+std::string channel; // (string): Full name of the channel the video is uploaded on
+std::string channel_id; // (string): Id of the channel
+std::string channel_url; // (string): URL of the channel
+double channel_follower_count; // (numeric): Number of followers of the channel
+bool channel_is_verified; // (boolean): Whether the channel is verified on the platform
+std::string location; // (string): Physical location where the video was filmed
+double duration; // (numeric): Length of the video in seconds
+std::string duration_string; // (string): Length of the video (HH:mm:ss)
+int64_t view_count; // (numeric): How many users have watched the video on the platform
+int64_t concurrent_view_count; // (numeric): How many users are currently watching the video on the platform.
+int64_t like_count; // (numeric): Number of positive ratings of the video
+int64_t dislike_count; // (numeric): Number of negative ratings of the video
+int64_t repost_count; // (numeric): Number of reposts of the video
+int64_t average_rating; // (numeric): Average rating give by users, the scale used depends on the webpage
+int64_t comment_count; // (numeric): Number of comments on the video (For some extractors, comments are only downloaded at the end, and so this field cannot be used)
+int64_t age_limit; // (numeric): Age restriction for the video (years)
+std::string live_status; // (string): One of "not_live", "is_live", "is_upcoming", "was_live", "post_live" (was live, but VOD is not yet processed)
+bool is_live; // (boolean): Whether this video is a live stream or a fixed-length video
+bool was_live; // (boolean): Whether this video was originally a live stream
+std::string playable_in_embed; // (string): Whether this video is allowed to play in embedded players on other sites
+std::string availability; // (string): Whether the video is "private", "premium_only", "subscriber_only", "needs_auth", "unlisted" or "public"
+std::string media_type; // (string): The type of media as classified by the site, e.g. "episode", "clip", "trailer"
+double start_time; // (numeric): Time in seconds where the reproduction should start, as specified in the URL
+double end_time; // (numeric): Time in seconds where the reproduction should end, as specified in the URL
+std::string extractor; // (string): Name of the extractor
+std::string extractor_key; // (string): Key name of the extractor
+double epoch; // (numeric): Unix epoch of when the information extraction was completed
+int64_t autonumber; // (numeric): Number that will be increased with each download, starting at --autonumber-start, padded with leading zeros to 5 digits
+int64_t video_autonumber; // (numeric): Number that will be increased with each video
+int64_t n_entries; // (numeric): Total number of extracted items in the playlist
+std::string playlist_id; // (string): Identifier of the playlist that contains the video
+std::string playlist_title; // (string): Name of the playlist that contains the video
+std::string playlist; // (string): playlist_id or playlist_title
+int64_t playlist_count; // (numeric): Total number of items in the playlist. May not be known if entire playlist is not extracted
+int64_t playlist_index; // (numeric): Index of the video in the playlist padded with leading zeros according the final index
+int64_t playlist_autonumber; // (numeric): Position of the video in the playlist download queue padded with leading zeros according to the total length of the playlist
+std::string playlist_uploader; // (string): Full name of the playlist uploader
+std::string playlist_uploader_id; // (string): Nickname or id of the playlist uploader
+std::string webpage_url; // (string): A URL to the video webpage which if given to yt-dlp should allow to get the same result again
+std::string webpage_url_basename; // (string): The basename of the webpage URL
+std::string webpage_url_domain; // (string): The domain of the webpage URL
+std::string original_url; // (string): The URL given by the user (or same as webpage_url for playlist entries)
+std::vector<std::string> categories; // (list): List of categories the video belongs to
+std::vector<std::string> tags; // (list): List of tags assigned to the video
+std::vector<std::string> cast; // (list): List of cast members
 
-    [[nodiscard]] std::string WebpageUrl() const;
-    void WebpageUrl(const std::string &webpage_url);
-
-    [[nodiscard]] std::string Extractor() const;
-    void Extractor(const std::string &extractor);
-    [[nodiscard]] std::string Channel() const;
-    void Channel(const std::string &channel);
-    [[nodiscard]] std::string Upload_date() const;
-    void Upload_date(const std::string &upload_date);
-    [[nodiscard]] std::string Availability() const;
-    void Availability(const std::string &availability);
-    [[nodiscard]] std::string Playlist_id() const;
-    void Playlist_id(const std::string &playlist_id);
-    [[nodiscard]] std::string Playlist_title() const;
-    void Playlist_title(const std::string &playlist_title);
-    [[nodiscard]] std::string Duration_string() const;
-    void Duration_string(const std::string &duration_string);
-    [[nodiscard]] std::string Format() const;
-    void Format(const std::string &format);
-    [[nodiscard]] std::string Format_id() const;
-    void Format_id(const std::string &format_id);
-    [[nodiscard]] std::string Ext() const;
-    void Ext(const std::string &ext);
-    [[nodiscard]] std::string Video_ext() const;
-    void Video_ext(const std::string &video_ext);
-    [[nodiscard]] std::string Audio_ext() const;
-    void Audio_ext(const std::string &audio_ext);
-    [[nodiscard]] std::string Language() const;
-    void Language(const std::string &language);
-    [[nodiscard]] std::string Format_note() const;
-    void Format_note(const std::string &format_note);
-    [[nodiscard]] std::string Resolution() const;
-    void Resolution(const std::string &resolution);
-    [[nodiscard]] std::string Dynamic_range() const;
-    void Dynamic_range(const std::string &dynamic_range);
-    [[nodiscard]] std::string Vcodec() const;
-    void Vcodec(const std::string &vcodec);
-    [[nodiscard]] std::string Acodec() const;
-    void Acodec(const std::string &acodec);
-    [[nodiscard]] std::string _type() const;
-    void _type(const std::string &_type);
-    [[nodiscard]] std::vector<std::string> Categories() const;
-    void Categories(const std::vector<std::string> &categories);
-    [[nodiscard]] int64_t Playlist_index() const;
-    void Playlist_index(int64_t playlist_index);
-    [[nodiscard]] int64_t Vbr() const;
-    void Vbr(int64_t vbr);
-    [[nodiscard]] int64_t Asr() const;
-    void Asr(int64_t asr);
-    [[nodiscard]] int64_t Audio_channels() const;
-    void Audio_channels(int64_t audio_channels);
-    [[nodiscard]] int64_t Width() const;
-    void Width(int64_t width);
-    [[nodiscard]] int64_t Height() const;
-    void Height(int64_t height);
-    [[nodiscard]] int64_t Fps() const;
-    void Fps(int64_t fps);
-    [[nodiscard]] int64_t Playlist_count() const;
-    void Playlist_count(int64_t playlist_count);
-    [[nodiscard]] int64_t N_entries() const;
-    void N_entries(int64_t n_entries);
-    [[nodiscard]] int64_t Duration() const;
-    void Duration(int64_t duration);
-    [[nodiscard]] int64_t Age_limit() const;
-    void Age_limit(int64_t age_limit);
-    [[nodiscard]] std::string Playlist() const;
-    void Playlist(const std::string &playlist);
-
-protected:
-    std::string id_;
-    std::string title_;
-    std::string fulltitle_;
-    std::string description_;
-    std::map< std::string, std::string > webpage_url_format_;
-    std::string webpage_url_;
-    std::string extractor_;
-    std::string channel_;
-    std::string upload_date_;
-    std::string availability_;
-    std::string playlist_;
-    std::string playlist_id_;
-    std::string playlist_title_;
-    std::string duration_string_;
-    std::string format_;
-    std::string format_id_;
-    std::string ext_;
-    std::string video_ext_;
-    std::string audio_ext_;
-    std::string language_;
-    std::string format_note_;
-    std::string resolution_;
-    std::string dynamic_range_;
-    std::string vcodec_;
-    std::string acodec_;
-    std::string _type_;
-    std::vector<std::string> categories_;
-    int64_t playlist_index_;
-    int64_t vbr_;
-    int64_t asr_;
-    int64_t audio_channels_;
-    int64_t width_;
-    int64_t height_;
-    int64_t fps_;
-    int64_t playlist_count_;
-    int64_t n_entries_;
-    int64_t duration_;
-    int64_t age_limit_;
 };
 
-/**
- * \brief Vector videos
- */
 class VectorPtrVideos final {
 public:
     void PushBack(std::shared_ptr<Video> video_ptr);
