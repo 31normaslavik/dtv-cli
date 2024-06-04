@@ -1,56 +1,52 @@
 #include "downloadingmedia.h"
 #include <iostream>
 
-dtv::DownloadingMedia::DownloadingMedia(std::shared_ptr<Video> video_ptr):
-    video_ptr_{video_ptr}
+dtv::DownloadingMedia::DownloadingMedia(Video& video, CommandLine const& line):
+    _video{video},
+    _line{line}
 {
 }
 
-void dtv::DownloadingMedia::Download(bool subtitles) {
+void dtv::DownloadingMedia::Download() {
 
-    if(DownloaderYtDlp()){
-        //resource_.unavailable_ = true;
-        throw std::runtime_error("[yt_dlp_downloader]");
-    };
-
-    if(DownloaderVotCli(subtitles)){
-        //resource_.unavailable_ = true;
-        throw std::runtime_error("[vot_cli_downloader]");
-    };
+    DownloaderYtDlp();
+    DownloaderVotCli();
 }
 
-int dtv::DownloadingMedia::DownloaderYtDlp() {
-    // _flushall();
-    
+void dtv::DownloadingMedia::DownloaderYtDlp() {
+
     int result{};
-    result = system(
-        std::string(R"(yt-dlp ")" +
-                    video_ptr_->WebpageUrl() + R"(" -f ")" +
-                    video_ptr_->WebpageUrlFormat()[video_ptr_->WebpageUrl()] + R"TTT(" -o "%(title)s.___)TTT" +
-                    video_ptr_->Extractor() + R"TTT(___%(format_id)s.%(display_id)s.%(ext)s")TTT" + " \
-                    --replace-in-metadata \"title,uploader\" \"[ @#$%^&*()<>?/\\\"-]\" \"_\" ").c_str());
-    std::cout << std::endl;
-    return result;
+
+    std::string command(R"(yt-dlp ")" +
+                _video.webpage_url + R"(" -f ")" +
+                _video.webpage_url + R"(" -o "%(id)s.___)" +
+                _video.extractor_key + R"(___%(format_id)s.%(display_id)s.%(ext)s")");
+
+    std::cout << std::flush;
+    result = system(command.c_str());
 }
 
-int dtv::DownloadingMedia::DownloaderVotCli(bool subtitles) {
-// FIXME Разобрать синтаксис
-    // _flushall();
-    
+void dtv::DownloadingMedia::DownloaderVotCli() {
+
     int result{};
-    if (subtitles) {
-        result = system(std::string(R"(vot-cli --reslang ")" +
-                    video_ptr_->Language() + R"(" --subs --output="." ")" +
-                    video_ptr_->WebpageUrl() + R"(" && vot-cli --reslang ")" +
-                    video_ptr_->Language() + R"(" --output="." ")" +
-                    video_ptr_->WebpageUrl() + R"(")").c_str());
-        std::cout << std::endl;
-        return result;
+    if (_line.Write_subs()) {
+        std::cout << std::flush;
+
+        std::string command(R"(vot-cli --lang ")" + _line.Translate_from_lang() + R"(" --reslang ")" +
+                    _line.Translate_to_lang() + R"(" --subs --output="." ")" +
+                    _video.webpage_url + R"(" && vot-cli --lang ")" + _line.Translate_from_lang() + R"(" --reslang ")" +
+                    _line.Translate_to_lang() + R"(" --output="." ")" +
+                    _video.webpage_url + R"(")");
+
+        result = system(command.c_str());
     }
     else{
-        result = system(
-            std::string(R"LLL(vot-cli --reslang ")LLL" + video_ptr_->Language() + R"LLL(" --output="." ")LLL" + video_ptr_->WebpageUrl() + "\"").c_str());
-        std::cout << std::endl;
-        return result;
+        std::cout << std::flush;
+
+        std::string command(R"("vot-cli --lang ")" + _line.Translate_from_lang() + R"(" --reslang ")" +
+                            _line.Translate_to_lang() + R"(" --output="." ")" +
+                            _video.webpage_url + R"(")");
+
+        result = system(command.c_str());
     }
 }

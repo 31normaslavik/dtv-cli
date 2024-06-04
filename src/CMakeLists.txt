@@ -11,7 +11,7 @@ if(MSVC)
   set(BOOST_LIBRARYDIR C:/Boost/lib)    
 endif()
 
-find_package(Boost 1.70 REQUIRED COMPONENTS program_options json)
+find_package(Boost 1.70 REQUIRED COMPONENTS program_options json url)
 
 if(Boost_FOUND)
   include_directories(${Boost_INCLUDE_DIRS})
@@ -30,7 +30,6 @@ add_subdirectory(fs)
 add_subdirectory(video)
 add_subdirectory(jsondata)
 add_subdirectory(merge)
-add_subdirectory(presentation)
 
 message("CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 

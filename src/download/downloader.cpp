@@ -1,32 +1,41 @@
 #include "downloader.h"
 #include "downloadingmedia.h"
 #include "mergevideofile.h"
-#include <iostream>
+#include "readjson.h"
 
 namespace dtv {
 
 
-    Downloader::Downloader(const dtv::CommandLine& line): line_{line}
+    Downloader::Downloader(const dtv::CommandLine& line): _line{line}
     {
-        path_ptr_ = std::make_shared<dtv::FsDirectories>(line_.Path());
-        data_loader_ptr_ = std::make_shared<dtv::DataLoader>(line_.Urls(), path_ptr_, line.Format());
+        // path_ptr_ = std::make_shared<dtv::FsDirectories>(line_.Path());
+        // data_loader_ptr_ = std::make_shared<dtv::DataLoader>(line_.Urls(), path_ptr_, line.Format());
     }
 
-    void Downloader::DownloadVideosWithTranslate(const std::string& language, bool subtitles) {
+    void Downloader::Start() {
 
-        videos_ptr_ = data_loader_ptr_->VideoData()->GetAllData();
-        std::cout << "Total number of videos from all urls : " << videos_ptr_.size() << std::endl;
+        // videos_ptr_ = data_loader_ptr_->VideoData()->GetAllData();
+        // std::cout << "Total number of videos from all urls : " << videos_ptr_.size() << std::endl;
         
-        std::cout << "\n";
 
-        for(const auto& video_ptr: videos_ptr_)
+        for(const auto& url: _line.Urls())
         {
-            //try {
-            dtv::DownloadingMedia video_downloader(video_ptr);
-            video_downloader.Download();
+            DataLoader d(url);
+            d.DownloadJsonsToDisk();
 
-            dtv::MergeVideoFile split_video(video_ptr, path_ptr_);
-            split_video.Processing();
+            ReadJson r;
+            for(auto video = r.JsonToVideo(_line); video.has_value();){
+
+                DownloadingMedia video_downloader(*video, _line);
+                video_downloader.Download();
+                MergeVideoFile split_video(*video, _line);
+                split_video.Processing();
+
+                video = r.JsonToVideo(_line);
+
+            }
+
+
 
         }
     }    

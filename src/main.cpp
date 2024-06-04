@@ -9,7 +9,7 @@ int main(int argc, char** argv) try {
 
     dtv::CommandLine line = dtv::command_line_parser(argc, argv);
     dtv::Downloader downloader(line);
-    downloader.DownloadVideosWithTranslate();
+    downloader.Start();
     return 0;
 
 } catch (const std::exception& e) {

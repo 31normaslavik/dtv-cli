@@ -1,7 +1,4 @@
 #pragma once
-
-#define BOOST_JSON_STACK_BUFFER_SIZE 1024
-
 #include <boost/json/object.hpp>
 #include <filesystem>
 

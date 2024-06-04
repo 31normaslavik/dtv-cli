@@ -16,13 +16,13 @@ namespace dtv {
 
         //~Downloader() = default;
 
-        void DownloadVideosWithTranslate(const std::string &language = "ru", bool subtitles = false);
+        void Start();
 
     private:
         std::shared_ptr<FsDirectories> path_ptr_;
         std::shared_ptr<DataLoader> data_loader_ptr_;
         std::vector<std::shared_ptr<Video>> videos_ptr_;
-        CommandLine line_;
+        CommandLine const& _line;
     };
 
 } // namespace dtv

@@ -1,22 +1,19 @@
 #include "mergevideofile.h"
-#include "presentation.h"
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
 
-dtv::MergeVideoFile::MergeVideoFile(std::shared_ptr<Video> video_ptr,
-                                    std::shared_ptr<FsDirectories> path_ptr):
-    video_ptr_{video_ptr} ,
-    path_ptr_{path_ptr}
+dtv::MergeVideoFile::MergeVideoFile(Video& video, CommandLine const& line):
+    _video{video},
+    _line{line}
 {
-
 }
 
 void dtv::MergeVideoFile::Processing()
 {
         InitVideo();
-        InitAudio();
         InitVoice();
+        InitAudio();
         InitOutput();
 
         MergeFfmpeg();
@@ -27,313 +24,71 @@ void dtv::MergeVideoFile::MoveOnDisk()
 {
     namespace fs = std::filesystem;
 
-    fs::copy_file(path_ptr_->GetPathToTemp() / (split_video_.output_ + split_video_.extension_),
-                               path_ptr_->GetPathToSave() / (split_video_.output_ + split_video_.extension_),
+    fs::copy_file(_line.Temp_dir() / split_video_.video_,
+                  _line.Output() / split_video_.output_ ,
                                fs::copy_options::overwrite_existing);
 
-    std::cout << "The [" + split_video_.output_ + split_video_.extension_ + "] file has been successfully created\n\n";
+    std::cout << "The [" + split_video_.output_.string() + "] file has been successfully created\n";
 }
 
 void dtv::MergeVideoFile::MergeFfmpeg() {
     std::cout << "\n";
-    int result_operation = 0;
+    int result = 0;
 
     if(!split_video_.video_.empty() &&
         !split_video_.voice_.empty() &&
-        !split_video_.audio_.empty() &&
         !split_video_.output_.empty()){
 
-        result_operation = std::system(
-        std::string(R"(ffmpeg -i ")" +
-                    split_video_.video_ + R"(" -i ")" +
-                    split_video_.audio_ + R"(" -i ")" +
-                    split_video_.voice_ + R"(" -c:v copy -filter_complex amix=inputs=2:duration=longest:dropout_transition=0:weights="0.10 1":normalize=1 -y ")" +
-                    split_video_.output_ + split_video_.extension_ + R"(")")
-                .c_str());
-        std::cout << "\n";
-    }
-    else if(split_video_.voice_.empty()){
+        std::string command(R"(ffmpeg -i ")" + split_video_.video_.string() + R"(" -i ")"
+                            + split_video_.voice_.string()
+                            + R"(" -c:v copy -filter_complex amix=inputs=2:duration=first:dropout_transition=0:weights=")"
+                            + std::to_string(_line.Vol_audio()) + " " + std::to_string(_line.Vol_translate()) + R"(":normalize=1 -y ")" +
+                            split_video_.output_.string() + "\"");
 
-        result_operation = std::system(
-            std::string(R"(ffmpeg -i ")" +
-                        split_video_.video_ + R"(" -i ")" +
-                        split_video_.audio_ + R"(" -y -c:v copy -c:a copy ")" +
-                        split_video_.output_ + split_video_.extension_ + R"(")")
-                .c_str());
-        std::cout << "\n";
+        result = std::system(command.c_str());
     }
-    if (result_operation != 0)
+
+    if (result != 0)
         throw std::runtime_error("Operate merge end with error");
     return;
 }
 
 void dtv::MergeVideoFile::InitVideo() {
     
-    if (video_ptr_->Extractor() == "youtube"){
-        for (const auto& entry: std::filesystem::directory_iterator(path_ptr_->GetPathToTemp())) {
-            if (std::string::size_type pos;
-                entry.path().filename().string().contains(".___youtube___") &&
-                entry.path().filename().string().contains(video_ptr_->Id()) ) {
+        for (const auto& entry: std::filesystem::directory_iterator(_line.Temp_dir())) {
+        if (entry.path().filename().string().contains(_video.id)
+                && entry.path().filename().extension().string() == _video.formats.rbegin()->ext) {
 
-                pos = entry.path().filename().string().find(".___youtube___");
+                split_video_.video_ = entry.path();
 
-                switch (static_cast<dtv::FormatVideo> (std::stoi(entry.path().filename().string().substr(pos + 14, 3)))) {
-                case dtv::FormatVideo::MP4_640x360_30:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_640x360_30:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_640x360_60_10:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_640x360_60_10:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_854x480_30:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_854x480_30:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_854x480_60_10:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_854x480_60_10:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_1280x720_30:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_1280x720_30:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_1280x720_60:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_1280x720_60:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_1280x720_60_10:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_1280x720_60_10:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_1920x1080_30:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_1920x1080_30:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_1920x1080_60:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_1920x1080_60:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_1920x1080_60_10:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_1920x1080_60_10:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_2560x1440_30:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_2560x1440_30:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_2560x1440_60:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_2560x1440_60_10:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_2560x1440_60_10:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_3840x2160_30:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_3840x2160_30:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_3840x2160_60:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_3840x2160_60_10:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::WEBM_3840x2160_60_10:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                case dtv::FormatVideo::MP4_7680x4320_60_10:
-                    split_video_.video_ = entry.path().filename().string();
-                    split_video_.extension_ = entry.path().filename().extension().string();
-                    break;
-                default:
-                    break;
-                }
-                if(! split_video_.video_.empty()) break;
+                if(!split_video_.video_.empty()) break;
             }
         }
-        
-    } else if  (video_ptr_->Extractor() == "9gag"){
-        for (const auto& entry: std::filesystem::directory_iterator(path_ptr_->GetPathToTemp())) {
-            if (entry.path().filename().string().contains(".___9gag___") &&
-                entry.path().filename().string().contains(video_ptr_->Id()) ){
 
-
-                for (const auto& i : {"460sv", "460sv-h265", "460sv-vp8", "460sv-vp9"}) {
-                    if (entry.path().filename().string().contains(i)){
-
-                        split_video_.tempf_ = entry.path().filename().string();
-
-                        split_video_.video_ = entry.path().stem().string() +
-                                              ".___video___" +
-                                              entry.path().extension().string();
-
-                        split_video_.extension_ = entry.path().extension().string();
-
-                        /**
-                         * @brief creates an audio track from a media file
-                         */
-                        system(
-                            std::string("ffmpeg -i \"" +
-                                        entry.path().filename().string() +
-                                        "\" -map 0:a -acodec copy \"" +
-                                        entry.path().stem().string() +
-                                        ".___audio___" +
-                                        entry.path().extension().string() + "\"" ).c_str());
-
-                        /**
-                         * @brief creates an video track from a media file
-                         */
-                        system(
-                            std::string("ffmpeg -i \"" +
-                                        entry.path().filename().string() +
-                                        "\" -map 0:v -vcodec copy \"" +
-                                        entry.path().stem().string() +
-                                        ".___video___" +
-                                        entry.path().extension().string() + "\"" ).c_str());
-                        break;
-                    }
-                }
-
-            }
-        }
-    }
-     if (split_video_.video_.empty()) std::cerr<<"The main video track was not found: " << video_ptr_->Title() <<std::endl;
+     if (split_video_.video_.empty()) std::cerr << "The main video track was not found\n";
 }
 
 void dtv::MergeVideoFile::InitVoice() {
     for (const auto& entry:
-         std::filesystem::directory_iterator(path_ptr_->GetPathToTemp())) {
+         std::filesystem::directory_iterator(_line.Temp_dir())) {
         if (entry.path().extension().string() == ".mp3" &&
-            entry.path().filename().string().contains(video_ptr_->Id())) {
+            entry.path().filename().string().contains(_video.id)) {
             split_video_.voice_ = entry.path().filename().string();
             break;
         }
     }
-    if (split_video_.voice_.empty()) std::cerr<<"The voice translation could not be downloaded: " << video_ptr_->Title() <<std::endl;
+    if (split_video_.voice_.empty()) std::cerr<<"The voice translation could not be downloaded\n";
 }
 
 void dtv::MergeVideoFile::InitAudio() { // FIXME
-    if (video_ptr_->Extractor() == "youtube"){
-        for (const auto& entry:
-             std::filesystem::directory_iterator(path_ptr_->GetPathToTemp())) {
-            if (std::string::size_type pos;
-                entry.path().filename().string().contains(".___youtube___") &&
-                entry.path().filename().string().contains(video_ptr_->Id()) ) {
-
-                pos = entry.path().filename().string().find(".___youtube___");
-
-                switch (static_cast<dtv::FormatAudio> (stoi(entry.path().filename().string().substr(pos + 14, 3)))) {
-                case dtv::FormatAudio::MP4_233:
-                    split_video_.audio_ = entry.path().filename().string();
-                    break;
-                case dtv::FormatAudio::MP4_234:
-                    split_video_.audio_ = entry.path().filename().string();
-                    break;
-                case dtv::FormatAudio::M4A_2_599:
-                    split_video_.audio_ = entry.path().filename().string();
-                    break;
-                case dtv::FormatAudio::WEBM_2_600:
-                    split_video_.audio_ = entry.path().filename().string();
-                    break;
-                case dtv::FormatAudio::M4A_2_139:
-                    split_video_.audio_ = entry.path().filename().string();
-                    break;
-                case dtv::FormatAudio::WEBM_2_249:
-                    split_video_.audio_ = entry.path().filename().string();
-                    break;
-                case dtv::FormatAudio::WEBM_2_250:
-                    split_video_.audio_ = entry.path().filename().string();
-                    break;
-                case dtv::FormatAudio::M4A_2_140:
-                    split_video_.audio_ = entry.path().filename().string();
-                    break;
-                case dtv::FormatAudio::WEBM_2_251:
-                    split_video_.audio_ = entry.path().filename().string();
-                    break;
-                default:
-                    break;
-                }
-                if(! split_video_.audio_.empty()) break;
-            }
-        }
-    }else if (video_ptr_->Extractor() == "9gag"){
-        for (const auto& entry:
-             std::filesystem::directory_iterator(path_ptr_->GetPathToTemp())) {
-            if (entry.path().filename().string().contains(".___9gag___") &&
-                entry.path().filename().string().contains(".___audio___") &&
-                entry.path().filename().string().contains(video_ptr_->Id())
-                ) {
-                split_video_.audio_ = entry.path().filename().string();
-                break;
-            }
-        }
-        
-    }else if (video_ptr_->Extractor() == "vimeo"){}
-
-    if (split_video_.audio_.empty()) std::cerr<<"The main audio track was not found: " << video_ptr_->Title() <<std::endl;
+    split_video_.audio_ = _line.Replace_audio();
+    if (split_video_.audio_.empty()) std::cerr<<"The main audio track was not found: " /*<< video_ptr_->Title()*/ <<std::endl;
 }
 
 void dtv::MergeVideoFile::InitOutput() {
     const std::string str_tmp{"/@#$%^&*()+={}[]\\|;'\",<>/?| `~"};
     
-    std::string new_title{video_ptr_->Title()};
+    std::string new_title/*{video_ptr_->Title()}*/;
 
     for (char& ch: new_title) {
         for (std::string::size_type index = str_tmp.find_first_of(ch);
@@ -361,19 +116,19 @@ void dtv::MergeVideoFile::InitOutput() {
 dtv::MergeVideoFile::~MergeVideoFile() {
     namespace fs = std::filesystem;
 
-    if(!(split_video_.output_ + split_video_.extension_).empty())
-        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.output_ + split_video_.extension_));
+    // if(!(split_video_.output_ + split_video_.extension_).empty())
+    //     fs::remove(path_ptr_->GetPathToTemp() / (split_video_.output_ + split_video_.extension_));
 
-    if(!split_video_.video_.empty())
-        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.video_));
+    // if(!split_video_.video_.empty())
+    //     fs::remove(path_ptr_->GetPathToTemp() / (split_video_.video_));
 
-    if(!split_video_.audio_.empty())
-        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.audio_));
+    // if(!split_video_.audio_.empty())
+    //     fs::remove(path_ptr_->GetPathToTemp() / (split_video_.audio_));
 
-    if(!split_video_.voice_.empty())
-        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.voice_));
+    // if(!split_video_.voice_.empty())
+    //     fs::remove(path_ptr_->GetPathToTemp() / (split_video_.voice_));
 
-    if(!split_video_.tempf_.empty())
-        fs::remove(path_ptr_->GetPathToTemp() / (split_video_.tempf_));
+    // if(!split_video_.tempf_.empty())
+    //     fs::remove(path_ptr_->GetPathToTemp() / (split_video_.tempf_));
 
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "commandline.h"
 #include "fs_directories.h"
 #include "video.h"
 
@@ -10,26 +11,19 @@ namespace dtv {
      */
 class DownloadingMedia {
 public:
-    //explicit DownloadingMedia(std::shared_ptr<std::vector<Source>> &resources_ptr);
 
-    explicit DownloadingMedia(std::shared_ptr<Video> video_ptr);
+    explicit DownloadingMedia(Video &video, CommandLine const& line);
 
-    /**
-     * @brief Download
-     */
-    void Download(bool subtitles = false);
+    void Download();
 
 private:
     /**
         * \brief Using yt_dlp to download a specific video and audio
         *         file to disk with the selected quality.
-                  The video and audio tracks will be
-                  downloaded to the disk separately.
-         * \return if the files are downloaded
-         *          successfully, 0 is returned,
-         *          otherwise 1
+        *         The video and audio tracks will be
+        *         downloaded to the disk separately.
          */
-    [[nodiscard]] int DownloaderYtDlp();
+    void DownloaderYtDlp();
 
     /**
          * \brief Using the Yandex api to download a translation
@@ -57,10 +51,10 @@ private:
          *           successfully, 0 is returned,
          *           otherwise 1
          */
-    [[nodiscard]] int DownloaderVotCli(bool subtitles);
+    void DownloaderVotCli();
 
-    std::shared_ptr<FsDirectories> path_ptr_;
-    std::shared_ptr< Video> video_ptr_;
+    Video& _video;
+    CommandLine const& _line;
 };
 
 } // namespace dtv
