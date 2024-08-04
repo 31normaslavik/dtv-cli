@@ -24,26 +24,26 @@ void dtv::MergeVideoFile::MoveOnDisk()
 {
     namespace fs = std::filesystem;
 
-    fs::copy_file(_line.Temp_dir() / split_video_.video_,
-                  _line.Output() / split_video_.output_ ,
+    fs::copy_file(_line.Temp_dir() / _split_video.video,
+                  _line.Output() / _split_video.output ,
                                fs::copy_options::overwrite_existing);
 
-    std::cout << "The [" + split_video_.output_.string() + "] file has been successfully created\n";
+    std::cout << "The [" + _split_video.output.string() + "] file has been successfully created\n";
 }
 
 void dtv::MergeVideoFile::MergeFfmpeg() {
     std::cout << "\n";
     int result = 0;
 
-    if(!split_video_.video_.empty() &&
-        !split_video_.voice_.empty() &&
-        !split_video_.output_.empty()){
+    if(!_split_video.video.empty() &&
+        !_split_video.voice.empty() &&
+        !_split_video.output.empty()){
 
-        std::string command(R"(ffmpeg -i ")" + split_video_.video_.string() + R"(" -i ")"
-                            + split_video_.voice_.string()
+        std::string command(R"(ffmpeg -i ")" + _split_video.video.string() + R"(" -i ")"
+                            + _split_video.voice.string()
                             + R"(" -c:v copy -filter_complex amix=inputs=2:duration=first:dropout_transition=0:weights=")"
                             + std::to_string(_line.Vol_audio()) + " " + std::to_string(_line.Vol_translate()) + R"(":normalize=1 -y ")" +
-                            split_video_.output_.string() + "\"");
+                            _split_video.output.string() + "\"");
 
         result = std::system(command.c_str());
     }
@@ -59,13 +59,13 @@ void dtv::MergeVideoFile::InitVideo() {
         if (entry.path().filename().string().contains(_video.id)
                 && entry.path().filename().extension().string() == _video.formats.rbegin()->ext) {
 
-                split_video_.video_ = entry.path();
+                _split_video.video = entry.path();
 
-                if(!split_video_.video_.empty()) break;
+                if(!_split_video.video.empty()) break;
             }
         }
 
-     if (split_video_.video_.empty()) std::cerr << "The main video track was not found\n";
+     if (_split_video.video.empty()) std::cerr << "The main video track was not found\n";
 }
 
 void dtv::MergeVideoFile::InitVoice() {
@@ -73,16 +73,16 @@ void dtv::MergeVideoFile::InitVoice() {
          std::filesystem::directory_iterator(_line.Temp_dir())) {
         if (entry.path().extension().string() == ".mp3" &&
             entry.path().filename().string().contains(_video.id)) {
-            split_video_.voice_ = entry.path().filename().string();
+            _split_video.voice = entry.path().filename().string();
             break;
         }
     }
-    if (split_video_.voice_.empty()) std::cerr<<"The voice translation could not be downloaded\n";
+    if (_split_video.voice.empty()) std::cerr<<"The voice translation could not be downloaded\n";
 }
 
 void dtv::MergeVideoFile::InitAudio() { // FIXME
-    split_video_.audio_ = _line.Replace_audio();
-    if (split_video_.audio_.empty()) std::cerr<<"The main audio track was not found: " /*<< video_ptr_->Title()*/ <<std::endl;
+    _split_video.audio = _line.Replace_audio();
+    if (_split_video.audio.empty()) std::cerr<<"The main audio track was not found\n";
 }
 
 void dtv::MergeVideoFile::InitOutput() {
@@ -108,7 +108,7 @@ void dtv::MergeVideoFile::InitOutput() {
         new_title.replace(new_title.find("__"), 2, "_");
     }
 // TODO чистить доп символы, включая точку
-    split_video_.output_ = new_title /*+ split_video_.output_*/;
+    _split_video.output = new_title /*+ split_video_.output_*/;
 }
 
 // TODO убрать многочисленный вызов ->GetPathToTemp()

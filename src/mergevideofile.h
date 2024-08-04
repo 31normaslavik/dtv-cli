@@ -2,7 +2,7 @@
 
 
 #include "video.h"
-#include "../command/commandline.h"
+#include "commandline.h"
 
 namespace dtv {
 
@@ -14,7 +14,6 @@ public:
     explicit MergeVideoFile(Video& video, CommandLine const& line);
 
     ~MergeVideoFile();
-
 
     /**
      * @brief A video file, an audio file, and an audio translation file are initialized.
@@ -38,39 +37,22 @@ private:
      */
     void MergeFfmpeg();
 
-
-
-    /**
-     * @brief InitVideo
-     */
     void InitVideo();
-
-    /**
-     * @brief InitVoice
-     */
     void InitVoice();
-
-    /**
-     * @brief InitAudio
-     */
     void InitAudio();
-
-    /**
-     * @brief InitOutput
-     */
     void InitOutput();
 
     Video& _video;
     CommandLine const& _line;
 
     struct SplitVideoData {
-        fs::path video_;
-        fs::path voice_;
-        fs::path audio_;
-        fs::path output_;
-        fs::path extension_;
-        fs::path tempf_;
-    } split_video_;
+        fs::path video;
+        fs::path voice;
+        fs::path audio;
+        fs::path output;
+        fs::path extension;
+        fs::path tempf;
+    } _split_video;
 };
 
 } // namespace dtv

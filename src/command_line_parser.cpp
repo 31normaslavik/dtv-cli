@@ -119,7 +119,7 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
     opt::notify(vm);
 
     if (vm.count("help")) {
-        std::cout << visible << std::endl;
+        std::cout << visible << "\n";
         exit(EXIT_SUCCESS);
     }
     if (vm.count("version")) {
@@ -133,7 +133,7 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
     }
 
     if (vm.count("examples")) {
-        std::cout << Helper::exampes << std::endl;
+        std::cout << Helper::exampes << "\n";
         exit(EXIT_SUCCESS);
     }
 
@@ -165,9 +165,8 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         int const height = vm["height"].as<int>();
 
         if (height < 0 || height > 5000) {
-            std::cerr << "The video resolution is incorrectly specified"
-                      << std::endl;
-            std::cout << Helper::exampes << std::endl;
+            std::cerr << "The video resolution is incorrectly specified\n";
+            std::cout << Helper::exampes << "\n";
             exit(EXIT_FAILURE);
         }
         line.Height(height);

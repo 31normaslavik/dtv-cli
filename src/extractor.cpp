@@ -1,11 +1,12 @@
-#include "readjson.h"
+#include "extractor.h"
 #include <fstream>
 #include <iostream>
+
 namespace dtv {
 
-ReadJson::ReadJson() {}
+Extractor::Extractor() {}
 
-std::optional<Video> ReadJson::JsonToVideo(const CommandLine &line) const
+std::optional<Video> Extractor::JsonToVideo(const CommandLine &line)
 {
     fs::path json;
     std::ifstream ifs;
@@ -29,7 +30,5 @@ std::optional<Video> ReadJson::JsonToVideo(const CommandLine &line) const
 
     return std::nullopt;
 }
-
-
 
 } // namespace dtv

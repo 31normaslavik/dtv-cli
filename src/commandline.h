@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/url/url_view.hpp>
+#include <boost/url.hpp>
 #include <filesystem>
 #include <set>
 #include <string>
@@ -12,7 +12,12 @@ class CommandLine{
 public:
     CommandLine();
 
-    [[nodiscard]] fs::path Output() const;
+    [[nodiscard]] CommandLine(const CommandLine &) = default;
+    CommandLine(CommandLine &&) = default;
+    CommandLine &operator=(const CommandLine &) = default;
+    CommandLine &operator=(CommandLine &&) = default;
+
+    fs::path Output() const;
     void Output(const fs::path &Output);
     [[nodiscard]] bool Force_overwrites() const;
     void Force_overwrites(bool Force_overwrites);

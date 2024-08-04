@@ -20,7 +20,7 @@ void dtv::DataLoader::DownloadJsonsToDisk() {
 
 //         std::cout << entry.path().filename().string() << " "
 //                   << std::filesystem::file_size(entry.path().filename()) / 1024
-//                   << " KiB" << std::endl;
+//                   << " KiB" << "\n";
 
 //         if (entry.path().filename().string().find(".json") != std::string::npos) {
 //             v.emplace_back(entry);
@@ -47,7 +47,7 @@ void dtv::DataLoader::DownloadJsonsToDisk() {
 //         std::shared_ptr<Video> video;
         
 //         if (json_data->_type() != "video"){
-//             std::cerr << json_data -> Webpage_url() << " is not video source" << std::endl;
+//             std::cerr << json_data -> Webpage_url() << " is not video source" << "\n";
 //             continue;
 //         }
         

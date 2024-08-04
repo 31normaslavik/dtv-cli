@@ -20,21 +20,26 @@ if(Boost_FOUND)
   #target_link_libraries(foo ${Boost_LIBRARIES})
 endif()
 
-include_directories(${BOOST_INCLUDE_DIRS})
+add_library(downloader STATIC
+    command_line_parser.cpp
+    commandline.cpp
+    dataloader.cpp
+    downloader.cpp
+    downloadingmedia.cpp
+    extractor.cpp
+    fs_directories.cpp
+    mergevideofile.cpp
+    video.cpp
+    videosource.cpp)
+
 
 add_executable(dtv-cli main.cpp)
 
-add_subdirectory(command)
-add_subdirectory(download)
-add_subdirectory(fs)
-add_subdirectory(video)
-add_subdirectory(jsondata)
-add_subdirectory(merge)
-
 message("CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 
-target_link_libraries(dtv-cli PUBLIC downloader commandline video cmdlineparser
-                                     fs_directories)
+target_link_libraries(dtv-cli PUBLIC downloader Boost::program_options Boost::json Boost::url)
+
+target_include_directories(downloader PUBLIC .)
 
 include(GNUInstallDirs)
 install(
