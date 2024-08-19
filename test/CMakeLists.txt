@@ -16,7 +16,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
-
 if ($ENV{GOOGLETEST_DIR})
     get_filename_component(_GTEST_BASE $ENV{GOOGLETEST_DIR} REALPATH)
 elseif (EXISTS "") # set by QC
@@ -40,10 +39,25 @@ endif()
 
 add_executable(dtv-cli-test main.cpp tst_extractor.cpp
     tst_initfs.cpp
+    # tst_changetempdir.cpp
 )
+
+add_dependencies(dtv-cli-test jsonsdir)
+
 add_test(NAME dtv-cli-test COMMAND dtv-cli-test)
 
-target_link_libraries(dtv-cli-test PRIVATE GTest::GTest PUBLIC downloader)
+target_link_libraries(dtv-cli-test PRIVATE GTest::GTest PRIVATE downloader )
 if (GMock_FOUND)
     target_link_libraries(dtv-cli-test INTERFACE GTest::GMock)
 endif()
+
+include(GoogleTest)
+gtest_discover_tests(dtv-cli-test)
+
+message("copying ${CMAKE_SOURCE_DIR}/test/jsons to ${CMAKE_BINARY_DIR}/test/jsons")
+
+add_custom_target(jsonsdir COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/test/jsons COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/test/jsons ${CMAKE_BINARY_DIR}/test/jsons
+    COMMENT "copying ${CMAKE_SOURCE_DIR}/test/jsons to ${CMAKE_BINARY_DIR}/test/jsons"
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+)
+
