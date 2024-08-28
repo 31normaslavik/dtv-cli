@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.24.2)
 
-project(dtv-cli LANGUAGES CXX)
+project(dtv-cli VERSION 2.0.0 LANGUAGES CXX)
 
-set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -44,7 +43,7 @@ set(CMAKE_CXX_FLAGS
 message("CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 endif()
 
-# Включение горячей перезагрузки для компиляторов MSVC, если поддерживается.
+# Г‚ГЄГ«ГѕГ·ГҐГ­ГЁГҐ ГЈГ®Г°ГїГ·ГҐГ© ГЇГҐГ°ГҐГ§Г ГЈГ°ГіГ§ГЄГЁ Г¤Г«Гї ГЄГ®Г¬ГЇГЁГ«ГїГІГ®Г°Г®Гў MSVC, ГҐГ±Г«ГЁ ГЇГ®Г¤Г¤ГҐГ°Г¦ГЁГўГ ГҐГІГ±Гї.
 if (POLICY CMP0141)
   cmake_policy(SET CMP0141 NEW)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
@@ -56,3 +55,5 @@ if(MSVC)
 endif()
 
 add_subdirectory(src)
+add_subdirectory(test)
+

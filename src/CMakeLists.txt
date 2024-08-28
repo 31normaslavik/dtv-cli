@@ -11,7 +11,7 @@ if(MSVC)
   set(BOOST_LIBRARYDIR C:/Boost/lib)    
 endif()
 
-find_package(Boost 1.70 REQUIRED COMPONENTS program_options json)
+find_package(Boost 1.70 REQUIRED COMPONENTS program_options json url)
 
 if(Boost_FOUND)
   include_directories(${Boost_INCLUDE_DIRS})
@@ -20,22 +20,36 @@ if(Boost_FOUND)
   #target_link_libraries(foo ${Boost_LIBRARIES})
 endif()
 
-include_directories(${BOOST_INCLUDE_DIRS})
+add_library(downloader STATIC
+    command_line_parser.cpp
+    commandline.cpp
+    dataloader.cpp
+    downloader.cpp
+    downloadingmedia.cpp
+    extractor.cpp
+    fs_directories.cpp
+    mergevideofile.cpp
+    video.cpp
+    videosource.cpp
+    formater.h formater.cpp
+    debug.h
+    #[[version.h
+    version.cpp]])
+
+configure_file(version.cpp.in version.cpp @ONLY)
+add_library(version STATIC ${CMAKE_CURRENT_BINARY_DIR}/version.cpp version.h)
 
 add_executable(dtv-cli main.cpp)
 
-add_subdirectory(command)
-add_subdirectory(download)
-add_subdirectory(fs)
-add_subdirectory(video)
-add_subdirectory(jsondata)
-add_subdirectory(merge)
-add_subdirectory(presentation)
-
 message("CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 
-target_link_libraries(dtv-cli PUBLIC downloader commandline video cmdlineparser
-                                     fs_directories)
+target_link_libraries(dtv-cli PUBLIC downloader Boost::program_options Boost::json Boost::url)
+target_link_libraries(dtv-cli PUBLIC version)
+
+target_include_directories(downloader PUBLIC .)
+target_include_directories(version PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+message("projectName_VERSION: ${PROJECT_NAME}")
 
 include(GNUInstallDirs)
 install(
