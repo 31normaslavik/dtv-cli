@@ -2,27 +2,33 @@
 
 namespace dtv{
 
-dtv::CommandLine::CommandLine(){
+CommandLine::CommandLine(){
 }
 
-fs::path CommandLine::Output() const
+std::shared_ptr<FsDirectories> CommandLine::Output() const
 {
+    if(_output == nullptr)
+        throw std::runtime_error("Output not inicialized!!!");
     return _output;
 }
 
-void CommandLine::Output(const fs::path &Output)
+void CommandLine::Output(const fs::path &output)
 {
-    _output = Output;
+    if(!_output)
+        _output = std::make_shared<FsDirectories>(output);
+    else{
+        _output->ChangeTempPath(output);
+    }
 }
 
-bool CommandLine::Force_overwrites() const
+bool CommandLine::No_overwrites() const
 {
-    return _force_overwrites;
+    return _no_overwrites;
 }
 
-void CommandLine::Force_overwrites(bool Force_overwrites)
+void CommandLine::No_overwrites(bool no_overwrites)
 {
-    _force_overwrites = Force_overwrites;
+    _no_overwrites = no_overwrites;
 }
 
 bool CommandLine::Write_description() const
@@ -35,14 +41,16 @@ void CommandLine::Write_description(bool Write_description)
     _write_description = Write_description;
 }
 
-fs::path CommandLine::Temp_dir() const
-{
-    return _temp_dir;
-}
+// fs::path CommandLine::Temp_dir() const
+// {
+//     return _temp_dir;
+// }
 
-void CommandLine::Temp_dir(const fs::path &Temp_dir)
+void CommandLine::Temp_dir(const fs::path &temp_dir)
 {
-    _temp_dir = Temp_dir;
+    if(!_output)
+        throw std::runtime_error("FsDirectories not initialized!");
+    _output->ChangeTempPath(temp_dir);
 }
 
 bool CommandLine::Quiet() const
@@ -105,14 +113,14 @@ void CommandLine::Saving_original_video_resolution(bool Saving_original_video_re
     _saving_original_video_resolution = Saving_original_video_resolution;
 }
 
-bool CommandLine::Playlist() const
+bool CommandLine::YesPlaylist() const
 {
-    return _playlist;
+    return _yesPlaylist;
 }
 
-void CommandLine::Playlist(bool Playlist)
+void CommandLine::YesPlaylist(bool yesPlaylist)
 {
-    _playlist = Playlist;
+    _yesPlaylist = yesPlaylist;
 }
 
 std::string CommandLine::Translate_from_lang() const
@@ -335,24 +343,14 @@ void CommandLine::Exec_before(const std::string &Exec_before)
     _exec_before = Exec_before;
 }
 
-std::set<boost::urls::url_view> CommandLine::Urls() const
+std::set<std::string> CommandLine::Urls() const
 {
     return _urls;
 }
 
-void CommandLine::Urls(const std::set<boost::urls::url_view> &Urls)
+void CommandLine::Urls(const std::set<std::string> &urls)
 {
-    _urls = Urls;
-}
-
-bool CommandLine::Debug() const
-{
-    return _debug;
-}
-
-void CommandLine::Debug(bool Debug)
-{
-    _debug = Debug;
+    _urls = urls;
 }
 
 bool CommandLine::Test() const

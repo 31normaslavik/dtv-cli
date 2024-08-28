@@ -37,9 +37,10 @@ if (NOT GTest_FOUND)
     message (FATAL_ERROR "No GTest Found")
 endif()
 
-add_executable(dtv-cli-test main.cpp tst_extractor.cpp
+add_executable(dtv-cli-test main.cpp
+    tst_extractor.cpp
     tst_initfs.cpp
-    # tst_changetempdir.cpp
+    tst_changetempdir.cpp
 )
 
 add_dependencies(dtv-cli-test jsonsdir)

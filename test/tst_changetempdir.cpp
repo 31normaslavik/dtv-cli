@@ -6,31 +6,26 @@
 using namespace testing;
 
 struct FsDirectoriesTest: public Test{
-    dtv::FsDirectories *fs;
+    dtv::FsDirectories fs;
 protected:
     void SetUp(){
-        fs = new dtv::FsDirectories();
     }
     void TearDown(){
-        delete fs;
     }
 
 };
 
 TEST_F(FsDirectoriesTest, ChangeTempDir)
 {
-    std::filesystem::path path = fs->GetPathToTemp();
-    ASSERT_TRUE(std::filesystem::exists(path));
+    std::filesystem::path path = fs.GetPathToTemp();
+    ASSERT_TRUE(std::filesystem::exists(fs.GetPathToTemp()));
+    ASSERT_TRUE(std::filesystem::exists(fs.GetPathToSave()));
 
-    std::filesystem::path oldPath = path;
-    std::filesystem::path newPath = std::filesystem::current_path() / "../tempDirForTest";
-    fs->ChangeTempPath(newPath);
+    std::filesystem::path newPath = std::filesystem::weakly_canonical("..");
+    fs.ChangeTempPath(newPath);
 
     ASSERT_TRUE(std::filesystem::exists(newPath));
-    ASSERT_FALSE(std::filesystem::exists(oldPath));
-
-
-
+    ASSERT_FALSE(std::filesystem::exists(path));
 
     // EXPECT_EQ(1, 1);
     // ASSERT_THAT(0, Eq(0));

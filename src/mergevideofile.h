@@ -25,7 +25,7 @@ public:
 
 private:
 
-    // NOTE Создавать папку при скачивании плейлиста
+    // TODO Создавать папку при скачивании плейлиста
     /**
      * @brief Moving the finished video from the temporary folder to the
      * one initially specified by the user when launching the program
@@ -41,6 +41,7 @@ private:
     void InitVoice();
     void InitAudio();
     void InitOutput();
+    void InitSubtitles();
 
     Video& _video;
     CommandLine const& _line;
@@ -50,8 +51,7 @@ private:
         fs::path voice;
         fs::path audio;
         fs::path output;
-        fs::path extension;
-        fs::path tempf;
+        fs::path subtitles;
     } _split_video;
 };
 

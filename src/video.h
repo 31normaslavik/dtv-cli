@@ -53,7 +53,7 @@ int64_t age_limit{}; // (numeric): Age restriction for the video (years)
 std::string live_status; // (string): One of "not_live", "is_live", "is_upcoming", "was_live", "post_live" (was live, but VOD is not yet processed)
 bool is_live{}; // (boolean): Whether this video is a live stream or a fixed-length video
 bool was_live{}; // (boolean): Whether this video was originally a live stream
-std::string playable_in_embed; // (string): Whether this video is allowed to play in embedded players on other sites
+bool playable_in_embed; // (string): Whether this video is allowed to play in embedded players on other sites
 std::string availability; // (string): Whether the video is "private", "premium_only", "subscriber_only", "needs_auth", "unlisted" or "public"
 std::string media_type; // (string): The type of media as classified by the site, e.g. "episode", "clip", "trailer"
 double start_time{}; // (numeric): Time in seconds where the reproduction should start, as specified in the URL
@@ -83,10 +83,19 @@ std::vector<std::string> cast; // (list): List of cast members
 };
 
 struct Format{
+    int width{-1};
+    int height{-1};
     std::string ext;
-    double size{};
-    int height{};
-    double vbr{};
+    std::string format_id;
+    std::string resolution;
+    std::string dynamic_range;
+    std::string video_ext;
+    std::string audio_ext;
+    std::string format;
+    double size{-1};
+    double tbr{-1};
+    double vbr{-1};
+    double abr{-1};
 };
 
 class VectorPtrVideos final {

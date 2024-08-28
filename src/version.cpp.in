@@ -1,0 +1,30 @@
+#include "version.h"
+
+namespace dtv {
+
+std::string getName()
+{
+    return "@PROJECT_NAME@";
+}
+std::string getVersion()
+{
+    return "@dtv-cli_VERSION@";
+}
+unsigned getVersionMajor()
+{
+    return @dtv-cli_VERSION_MAJOR@;
+}
+unsigned getVersionMinor()
+{
+    return @dtv-cli_VERSION_MINOR@ +0;
+}
+unsigned getVersionPatch()
+{
+    return @dtv-cli_VERSION_PATCH@ +0;
+}
+unsigned getVersionTweak()
+{
+    return @dtv-cli_VERSION_TWEAK@ +0;
+}
+
+} // namespace dtv

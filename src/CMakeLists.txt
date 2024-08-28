@@ -30,16 +30,26 @@ add_library(downloader STATIC
     fs_directories.cpp
     mergevideofile.cpp
     video.cpp
-    videosource.cpp)
+    videosource.cpp
+    formater.h formater.cpp
+    debug.h
+    #[[version.h
+    version.cpp]])
 
+configure_file(version.cpp.in version.cpp @ONLY)
+add_library(version STATIC ${CMAKE_CURRENT_BINARY_DIR}/version.cpp version.h)
 
 add_executable(dtv-cli main.cpp)
 
 message("CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 
 target_link_libraries(dtv-cli PUBLIC downloader Boost::program_options Boost::json Boost::url)
+target_link_libraries(dtv-cli PUBLIC version)
 
 target_include_directories(downloader PUBLIC .)
+target_include_directories(version PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+message("projectName_VERSION: ${PROJECT_NAME}")
 
 include(GNUInstallDirs)
 install(

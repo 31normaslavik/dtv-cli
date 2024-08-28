@@ -1,0 +1,105 @@
+#include "formater.h"
+
+namespace dtv {
+
+Formater::Formater(Video &video, const CommandLine &line): _video{video}, _line{line}
+{
+}
+
+std::string Formater::GetFormat() const
+{
+    std::vector<Format> videos;
+    std::vector<Format> audios;
+
+    const int closest = findClosest(_line.Height());
+
+    // сохранять mp4 webm для определеного разрешения?
+    std::map<std::string, Format> _mvideo;
+    std::map<std::string, Format> _maudio;
+
+    for(Format& format: _video.formats){
+        if(format.tbr > 0)
+            format.size = format.tbr * 1000 * _video.duration / 8;
+        else if(format.vbr > 0)
+            format.size = format.vbr * 1000 * _video.duration / 8;
+        else if(format.abr > 0)
+            format.size = format.abr * 1000 * _video.duration / 8;
+
+        if (format.height == closest && format.video_ext != "none"){
+            videos.emplace_back(format);
+            if(_mvideo.contains(format.video_ext) && _mvideo[format.video_ext].size < format.size){
+                _mvideo[format.video_ext] = format;
+            }else
+                _mvideo[format.video_ext] = format;
+            continue;
+        }
+
+        if(format.resolution == "audio only"){            
+            audios.emplace_back(format);
+            if(_maudio.contains(format.audio_ext) && _maudio[format.audio_ext].size < format.size){
+                _maudio[format.audio_ext] = format;
+            }else
+                _maudio[format.audio_ext] = format;
+            continue;
+        }
+    }
+
+    std::string extv, exta, format_id;
+    if(_mvideo.contains(_line.Extension())){
+        format_id = _mvideo.at(_line.Extension()).format_id;
+        extv = _line.Extension();
+    }
+    else {
+        _line.Extension() == "mp4" ? extv = "webm" : extv = "mp4";
+        if(_mvideo.contains(extv))
+            format_id = _mvideo.at(extv).format_id;
+        else
+            throw std::runtime_error("Extensions [" + _line.Extension() + " " + extv + "] not conteined in source");
+    }
+
+    extv == "mp4" ? exta = "m4a" : exta = "webm";
+
+    if(_maudio.contains(exta)){
+        format_id += "+" + _maudio.at(exta).format_id;
+    }
+    return format_id;
+}
+
+int Formater::findClosest(int target) const
+{
+    if (target <= _video.formats.begin()->height)
+        return _video.formats.begin()->height;
+
+    if (target >= _video.formats.rbegin()->height)
+        return _video.formats.rbegin()->height;
+
+    size_t i = 0, j = _video.formats.size(), mid = 0;
+
+    while (i < j) {
+        mid = (i + j) / 2;
+        if (_video.formats[mid].height == target)
+            return _video.formats[mid].height;
+
+        if (target < _video.formats[mid].height) {
+            if (mid > 0 && target > _video.formats[mid - 1].height)
+                return getClosest(_video.formats[mid - 1].height, _video.formats[mid].height, target);
+            j = mid;
+        }
+        else {
+            if (mid < _video.formats.size() - 1 && target < _video.formats[mid + 1].height)
+                return getClosest(_video.formats[mid].height, _video.formats[mid + 1].height, target);
+            i = mid + 1;
+        }
+    }
+    return _video.formats[mid].height;
+}
+
+int dtv::Formater::getClosest(int val1, int val2, int target) const
+{
+    if (target - val1 >= val2 - target)
+        return val2;
+    else
+        return val1;
+}
+
+} // namespace dtv
