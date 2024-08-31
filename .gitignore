@@ -10,6 +10,8 @@
 # Binary directory
 bin/
 build/
+buildK/
+.kdev4
 
 # CTest
 Testing/
@@ -51,3 +53,4 @@ _build*
 
 CMakeLists.txt.user
 /.vs
+dtv-cli.kdev4
