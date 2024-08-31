@@ -2,7 +2,6 @@
 
 #include "fs_directories.h"
 #include <boost/url.hpp>
-// #include <filesystem>
 #include <set>
 #include <string>
 
@@ -29,6 +28,7 @@ public:
     [[nodiscard]] std::string Merge_output_extension() const;
     [[nodiscard]] bool Saving_original_video_resolution() const;
     [[nodiscard]] bool YesPlaylist() const;
+    [[nodiscard]] int Fps() const;
     [[nodiscard]] std::string Translate_from_lang() const;
     [[nodiscard]] std::string Translate_to_lang() const;
     [[nodiscard]] bool No_translate() const;
@@ -65,6 +65,7 @@ public:
     void Merge_output_extension(const std::string &Merge_output_extension);
     void Saving_original_video_resolution(bool Saving_original_video_resolution);
     void YesPlaylist(bool yesPlaylist);
+    void Fps(int fps);
     void Translate_from_lang(const std::string &Translate_from_lang);
     void Translate_to_lang(const std::string &Translate_to_lang);
     void No_translate(bool No_translate);
@@ -92,10 +93,8 @@ public:
 
 private:
     std::shared_ptr<dtv::FsDirectories> _output;
-    // fs::path _output;
     bool _no_overwrites{false};
     bool _write_description{false};
-    // fs::path _temp_dir;
     bool _quiet{false};
     bool _progress{false};
     int _height;
@@ -103,6 +102,7 @@ private:
     std::string _merge_output_extension;
     bool _saving_original_video_resolution{false};
     bool _yesPlaylist{false};
+    int _fps{30};
     std::string _translate_from_lang;
     std::string _translate_to_lang;
     bool _no_translate{false};

@@ -29,5 +29,10 @@ void debugln(std::string_view rt_fmt_str, Args&&... args)
         std::cout << std::vformat(rt_fmt_str, std::make_format_args(args...)) << "\n";
 }
 
+// void messageln(std::string_view str){
+//     if(Debug::debug)
+//         std::cerr << str << "\n";
+// }
+
 } // namespace dtv
 

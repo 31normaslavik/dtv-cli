@@ -6,7 +6,7 @@ namespace dtv {
 class DataLoader {
 public:
     explicit DataLoader(boost::urls::url_view const& url);
-    void DownloadJsonsToDisk();
+    void DownloadJsons();
 private:
     boost::urls::url_view const& _url;
 };

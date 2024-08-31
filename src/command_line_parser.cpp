@@ -19,7 +19,7 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
     opt::options_description network("Network");
     opt::options_description processing("Pre/Post-Processing");
     opt::options_description hide("Hide");
-    opt::options_description debug("Debug");
+    opt::options_description debug("Debug", line_length);
     opt::options_description visible("Options");
 
     CommandLine line;
@@ -59,20 +59,21 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         ("merge-output-extension", opt::value<std::string>(), "Select the final file extension. For example [mp3 flac webm aac mkv, etc.]")
         // ("saving-original-video-resolution","")
         ("yes-playlist", "Download the playlist, if the URL refers to a video and a playlist")
+        ("fps", opt::value<int>(), "Preferred fps video")
         ;
 
     audio.add_options()
         ("translate-from-lang", opt::value<std::string>()->default_value("en"),"The original language. The language must match the real one in the video!!!")
         ("translate-to-lang", opt::value<std::string>()->default_value("ru"),"The language to be translated into")
-        // ("no-translate","")
-        // ("only-translate","")
-        // ("replace-audio", opt::value<fs::path>(), "")
-        // ("replace-translate", opt::value<fs::path>(),"")
+        ("no-translate", "Don't translate videos and simply download video")
+        ("only-translate", "Save only the audio translation")
+        ("replace-audio", opt::value<fs::path>(),"Replace the audio in the video with your own")
+        ("replace-translate", opt::value<fs::path>(),"Replace the audio-to-video translation with your own")
         ("vol-audio", opt::value<int>()->default_value(25),"The sound level of the original audio")
         ("vol-translate", opt::value<int>()->default_value(100),"Audio translation sound level")
-        // ("save-translation","")
-        // ("save-translation-no-merge","")
-        // ("save-translation-contaner", opt::value<std::string>(),"")
+        ("save-translation","Create a video with a translation and a separate translation next to the video")
+        ("save-translation-no-merge","Create a video without translation and a separate translation (without merging files)")
+        ("save-translation-contaner", opt::value<std::string>(),"Translation file container [mkv mp4 aac flac, etc.] (default mp3)")
         ;
 
     subtitle.add_options()
@@ -81,10 +82,11 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         // ("write-auto-subs","")
         // ("list-subs","")
         // ("sub-format", opt::value<std::string>()->default_value("srt"),"")
-        ("sub-langs","Subtitles langs")
+        ("sub-langs", "Subtitles langs")
         // ("embed-subs","")
         // ("convert-subs","")
         // ("transcription","")
+        // ("no-merge-subs", "")
         ;
 
     network.add_options()
@@ -197,6 +199,11 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
     }
     if (vm.contains("yes-playlist")) {
         line.YesPlaylist(true);
+    }
+    if (vm.contains("fps")) {
+        int fps = vm["fps"].as<int>();
+        if(fps > 15)
+            line.Fps(fps);
     }
 
     /*

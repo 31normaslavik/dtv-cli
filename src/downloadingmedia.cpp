@@ -21,10 +21,9 @@ void dtv::DownloadingMedia::DownloaderYtDlp() {
 
     Formater formater(_video, _line);
 
-    std::string command(R"(yt-dlp ")" +
-                _video.webpage_url + R"(" -f ")" +
-                formater.GetFormat() + R"(" -o "%(id)s.___)" +
-                _video.extractor_key + R"(___.___Video___.%(format_id)s.%(ext)s")");
+    std::any a = formater.GetFormat();
+    std::string const command(std::format("yt-dlp \"{}\" -f \"{}\" -o \"%(id)s.___{}___.___Video___.%(format_id)s.%(ext)s\"",
+                                    _video.webpage_url, std::any_cast<std::string>(a), _video.extractor_key));
 
     debugln("Func: {}", __func__);
     debugln("Video cmd: {}", command);
@@ -40,13 +39,13 @@ void dtv::DownloadingMedia::DownloaderVotCli() {
     int result{};
     if (_line.Write_subs()) {
         std::cout << std::flush;
-        std::string commandSub{std::format("vot-cli --lang \"{0}\" --reslang \"{1}\" --subs --subs-srt --output=\".\" --output-file=\"{3}.___Subtitles___.\" \"{2}\"",
-                                         _line.Translate_from_lang(), _line.Sub_lang(), _video.webpage_url, _video.id)};
+        std::string const commandSub{std::format("vot-cli --lang \"{}\" --reslang \"{}\" --subs --subs-srt --output=\".\" --output-file=\"{}.___Subtitles___.\" \"{}\"",
+                                         _line.Translate_from_lang(), _line.Sub_lang(), _video.id, _video.webpage_url)};
         debugln("Func: {}", __func__);
         debugln("Subtitles cmd: {}", commandSub);
 
-        std::string commandVoice{std::format("vot-cli --lang \"{0}\" --reslang \"{1}\" --output=\".\" --output-file=\"{3}.___Voice___.\" \"{2}\"",
-                                                 _line.Translate_from_lang(), _line.Translate_to_lang(), _video.webpage_url, _video.id)};
+        std::string const commandVoice{std::format("vot-cli --lang \"{}\" --reslang \"{}\" --output=\".\" --output-file=\"{}.___Voice___.\" \"{}\"",
+                                                 _line.Translate_from_lang(), _line.Translate_to_lang(), _video.id, _video.webpage_url)};
 
         debugln("Voice cmd: {}", commandVoice);
 
@@ -57,8 +56,8 @@ void dtv::DownloadingMedia::DownloaderVotCli() {
     }
     else{
         std::cout << std::flush;
-        std::string command{std::format("vot-cli --lang \"{0}\" --reslang \"{1}\" --output=\".\" --output-file=\"{3}.___Voice___.\" \"{2}\"",
-                                         _line.Translate_from_lang(), _line.Translate_to_lang(), _video.webpage_url, _video.id)};
+        std::string const command{std::format("vot-cli --lang \"{}\" --reslang \"{}\" --output=\".\" --output-file=\"{}.___Voice___.\" \"{}\"",
+                                         _line.Translate_from_lang(), _line.Translate_to_lang(), _video.id, _video.webpage_url)};
 
         debugln("Func: {}", __func__);
         debugln("Voice cmd: {}", command);

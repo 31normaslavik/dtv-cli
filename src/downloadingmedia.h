@@ -11,6 +11,11 @@ namespace dtv {
 class DownloadingMedia {
 public:
 
+    /**
+     * @brief DownloadingMedia
+     * @param video
+     * @param line
+     */
     explicit DownloadingMedia(Video &video, CommandLine const& line);
 
     void Download();

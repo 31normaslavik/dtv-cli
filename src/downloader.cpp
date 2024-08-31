@@ -1,7 +1,8 @@
-#include "dataloader.h"
+// #include "dataloader.h"
 #include "downloader.h"
-#include "downloadingmedia.h"
-#include "mergevideofile.h"
+// #include "downloadingmedia.h"
+#include "engine.h"
+// #include "mergevideofile.h"
 #include "extractor.h"
 
 namespace dtv {
@@ -15,14 +16,21 @@ namespace dtv {
 
         for(const auto& url: _line.Urls())
         {
-            DataLoader d(url);
-            d.DownloadJsonsToDisk();
+            // DataLoader dataLoader(url);
+            // dataLoader.DownloadJsons();
+            Engine::DownloadJson(url);            
 
             for(auto video = Extractor::JsonToVideo(_line); video.has_value(); video = Extractor::JsonToVideo(_line)){
-                DownloadingMedia video_downloader(*video, _line);
-                video_downloader.Download();
-                MergeVideoFile split_video(*video, _line);
-                split_video.Processing();                
+                // DownloadingMedia videoDownloader(*video, _line);
+                // videoDownloader.Download();
+                // MergeVideoFile splitVideo(*video, _line);
+                // splitVideo.Processing();
+                Engine engine(*video, _line);
+                engine.DownloadVideo();
+                engine.DownloadVoice();
+                engine.DownloadSubtitles();
+                engine.DownloadAnotation();
+                engine.Merge();
             }
         }
     }    

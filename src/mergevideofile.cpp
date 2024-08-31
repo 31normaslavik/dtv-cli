@@ -145,7 +145,7 @@ void dtv::MergeVideoFile::InitOutput() {
     while (new_title.ends_with("_")) {
         new_title.erase(new_title.length() - 1, 1);
     }
-    while (new_title.find("__") != std::string::npos) {
+    while (new_title.contains("__")) {
         new_title.replace(new_title.find("__"), 2, "_");
     }
     // TODO чистить доп символы, включая точку

@@ -2,14 +2,14 @@
 
 namespace dtv {
 
-Formater::Formater(Video &video, const CommandLine &line): _video{video}, _line{line}
+Formater::Formater(Video const& video, CommandLine const& line): _video{video}, _line{line}
 {
 }
 
-std::string Formater::GetFormat() const
+std::any Formater::GetFormat(const FORMAT eformat) const
 {
-    std::vector<Format> videos;
-    std::vector<Format> audios;
+    // std::vector<Format> videos;
+    // std::vector<Format> audios;
 
     const int closest = findClosest(_line.Height());
 
@@ -17,16 +17,12 @@ std::string Formater::GetFormat() const
     std::map<std::string, Format> _mvideo;
     std::map<std::string, Format> _maudio;
 
-    for(Format& format: _video.formats){
-        if(format.tbr > 0)
-            format.size = format.tbr * 1000 * _video.duration / 8;
-        else if(format.vbr > 0)
-            format.size = format.vbr * 1000 * _video.duration / 8;
-        else if(format.abr > 0)
-            format.size = format.abr * 1000 * _video.duration / 8;
-
+    for(Format const& format: _video.formats){
         if (format.height == closest && format.video_ext != "none"){
-            videos.emplace_back(format);
+            // videos.emplace_back(format);
+            if(eformat == FORMAT::FirstClosestVideo)
+                return format;
+
             if(_mvideo.contains(format.video_ext) && _mvideo[format.video_ext].size < format.size){
                 _mvideo[format.video_ext] = format;
             }else
@@ -35,7 +31,10 @@ std::string Formater::GetFormat() const
         }
 
         if(format.resolution == "audio only"){            
-            audios.emplace_back(format);
+            // audios.emplace_back(format);
+            if(eformat == FORMAT::FirstClosestAudio)
+                return format;
+
             if(_maudio.contains(format.audio_ext) && _maudio[format.audio_ext].size < format.size){
                 _maudio[format.audio_ext] = format;
             }else

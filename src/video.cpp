@@ -2,13 +2,13 @@
 
 namespace dtv {
 
-void VectorPtrVideos::PushBack(std::shared_ptr<Video> video_ptr) {
-    videos_ptr_.emplace_back(video_ptr);
-}
+// void VectorPtrVideos::PushBack(std::shared_ptr<Video> video_ptr) {
+//     videos_ptr_.emplace_back(video_ptr);
+// }
 
-std::vector<std::shared_ptr<Video>> VectorPtrVideos::GetAllData() const {
-    return videos_ptr_;
-}
+// std::vector<std::shared_ptr<Video>> VectorPtrVideos::GetAllData() const {
+//     return videos_ptr_;
+// }
 
 Video tag_invoke(const bj::value_to_tag<Video> &, const boost::json::value &jv)
 {

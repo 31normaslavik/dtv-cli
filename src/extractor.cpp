@@ -20,9 +20,7 @@ std::optional<Video> Extractor::JsonToVideo(const CommandLine &line)
                     std::cerr << "Can't open file: " << json.filename().string() << "\n";
                     continue;
                 }
-
                 bj::value const v = bj::parse(ifs);
-
                 ifs.close();
                 std::error_code ec;
                 std::filesystem::remove(json, ec);
@@ -30,6 +28,15 @@ std::optional<Video> Extractor::JsonToVideo(const CommandLine &line)
                     std::cerr << ec.message() << " : " << ec.value();
 
                 Video video = bj::value_to<Video>(std::move(v));
+
+                for(auto& format: video.formats){
+                    if(format.tbr > 0)
+                        format.size = format.tbr * 1000 * video.duration / 8;
+                    else if(format.vbr > 0)
+                        format.size = format.vbr * 1000 * video.duration / 8;
+                    else if(format.abr > 0)
+                        format.size = format.abr * 1000 * video.duration / 8;
+                }
                 return video;
             }
         }
