@@ -8,9 +8,6 @@ Formater::Formater(Video const& video, CommandLine const& line): _video{video}, 
 
 std::any Formater::GetFormat(const FORMAT eformat) const
 {
-    // std::vector<Format> videos;
-    // std::vector<Format> audios;
-
     const int closest = findClosest(_line.Height());
 
     // сохранять mp4 webm для определеного разрешения?

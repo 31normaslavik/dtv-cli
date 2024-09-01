@@ -200,6 +200,8 @@ std::vector<Format> tag_invoke(const bj::value_to_tag<std::vector<Format> > &, c
         p = o.if_contains("abr");
             format.abr = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
 
+        p = o.if_contains("fps");
+            format.fps = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
         vf.emplace_back(std::move(format));
     }
     return vf;

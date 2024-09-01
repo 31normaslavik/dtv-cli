@@ -96,6 +96,7 @@ struct Format{
     double tbr{-1};
     double vbr{-1};
     double abr{-1};
+    double fps{-1};
 };
 
 // class VectorPtrVideos final {

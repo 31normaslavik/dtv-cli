@@ -25,12 +25,12 @@ endif()
 add_library(downloader STATIC
     command_line_parser.cpp
     commandline.cpp
-    dataloader.cpp
     downloader.cpp
-    downloadingmedia.cpp
+    # dataloader.cpp
+    # downloadingmedia.cpp
+    # mergevideofile.cpp
     extractor.cpp
     fs_directories.cpp
-    mergevideofile.cpp
     video.cpp
     videosource.cpp
     formater.h formater.cpp
