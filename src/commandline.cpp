@@ -41,11 +41,6 @@ void CommandLine::Write_description(bool Write_description)
     _write_description = Write_description;
 }
 
-// fs::path CommandLine::Temp_dir() const
-// {
-//     return _temp_dir;
-// }
-
 void CommandLine::Temp_dir(const fs::path &temp_dir)
 {
     if(!_output)

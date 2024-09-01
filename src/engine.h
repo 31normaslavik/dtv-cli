@@ -15,14 +15,13 @@ public:
 
     // Yt-dlp
     static void DownloadJson(boost::urls::url_view url);
-    void DownloadVideo(); // тут сразу готовое видео
-    void DownloadSubtitles(); // ? Надо протестировать возможности скачивания, но скорей всего будут говно сабы с автогенерацией и не на всех сайтах
+    void DownloadVideo();
+    void DownloadSubtitles();
     // vot-cli
     void DownloadVoice();
-    // virtual void DownloadSubtitles();
     void DownloadAnotation();
     // Ffmpeg
-    void Merge(); // что пустое то не мержим
+    void Merge();
 
 private:
     std::unique_ptr<YtdlpEngine > _pYtdlpEngine;
@@ -34,8 +33,6 @@ private:
 class YtdlpEngine final{
 public:
     explicit YtdlpEngine(const Video &video, const CommandLine &line);
-
-    // void DownloadJson();
     void DownloadVideo();
     void DownloadSubtitles();
 private:

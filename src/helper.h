@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 
-
 struct Helper{
     const static std::string exampes;
     const static std::string codes_country;

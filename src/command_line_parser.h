@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <vector>
-
 #include <boost/program_options.hpp>
 
 template <class T>

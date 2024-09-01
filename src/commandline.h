@@ -20,7 +20,6 @@ public:
     std::shared_ptr<FsDirectories> Output() const;
     [[nodiscard]] bool No_overwrites() const;
     [[nodiscard]] bool Write_description() const;
-    // [[nodiscard]] fs::path Temp_dir() const;
     [[nodiscard]] bool Quiet() const;
     [[nodiscard]] bool Progress() const;
     [[nodiscard]] int Height() const;
@@ -129,6 +128,5 @@ private:
     std::set<std::string> _urls;
     bool _test{false};
 };
-
 
 } // namespace dtv

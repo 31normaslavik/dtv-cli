@@ -8,7 +8,6 @@ class Extractor
 {
 public:
     Extractor();
-
     static std::optional<Video> JsonToVideo(const CommandLine& line);
 };
 

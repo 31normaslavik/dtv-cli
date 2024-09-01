@@ -2,9 +2,6 @@
 #include "commandline.h"
 #include "video.h"
 #include <any>
-#include <map>
-#include <string>
-#include <vector>
 
 namespace dtv {
 
@@ -16,8 +13,6 @@ public:
     explicit Formater(Video const& video, CommandLine const& line);
     std::any GetFormat(const FORMAT eformat = FORMAT::Format) const;
 private:
-    // std::vector<Format> _formats;
-
     int getClosest(int val1, int val2, int target) const;
     int findClosest(int target) const;
 

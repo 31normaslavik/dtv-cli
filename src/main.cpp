@@ -1,12 +1,12 @@
 #include "downloader.h"
 #include "command_line_parser.h"
+#include "debug.h"
 #include <iostream>
-#include <print>
 
 int main(int argc, char** argv) try {
 
     setlocale(LC_ALL, "ru_RU.utf8");
-    // std::println("Current locale: {}", setlocale(LC_ALL, NULL));
+    dtv::debugln("Current locale: {}", setlocale(LC_ALL, NULL));
 
     dtv::CommandLine const& line = dtv::command_line_parser(argc, argv);
     dtv::Downloader downloader(line);
