@@ -118,9 +118,19 @@ bool CommandLine::YesPlaylist() const
     return _yesPlaylist;
 }
 
+int CommandLine::Fps() const
+{
+    return _fps;
+}
+
 void CommandLine::YesPlaylist(bool yesPlaylist)
 {
     _yesPlaylist = yesPlaylist;
+}
+
+void CommandLine::Fps(int fps)
+{
+    _fps = fps;
 }
 
 std::string CommandLine::Translate_from_lang() const

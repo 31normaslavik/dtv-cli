@@ -219,4 +219,14 @@ TEST_F(VideoTest, ExtractorXvideosCom)
     // ASSERT_TRUE(v);
 
 }
+TEST_F(VideoTest, ExtractorNineGag)
+{
+    ifs.open("jsons/Lithuania__NineGag__.json");
+    ASSERT_TRUE(ifs.is_open());
+    boost::json::value const v = boost::json::parse(ifs);
+    video = boost::json::value_to<dtv::Video>(std::move(v));
+
+    // ASSERT_TRUE(v);
+
+}
 

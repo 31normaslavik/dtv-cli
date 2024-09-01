@@ -96,17 +96,18 @@ struct Format{
     double tbr{-1};
     double vbr{-1};
     double abr{-1};
+    double fps{-1};
 };
 
-class VectorPtrVideos final {
-public:
-    void PushBack(std::shared_ptr<Video> video_ptr);
+// class VectorPtrVideos final {
+// public:
+//     void PushBack(std::shared_ptr<Video> video_ptr);
 
-    [[nodiscard]] std::vector<std::shared_ptr<Video>> GetAllData() const;
+//     [[nodiscard]] std::vector<std::shared_ptr<Video>> GetAllData() const;
 
-private:
-    std::vector<std::shared_ptr<Video>> videos_ptr_;
-};
+// private:
+//     std::vector<std::shared_ptr<Video>> videos_ptr_;
+// };
 
 Video tag_invoke( const bj::value_to_tag< Video >&, bj::value const& jv );
 std::vector<Format> tag_invoke( const bj::value_to_tag< std::vector<Format> >&, bj::value const& jv );
