@@ -26,13 +26,10 @@ add_library(downloader STATIC
     command_line_parser.cpp
     commandline.cpp
     downloader.cpp
-    # dataloader.cpp
-    # downloadingmedia.cpp
-    # mergevideofile.cpp
     extractor.cpp
     fs_directories.cpp
     video.cpp
-    videosource.cpp
+
     formater.h formater.cpp
     debug.h
     engine.h engine.cpp
