@@ -7,6 +7,7 @@ namespace dtv {
 class YtdlpEngine;
 class VotcliEngine;
 class FfmpegEngine;
+class Cmd;
 
 class Engine
 {
@@ -27,6 +28,7 @@ private:
     std::unique_ptr<YtdlpEngine > _pYtdlpEngine;
     std::unique_ptr<VotcliEngine> _pVotcliEngine;
     std::unique_ptr<FfmpegEngine> _pFfmpegEngine;
+    std::unique_ptr<Cmd>          _pCmd;
 
 };
 
@@ -67,4 +69,12 @@ private:
     } _split_video;
 };
 
+class Cmd final{
+public:
+    explicit Cmd(const CommandLine &line);
+    bool ExecAfter();
+    bool ExecBefore();
+private:
+    CommandLine const& _line;
+};
 } // namespace dtv

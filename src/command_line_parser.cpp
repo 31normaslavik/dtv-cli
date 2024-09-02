@@ -36,7 +36,7 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         ("output,o",
          opt::value<fs::path>()->default_value(fs::current_path()),
          "Path to save")
-        ("no-overwrites","Do not overwrite any files")
+        ("no-overwrites","Do not overwrite exist files")
         // ("write-description","")
         ("temp_dir", opt::value<fs::path>() ,"Changing temporary path")
         ;
@@ -63,10 +63,10 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         ;
 
     audio.add_options()
-        ("translate-from-lang", opt::value<std::string>()->default_value("en"),"The original language. The language must match the real one in the video!!!")
-        ("translate-to-lang", opt::value<std::string>()->default_value("ru"),"The language to be translated into")
-        ("no-translate", "Don't translate videos and simply download video")
-        ("only-translate", "Save only the audio translation")
+        ("translate-from-lang,l", opt::value<std::string>()->default_value("en"),"The original language. The language must match the real one in the video!!!")
+        ("translate-to-lang,L", opt::value<std::string>()->default_value("ru"),"The language to be translated into")
+        ("no-translate,t", "Don't translate videos and simply download video")
+        ("only-translate,T", "Save only the audio translation")
         ("replace-audio", opt::value<fs::path>(),"Replace the audio in the video with your own")
         ("replace-translate", opt::value<fs::path>(),"Replace the audio-to-video translation with your own")
         ("vol-audio", opt::value<int>()->default_value(25),"The sound level of the original audio")
@@ -77,8 +77,8 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         ;
 
     subtitle.add_options()
-        ("write-subs","Download subtitles")
-        ("sub-lang", opt::value<std::string>()->default_value("ru"),"Subtitles language")
+        ("write-subs,s","Download subtitles")
+        ("sub-lang,S", opt::value<std::string>()->default_value("ru"),"Subtitles language")
         // ("write-auto-subs","")
         // ("list-subs","")
         // ("sub-format", opt::value<std::string>()->default_value("srt"),"")

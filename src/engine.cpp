@@ -4,9 +4,10 @@
 
 dtv::Engine::Engine(const Video &video, const CommandLine &line)
 {
-    _pYtdlpEngine =  std::make_unique<YtdlpEngine >(video, line);
+    _pYtdlpEngine  = std::make_unique<YtdlpEngine >(video, line);
     _pVotcliEngine = std::make_unique<VotcliEngine>(video, line);
     _pFfmpegEngine = std::make_unique<FfmpegEngine>(video, line);
+    _pCmd          = std::make_unique<Cmd>(line);
 }
 
 void dtv::Engine::DownloadJson(boost::urls::url_view url)
@@ -269,4 +270,42 @@ void dtv::FfmpegEngine::Merge()
 
     std::cout << "The [" + _split_video.video.filename().string() + "] file has been successfully created\n";
 
+}
+
+dtv::Cmd::Cmd(const CommandLine &line): _line{line}
+{
+}
+
+bool dtv::Cmd::ExecAfter()
+{
+    debugln("Func: {}", __func__);
+    if(!_line.Exec_after().empty()){
+        int result{-1};
+        debugln("ExecAfter cmd: {}", _line.Exec_after());
+        result = system(_line.Exec_after().c_str());
+        debugln("ExecAfter result: {}", result);
+
+        if(result == 0)
+            return true;
+        else
+            return false;
+    }
+    return bool(false);
+}
+
+bool dtv::Cmd::ExecBefore()
+{
+    debugln("Func: {}", __func__);
+    if(!_line.Exec_before().empty()){
+        int result{-1};
+        debugln("ExecBefore cmd: {}", _line.Exec_before());
+        result = system(_line.Exec_before().c_str());
+        debugln("ExecBefore result: {}", result);
+
+        if(result == 0)
+            return true;
+        else
+            return false;
+    }
+    return bool(false);
 }

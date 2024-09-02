@@ -1,6 +1,7 @@
 #include "downloader.h"
 #include "command_line_parser.h"
 #include "debug.h"
+#include "engine.h"
 #include <iostream>
 
 int main(int argc, char** argv) try {
@@ -10,7 +11,11 @@ int main(int argc, char** argv) try {
 
     dtv::CommandLine const& line = dtv::command_line_parser(argc, argv);
     dtv::Downloader downloader(line);
+    dtv::Cmd cmd(line);
+
+    cmd.ExecBefore();
     downloader.Start();
+    cmd.ExecAfter();
 
     return EXIT_SUCCESS;
 
