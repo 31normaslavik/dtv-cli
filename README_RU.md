@@ -1,16 +1,9 @@
 # dtv-cli
-```
-
-```
 ### ENGLISH
 ### Скачивание роликов, плейлистов с переводом и субтитрами от нейросети Yandex.
-```
-```
 ### Какие ресурсы доступны для перевода:
 [watch this](https://github.com/FOSWLY/vot-cli/wiki/%5BEN%5D-Supported-sites)
-```
 
-```
 ### ЗАВИСИМОСТИ
 [vot-cli](https://github.com/FOSWLY/vot-cli)
 
@@ -20,9 +13,6 @@
 
 [Boost](https://www.boost.org/)
 
-```
-
-```
 ### УСТАНОВКА
 
 
