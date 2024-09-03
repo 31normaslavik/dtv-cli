@@ -1,2 +1,10 @@
 Version 2.0.0(August 28th, 2024)
 
+Version 2.0.1(September 3th, 2024)
+Fixed:
+- The file name does not change during saving when using the -t [--no-translate] key
+- flag -T [--only-translate]
+- flag --replace-audio
+- the --replace-translate flag
+- Path has been changed to string in the CommandLine class
+

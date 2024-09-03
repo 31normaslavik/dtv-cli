@@ -20,7 +20,6 @@ public:
     std::shared_ptr<FsDirectories> Output() const;
     [[nodiscard]] bool No_overwrites() const;
     [[nodiscard]] bool Write_description() const;
-    // [[nodiscard]] fs::path Temp_dir() const;
     [[nodiscard]] bool Quiet() const;
     [[nodiscard]] bool Progress() const;
     [[nodiscard]] int Height() const;
@@ -67,10 +66,10 @@ public:
     void YesPlaylist(bool yesPlaylist);
     void Fps(int fps);
     void Translate_from_lang(const std::string &Translate_from_lang);
-    void Translate_to_lang(const std::string &Translate_to_lang);
+    void Translate_to_lang(const std::string &translate_to_lang);
     void No_translate(bool No_translate);
-    void Only_translate(bool Only_translate);
-    void Replace_audio(const fs::path &Replace_audio);
+    void Only_translate(bool only_translate);
+    void Replace_audio(const fs::path &replace_audio);
     void Replace_translate(const fs::path &Replace_translate);
     void Vol_audio(double Vol_audio);
     void Vol_translate(double Vol_translate);
@@ -129,6 +128,5 @@ private:
     std::set<std::string> _urls;
     bool _test{false};
 };
-
 
 } // namespace dtv

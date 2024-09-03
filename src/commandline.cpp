@@ -41,11 +41,6 @@ void CommandLine::Write_description(bool Write_description)
     _write_description = Write_description;
 }
 
-// fs::path CommandLine::Temp_dir() const
-// {
-//     return _temp_dir;
-// }
-
 void CommandLine::Temp_dir(const fs::path &temp_dir)
 {
     if(!_output)
@@ -148,9 +143,9 @@ std::string CommandLine::Translate_to_lang() const
     return _translate_to_lang;
 }
 
-void CommandLine::Translate_to_lang(const std::string &Translate_to_lang)
+void CommandLine::Translate_to_lang(const std::string &translate_to_lang)
 {
-    _translate_to_lang = Translate_to_lang;
+    _translate_to_lang = translate_to_lang;
 }
 
 bool CommandLine::No_translate() const
@@ -158,9 +153,9 @@ bool CommandLine::No_translate() const
     return _no_translate;
 }
 
-void CommandLine::No_translate(bool No_translate)
+void CommandLine::No_translate(bool no_translate)
 {
-    _no_translate = No_translate;
+    _no_translate = no_translate;
 }
 
 bool CommandLine::Only_translate() const
@@ -168,9 +163,9 @@ bool CommandLine::Only_translate() const
     return _only_translate;
 }
 
-void CommandLine::Only_translate(bool Only_translate)
+void CommandLine::Only_translate(bool only_translate)
 {
-    _only_translate = Only_translate;
+    _only_translate = only_translate;
 }
 
 fs::path CommandLine::Replace_audio() const
@@ -178,9 +173,9 @@ fs::path CommandLine::Replace_audio() const
     return _replace_audio;
 }
 
-void CommandLine::Replace_audio(const fs::path &Replace_audio)
+void CommandLine::Replace_audio(const fs::path &replace_audio)
 {
-    _replace_audio = Replace_audio;
+    _replace_audio = replace_audio;
 }
 
 fs::path CommandLine::Replace_translate() const

@@ -1,5 +1,7 @@
 #include "formater.h"
 
+#include <map>
+
 namespace dtv {
 
 Formater::Formater(Video const& video, CommandLine const& line): _video{video}, _line{line}
@@ -10,13 +12,11 @@ std::any Formater::GetFormat(const FORMAT eformat) const
 {
     const int closest = findClosest(_line.Height());
 
-    // сохранять mp4 webm для определеного разрешения?
     std::map<std::string, Format> _mvideo;
     std::map<std::string, Format> _maudio;
 
     for(Format const& format: _video.formats){
         if (format.height == closest && format.video_ext != "none"){
-            // videos.emplace_back(format);
             if(eformat == FORMAT::FirstClosestVideo)
                 return format;
 
@@ -28,7 +28,6 @@ std::any Formater::GetFormat(const FORMAT eformat) const
         }
 
         if(format.resolution == "audio only"){            
-            // audios.emplace_back(format);
             if(eformat == FORMAT::FirstClosestAudio)
                 return format;
 

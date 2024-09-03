@@ -7,6 +7,7 @@ namespace dtv {
 class YtdlpEngine;
 class VotcliEngine;
 class FfmpegEngine;
+class Cmd;
 
 class Engine
 {
@@ -15,27 +16,25 @@ public:
 
     // Yt-dlp
     static void DownloadJson(boost::urls::url_view url);
-    void DownloadVideo(); // тут сразу готовое видео
-    void DownloadSubtitles(); // ? Надо протестировать возможности скачивания, но скорей всего будут говно сабы с автогенерацией и не на всех сайтах
+    void DownloadVideo();
+    void DownloadSubtitles();
     // vot-cli
     void DownloadVoice();
-    // virtual void DownloadSubtitles();
     void DownloadAnotation();
     // Ffmpeg
-    void Merge(); // что пустое то не мержим
+    void Merge();
 
 private:
     std::unique_ptr<YtdlpEngine > _pYtdlpEngine;
     std::unique_ptr<VotcliEngine> _pVotcliEngine;
     std::unique_ptr<FfmpegEngine> _pFfmpegEngine;
+    std::unique_ptr<Cmd>          _pCmd;
 
 };
 
 class YtdlpEngine final{
 public:
     explicit YtdlpEngine(const Video &video, const CommandLine &line);
-
-    // void DownloadJson();
     void DownloadVideo();
     void DownloadSubtitles();
 private:
@@ -70,4 +69,12 @@ private:
     } _split_video;
 };
 
+class Cmd final{
+public:
+    explicit Cmd(const CommandLine &line);
+    bool ExecAfter();
+    bool ExecBefore();
+private:
+    CommandLine const& _line;
+};
 } // namespace dtv

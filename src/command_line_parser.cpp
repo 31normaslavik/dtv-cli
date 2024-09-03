@@ -17,7 +17,7 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
     opt::options_description audio("Audio", line_length);
     opt::options_description subtitle("Subtitle");
     opt::options_description network("Network");
-    opt::options_description processing("Pre/Post-Processing");
+    opt::options_description processing("Pre/Post-Processing", line_length);
     opt::options_description hide("Hide");
     opt::options_description debug("Debug", line_length);
     opt::options_description visible("Options");
@@ -34,11 +34,11 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
 
     filesystem.add_options()
         ("output,o",
-         opt::value<fs::path>()->default_value(fs::current_path()),
+         opt::value<std::string>()->default_value(fs::current_path()),
          "Path to save")
-        ("no-overwrites","Do not overwrite any files")
+        ("no-overwrites","Do not overwrite exist files")
         // ("write-description","")
-        ("temp_dir", opt::value<fs::path>() ,"Changing temporary path")
+        ("temp-dir", opt::value<std::string>() ,"Changing temporary path")
         ;
 
     verbosity.add_options()
@@ -63,12 +63,12 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         ;
 
     audio.add_options()
-        ("translate-from-lang", opt::value<std::string>()->default_value("en"),"The original language. The language must match the real one in the video!!!")
-        ("translate-to-lang", opt::value<std::string>()->default_value("ru"),"The language to be translated into")
-        ("no-translate", "Don't translate videos and simply download video")
-        ("only-translate", "Save only the audio translation")
-        ("replace-audio", opt::value<fs::path>(),"Replace the audio in the video with your own")
-        ("replace-translate", opt::value<fs::path>(),"Replace the audio-to-video translation with your own")
+        ("translate-from-lang,l", opt::value<std::string>()->default_value("en"),"The original language. The language must match the real one in the video!!!")
+        ("translate-to-lang,L", opt::value<std::string>()->default_value("ru"),"The language to be translated into")
+        ("no-translate,t", "Don't translate videos and simply download video")
+        ("only-translate,T", "Save only the audio translation")
+        ("replace-audio", opt::value<std::string>(),"Replace the audio in the video with your own")
+        ("replace-translate", opt::value<std::string>(),"Replace the audio-to-video translation with your own")
         ("vol-audio", opt::value<int>()->default_value(25),"The sound level of the original audio")
         ("vol-translate", opt::value<int>()->default_value(100),"Audio translation sound level")
         ("save-translation","Create a video with a translation and a separate translation next to the video")
@@ -77,8 +77,8 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         ;
 
     subtitle.add_options()
-        ("write-subs","Download subtitles")
-        ("sub-lang", opt::value<std::string>()->default_value("ru"),"Subtitles language")
+        ("write-subs,s","Download subtitles")
+        ("sub-lang,S", opt::value<std::string>()->default_value("ru"),"Subtitles language")
         // ("write-auto-subs","")
         // ("list-subs","")
         // ("sub-format", opt::value<std::string>()->default_value("srt"),"")
@@ -94,8 +94,8 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         ;
 
     processing.add_options()
-        // ("exec-after","")
-        // ("exec-before","")
+        ("exec-after","Execute a command after download videos")
+        ("exec-before","Execute a command before download videos")
         ;
 
     hide.add_options()
@@ -148,7 +148,7 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
      * FILESYSTEM
      */
     if (vm.contains("output")) {
-        fs::path const &output = vm["output"].as<fs::path>();
+        fs::path const &output = vm["output"].as<std::string>();
         line.Output(output);
     }
     if (vm.contains("no-overwrites,w")) {
@@ -157,8 +157,8 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
     if (vm.contains("write-description")) {
         line.Write_description(true);
     }
-    if (vm.contains("temp_dir")) {
-        fs::path const &temp_dir_path = vm["temp_dir"].as<fs::path>();
+    if (vm.contains("temp-dir")) {
+        fs::path const &temp_dir_path = vm["temp-dir"].as<std::string>();
         line.Output(temp_dir_path);
     }
 
@@ -226,12 +226,12 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         line.Only_translate(true);
     }
     if (vm.contains("replace-audio")) {
-        fs::path const &replace_audio = vm["replace-audio"].as<fs::path>();
+        fs::path const &replace_audio = vm["replace-audio"].as<std::string>();
         line.Replace_audio(replace_audio);
     }
     if (vm.contains("replace-translate")) {
         fs::path const &replace_translate =
-            vm["replace-translate"].as<fs::path>();
+            vm["replace-translate"].as<std::string>();
         line.Replace_translate(replace_translate);
     }
     if (vm.contains("vol-audio")) {
