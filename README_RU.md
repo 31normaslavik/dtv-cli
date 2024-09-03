@@ -1,12 +1,10 @@
 # dtv-cli
+## [ENGLISH](https://github.com/31normaslavik/dtv-cli/blob/main/README.md)
+### Скачивание роликов, плейлистов с переводом и субтитрами от нейросети Yandex.
+### Какие ресурсы доступны для перевода:
+## [Ресурсы](https://github.com/FOSWLY/vot-cli/wiki/%5BEN%5D-Supported-sites)
 
-## [РУССКИЙ](https://github.com/31normaslavik/dtv-cli/blob/main/README_RU.md)
-
-### Downloading videos, playlists with translation and subtitles from the Yandex neural network
-### What resources are available for translation:
-## [Resources](https://github.com/FOSWLY/vot-cli/wiki/%5BEN%5D-Supported-sites)
-
-### DEPENDENCIES
+### ЗАВИСИМОСТИ
 ## [vot-cli](https://github.com/FOSWLY/vot-cli)
 
 ## [yt-dlp](https://github.com/yt-dlp/yt-dlp)
@@ -15,7 +13,8 @@
 
 ## [Boost](https://www.boost.org/)
 
-### INSTALL
+### УСТАНОВКА
+
 
 #### LINUX WINDOWS
 ```
@@ -25,8 +24,7 @@ cmake -H. -B_build && \
 sudo cmake --build _build --target install --config Release
 
 ```
-
-### HOW USE
+### КАК ИСПОЛЬЗОВАТЬ
 ```
 If the specified path does not exist, the program will try to create the missing directories.
 
