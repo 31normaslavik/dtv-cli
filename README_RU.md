@@ -2,17 +2,16 @@
 ```
 
 ```
-### РУССКИЙ
-### Downloading videos, playlists with translation and subtitles from the Yandex neural network
+### ENGLISH
+### Скачивание роликов, плейлистов с переводом и субтитрами от нейросети Yandex.
 ```
-
 ```
-### What resources are available for translation:
+### Какие ресурсы доступны для перевода:
 [watch this](https://github.com/FOSWLY/vot-cli/wiki/%5BEN%5D-Supported-sites)
 ```
 
 ```
-### DEPENDENCIES
+### ЗАВИСИМОСТИ
 [vot-cli](https://github.com/FOSWLY/vot-cli)
 
 [yt-dlp](https://github.com/yt-dlp/yt-dlp)
@@ -24,8 +23,8 @@
 ```
 
 ```
+### УСТАНОВКА
 
-### INSTALL
 
 #### LINUX WINDOWS
 ```
@@ -35,8 +34,7 @@ cmake -H. -B_build && \
 sudo cmake --build _build --target install --config Release
 
 ```
-
-### HOW USE
+### КАК ИСПОЛЬЗОВАТЬ
 ```
 If the specified path does not exist, the program will try to create the missing directories.
 
