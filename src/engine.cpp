@@ -142,13 +142,13 @@ void dtv::FfmpegEngine::Merge()
     }
 
     if (_split_video.video.empty())
-        messageln("The main video track was not found");
+        debugln("The main video track was not found");
 
     if (_split_video.voice.empty())
-        messageln("The voice translation could not be downloaded");
+        debugln("The voice translation was not found");
 
     if (_split_video.audio.empty())
-        messageln("The replace audio track was not found");
+        debugln("The replace audio track was not found");
 
     const std::string str_tmp{"/@#$%^&*()+={}[]\\|;'\",<>/?| `~"};
 
@@ -176,11 +176,9 @@ void dtv::FfmpegEngine::Merge()
     _split_video.output = new_title /*+ split_video_.output_*/;
 
     //////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////
+    /// MERGE ////////////////////////////////////////////////////////////////////
     /// //////////////////////////////////////////////////////////////////////////
     int result{};
-    //Don't translate videos and simply download video
-    bool no_translate = _line.No_translate();
     // Replace the audio in the video with your own
     bool custom_audio = !_line.Replace_audio().empty();
     // Replace the audio-to-video translation with your own
@@ -188,10 +186,12 @@ void dtv::FfmpegEngine::Merge()
 
     auto merge = [this, &result](){
 
-        if(_line.No_translate())
+        if(_line.Only_translate()){
+            if(_split_video.voice.empty())
+                throw std::invalid_argument("The translation file was not found");
             return;
-        if(_line.Only_translate())
-            return;
+        }
+
 
         Formater format(_video, _line);
         std::any a = format.GetFormat(FORMAT::FirstClosestVideo);
@@ -199,18 +199,81 @@ void dtv::FfmpegEngine::Merge()
         if(a.has_value())
             f = std::any_cast<Format>(a);
 
-        if(!_split_video.video.empty() && !_split_video.voice.empty() &&
-            !_split_video.output.empty()){
-            std::string command = std::format("ffmpeg -i \"{0}\" -i \"{1}\" {5} -filter_complex amix=inputs=2:duration=first:dropout_transition=0:weights=\"{2}\":normalize=1 -y \"{3}.{4}\"",
-                _split_video.video.string(), _split_video.voice.string(),
-                std::format(std::locale("en_US.utf8"), "{} {}", _line.Vol_audio(), _line.Vol_translate()),
-                _split_video.output.string(), !_line.Merge_output_extension().empty() ? _line.Merge_output_extension() : _line.Extension(),
-                _line.Write_subs() && !_split_video.subtitles.filename().string().empty() ? "-b:v "
-                  + (a.has_value() ? std::format(std::locale("en_US.utf8"),"{}", f.size > 0 ? f.size * 8 : f.tbr * 8) : "2M")
-                  + " -vf subtitles=" + _split_video.subtitles.filename().string() : "-c:v copy"
-                );
+        if(_line.No_translate()){
+            if(_split_video.video.empty())
+                throw std::invalid_argument("The video file was not found");
+            if(!_line.Replace_audio().empty() && !_split_video.output.empty()){
+                std::string const command{
+                    std::format("ffmpeg -i \"{0}\" -i \"{1}\" -map 0 -map -0:a -map 1:a {4} -b:a 180K -shortest -y \"{2}.{3}\"",
+                        _split_video.video.string(),
+                        _split_video.audio.string(),
+                        _split_video.output.string(),
+                        !_line.Merge_output_extension().empty() ? _line.Merge_output_extension() : _line.Extension(),
+                         _line.Write_subs() && !_split_video.subtitles.filename().string().empty() ? "-b:v "
+                         + (a.has_value() ? std::format(std::locale("en_US.utf8"),"{}", f.size > 0 ? f.size * 8 : f.tbr * 8) : "2M")
+                         + " -vf subtitles=" + _split_video.subtitles.filename().string() : "-c:v copy"
+                        )};
+               debugln("Command merge video+replace audio: {}", command);
+               result = std::system(command.c_str());
+               debugln("Result: {}", result);
 
-            debugln("Command merge video+audio+subtitles: {}", command);
+               if(fs::remove(_split_video.video))
+                   _split_video.video.clear();
+               if(fs::remove(_split_video.subtitles))
+                   _split_video.subtitles.clear();
+            }
+            return;
+        }
+
+        if(!_split_video.video.empty() && !_split_video.voice.empty() &&
+            !_split_video.output.empty() && _line.Replace_audio().empty()){
+            std::string const command{std::format("ffmpeg -i \"{0}\" -i \"{1}\" {5} -filter_complex amix=inputs=2:duration=first:dropout_transition=0:weights=\"{2}\":normalize=1 -y \"{3}.{4}\"",
+                _split_video.video.string(),
+                !_line.Replace_translate().empty() ? _line.Replace_translate().string() : _split_video.voice.string(),
+                std::format(std::locale("en_US.utf8"), "{} {}", _line.Vol_audio(), _line.Vol_translate()),
+                _split_video.output.string(),
+                !_line.Merge_output_extension().empty() ? _line.Merge_output_extension() : _line.Extension(),
+                _line.Write_subs() && !_split_video.subtitles.filename().string().empty() ? "-b:v "
+                   + (a.has_value() ? std::format(std::locale("en_US.utf8"),"{}", f.size > 0 ? f.size * 8 : f.tbr * 8) : "2M")
+                   + " -vf subtitles=" + _split_video.subtitles.filename().string() : "-c:v copy"
+                )};
+
+            debugln("Command merge video+voice+subtitles: {}", command);
+            result = std::system(command.c_str());
+            debugln("Result: {}", result);
+
+            if(fs::remove(_split_video.video))
+                _split_video.video.clear();
+            if(fs::remove(_split_video.voice))
+                _split_video.voice.clear();
+            if(fs::remove(_split_video.subtitles))
+                _split_video.subtitles.clear();
+        }
+
+/*
+ffmpeg -i {video} -i {voice} -i {audio} -filter_complex \
+"[1:a]volume=1[a1]; [2:a]volume=0.15[a2]; [a1][a2]amix=inputs=2:duration=first:dropout_transition=0:normalize=1[a]" \
+-map 0:v -map "[a]" -c:v copy {output}.{mp4} ;
+*/
+
+        if(!_split_video.video.empty() && !_split_video.voice.empty() &&
+            !_split_video.output.empty() && !_line.Replace_audio().empty()){ // FIXME
+            std::string const command{std::format("ffmpeg -i \"{0}\" -i \"{1}\" -i \"{2}\" "
+                "-filter_complex \"[1:a]volume={4}[a1]; [2:a]volume={3}[a2]; [a1][a2]amix=inputs=2:duration=first:dropout_transition=0:normalize=1[a]\" "
+                "-map 0:v -map \"[a]\" {7} -y \"{5}.{6}\"",
+                _split_video.video.string(),
+                !_line.Replace_translate().empty() ? _line.Replace_translate().string() : _split_video.voice.string(),
+                _line.Replace_audio().string(),
+                std::format(std::locale("en_US.utf8"), "{}", _line.Vol_audio()) ,
+                std::format(std::locale("en_US.utf8"), "{}", _line.Vol_translate()),
+                _split_video.output.string(),
+                !_line.Merge_output_extension().empty() ? _line.Merge_output_extension() : _line.Extension(),
+                _line.Write_subs() && !_split_video.subtitles.filename().string().empty() ? "-b:v "
+                    + (a.has_value() ? std::format(std::locale("en_US.utf8"),"{}", f.size > 0 ? f.size * 8 : f.tbr * 8) : "2M")
+                    + " -vf subtitles=" + _split_video.subtitles.filename().string() : "-c:v copy"
+                )};
+
+            debugln("Command merge video+voice+replace audio+subtitles: {}", command);
             result = std::system(command.c_str());
             debugln("Result: {}", result);
 
@@ -227,7 +290,6 @@ void dtv::FfmpegEngine::Merge()
     };
 
     merge();
-
     ///////////////////////////////////////////////////////////////////////////
     /// ///////////////////////////////////////////////////////////////////////
     /// ///////////////////////////////////////////////////////////////////////
@@ -241,28 +303,34 @@ void dtv::FfmpegEngine::Merge()
         }
     }
 
+    if(_line.Only_translate())
+        _split_video.video = _split_video.voice;
+
     if(_split_video.video.empty())
         throw std::runtime_error("Not inicialiset video object");
 
     std::error_code ec;
     if(!_line.No_overwrites()){
         fs::rename(_split_video.video,
-            _line.Output()->GetPathToSave() / _split_video.video.filename(), ec);
+                   _line.Output()->GetPathToSave() /
+                       (_split_video.output.filename().string() + _split_video.video.filename().extension().string()), ec);
     }
 
     if(ec){
         std::cerr << ec.message() << " : " << ec.value()<<"\n";
         if(!_line.No_overwrites()){
             fs::copy_file(_split_video.video,
-                          _line.Output()->GetPathToSave() / _split_video.video.filename() ,
+                          _line.Output()->GetPathToSave() /
+                              (_split_video.output.filename().string() + _split_video.video.filename().extension().string()),
                           fs::copy_options::overwrite_existing);
         }else{
             fs::copy_file(_split_video.video,
-                          _line.Output()->GetPathToSave() / _split_video.video.filename() ,
+                          _line.Output()->GetPathToSave() /
+                              (_split_video.output.filename().string() + _split_video.video.filename().extension().string()),
                           fs::copy_options::skip_existing);
         }
         if(fs::remove(_split_video.video)){
-            std::cout << "File: " << _split_video.video << " sussefuly removed\n";
+            std::cout << "File: " << _split_video.video << " successfully deleted after copying\n";
         }else{
             std::cout << "File: " << _split_video.video << " not removed\n";
         }
