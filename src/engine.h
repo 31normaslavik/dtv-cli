@@ -60,13 +60,13 @@ private:
     Video       const& _video;
     CommandLine const& _line;
 
-    struct SplitVideoData {
+    struct MediaParts {
         fs::path video;
         fs::path voice;
         fs::path audio;
         fs::path output;
         fs::path subtitles;
-    } _split_video;
+    } _mediaParts;
 };
 
 class Cmd final{

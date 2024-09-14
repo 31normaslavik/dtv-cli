@@ -2,6 +2,11 @@
 
 namespace dtv {
 
+auto Video::GetSign(const boost::json::value *p)
+{
+    return p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+}
+
 Video tag_invoke(const bj::value_to_tag<Video> &, const boost::json::value &jv)
 {
     Video v;
@@ -38,16 +43,17 @@ Video tag_invoke(const bj::value_to_tag<Video> &, const boost::json::value &jv)
     if(p = obj.if_contains("creator"); p)
         v.creator = p->get_string(); // (string): The creators of the video; comma-separated
     p = obj.if_contains("timestamp"); // (numeric): UNIX timestamp of the moment the video became available
-    v.timestamp = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.timestamp = Video::GetSign(p);
     if(p = obj.if_contains("upload_date"); p)
         v.upload_date = p->get_string(); // (string): Video upload date in UTC (YYYYMMDD)
     p = obj.if_contains("release_timestamp"); // (numeric): UNIX timestamp of the moment the video was released
-    v.release_timestamp = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
-    if(p = obj.if_contains("release_date"); p)v.release_date = obj.if_contains("release_date")->get_string(); // (string): The date (YYYYMMDD) when the video was released in UTC
+        v.release_timestamp = Video::GetSign(p);
+    if(p = obj.if_contains("release_date"); p)
+        v.release_date = obj.if_contains("release_date")->get_string(); // (string): The date (YYYYMMDD) when the video was released in UTC
     p = obj.if_contains("release_year"); // (numeric): Year (YYYY) when the video or album was released
-    v.release_year = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.release_year = static_cast<int64_t>(Video::GetSign(p));
     p = obj.if_contains("modified_timestamp"); // (numeric): UNIX timestamp of the moment the video was last modified
-    v.modified_timestamp = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.modified_timestamp = static_cast<double>(Video::GetSign(p));
     if(p = obj.if_contains("modified_date"); p)
         v.modified_date = p->get_string(); // (string): The date (YYYYMMDD) when the video was last modified in UTC
     if(p = obj.if_contains("channel"); p)
@@ -57,31 +63,31 @@ Video tag_invoke(const bj::value_to_tag<Video> &, const boost::json::value &jv)
     if(p = obj.if_contains("channel_url"); p)
         v.channel_url = p->get_string(); // (string): URL of the channel
     p = obj.if_contains("channel_follower_count"); // (numeric): Number of followers of the channel
-    v.channel_follower_count = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.channel_follower_count = static_cast<double>(Video::GetSign(p));
     if (p = obj.if_contains("channel_is_verified"); p)
         v.channel_is_verified = p->get_bool(); // (boolean): Whether the channel is verified on the platform
     if(p = obj.if_contains("location"); p)
         v.location = p->get_string(); // (string): Physical location where the video was filmed
     p = obj.if_contains("duration"); // (numeric): Length of the video in seconds
-    v.duration = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.duration = static_cast<double>(Video::GetSign(p));
     if(p = obj.if_contains("duration_string"); p)
         v.duration_string = p->get_string(); // (string): Length of the video (HH:mm:ss)
     p = obj.if_contains("view_count"); // (numeric): How many users have watched the video on the platform
-    v.view_count = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.view_count = static_cast<int64_t>(Video::GetSign(p));
     p = obj.if_contains("concurrent_view_count"); // (numeric): How many users are currently watching the video on the platform.
-    v.concurrent_view_count = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.concurrent_view_count = static_cast<int64_t>(Video::GetSign(p));
     p = obj.if_contains("like_count"); // (numeric): Number of positive ratings of the video
-    v.like_count = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.like_count = static_cast<int64_t>(Video::GetSign(p));
     p = obj.if_contains("dislike_count"); // (numeric): Number of negative ratings of the video
-    v.dislike_count = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.dislike_count = static_cast<int64_t>(Video::GetSign(p));
     p = obj.if_contains("repost_count"); // (numeric): Number of reposts of the video
-    v.repost_count = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.repost_count = static_cast<int64_t>(Video::GetSign(p));
     p = obj.if_contains("average_rating"); // (numeric): Average rating give by users, the scale used depends on the webpage
-    v.average_rating = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.average_rating = Video::GetSign(p);
     p = obj.if_contains("comment_count"); // (numeric): Number of comments on the video (For some extractors, comments are only downloaded at the end, and so this field cannot be used)
-    v.comment_count = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.comment_count = static_cast<int64_t>(Video::GetSign(p));
     p = obj.if_contains("age_limit"); // (numeric): Age restriction for the video (years)
-    v.age_limit = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.age_limit = static_cast<int64_t>(Video::GetSign(p));
     if(p = obj.if_contains("live_status"); p)
         v.live_status = p->get_string(); // (string): One of "not_live", "is_live", "is_upcoming", "was_live", "post_live" (was live, but VOD is not yet processed)
     if(p = obj.if_contains("is_live"); p)
@@ -95,21 +101,21 @@ Video tag_invoke(const bj::value_to_tag<Video> &, const boost::json::value &jv)
     if(p = obj.if_contains("media_type"); p)
         v.media_type = p->get_string(); // (string): The type of media as classified by the site, e.g. "episode", "clip", "trailer"
     p = obj.if_contains("start_time"); // (numeric): Time in seconds where the reproduction should start, as specified in the URL
-    v.start_time = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.start_time = Video::GetSign(p);
     p = obj.if_contains("end_time"); // (numeric): Time in seconds where the reproduction should end, as specified in the URL
-    v.end_time = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.end_time = Video::GetSign(p);
     if(p = obj.if_contains("extractor"); p)
         v.extractor = p->get_string(); // (string): Name of the extractor
     if(p = obj.if_contains("extractor_key"); p)
         v.extractor_key = p->get_string(); // (string): Key name of the extractor
     p = obj.if_contains("epoch"); // (numeric): Unix epoch of when the information extraction was completed
-    v.epoch = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.epoch = Video::GetSign(p);
     p = obj.if_contains("autonumber"); // (numeric): Number that will be increased with each download, starting at --autonumber-start, padded with leading zeros to 5 digits
-    v.autonumber = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.autonumber = static_cast<int64_t>(Video::GetSign(p));
     p = obj.if_contains("video_autonumber"); // (numeric): Number that will be increased with each video
-    v.video_autonumber = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.video_autonumber = static_cast<int64_t>(Video::GetSign(p));
     p = obj.if_contains("n_entries"); // (numeric): Total number of extracted items in the playlist
-    v.n_entries = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.n_entries = static_cast<int64_t>(Video::GetSign(p));
     if(p = obj.if_contains("playlist_id"); p)
         v.playlist_id = p->get_string(); // (string): Identifier of the playlist that contains the video
     if(p = obj.if_contains("playlist_title"); p)
@@ -117,11 +123,11 @@ Video tag_invoke(const bj::value_to_tag<Video> &, const boost::json::value &jv)
     if(p = obj.if_contains("playlist"); p)
         v.playlist = p->get_string(); // (string): playlist_id or playlist_title
     p = obj.if_contains("playlist_count"); // (numeric): Total number of items in the playlist. May not be known if entire playlist is not extracted
-    v.playlist_count = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.playlist_count = static_cast<int64_t>(Video::GetSign(p));
     p = obj.if_contains("playlist_index"); // (numeric): Index of the video in the playlist padded with leading zeros according the final index
-    v.playlist_index = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.playlist_index = static_cast<int64_t>(Video::GetSign(p));
     p = obj.if_contains("playlist_autonumber"); // (numeric): Position of the video in the playlist download queue padded with leading zeros according to the total length of the playlist
-    v.playlist_autonumber = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+        v.playlist_autonumber = static_cast<int64_t>(Video::GetSign(p));
     if(p = obj.if_contains("playlist_uploader"); p)
         v.playlist_uploader = p->get_string(); // (string): Full name of the playlist uploader
     if(p = obj.if_contains("playlist_uploader_id"); p)
@@ -138,7 +144,7 @@ Video tag_invoke(const bj::value_to_tag<Video> &, const boost::json::value &jv)
         v.categories = bj::value_to<std::vector<std::string>>(*p);
     if(obj.if_contains("tags"), p) // (list): List of tags assigned to the video
         v.tags = bj::value_to<std::vector<std::string>>(*p);
-    if(obj.if_contains("cast"), p) // (list): List of cast members
+    if(obj.if_contains("cast"), p != nullptr) // (list): List of cast members
         v.cast = bj::value_to<std::vector<std::string>>(*p);
 
     return v;
@@ -186,14 +192,15 @@ std::vector<Format> tag_invoke(const bj::value_to_tag<std::vector<Format> > &, c
             format.format = p->get_string();
 
         p = o.if_contains("tbr");
-        format.tbr = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+            format.tbr = Video::GetSign(p);
         p = o.if_contains("vbr");
-        format.vbr = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+            format.vbr = Video::GetSign(p);
         p = o.if_contains("abr");
-        format.abr = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+            format.abr = Video::GetSign(p);
 
         p = o.if_contains("fps");
-        format.fps = p ? p->is_double() ? p->get_double() : p->is_int64() ? p->get_int64() : -1 : -1;
+            format.fps = Video::GetSign(p);
+
         vf.emplace_back(std::move(format));
     }
     return vf;

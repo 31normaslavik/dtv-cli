@@ -22,6 +22,7 @@ TEST_F(VideoTest, ExtractorYoutube1)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
+    ifs.close();
 
     // ASSERT_TRUE(v);
 
@@ -33,7 +34,7 @@ TEST_F(VideoTest, ExtractorYoutube2)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -44,7 +45,7 @@ TEST_F(VideoTest, ExtractorYoutube3)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -54,7 +55,7 @@ TEST_F(VideoTest, ExtractorYoutube4)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -64,7 +65,7 @@ TEST_F(VideoTest, ExtractorYoutube5)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -74,7 +75,7 @@ TEST_F(VideoTest, ExtractorPornHub)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -84,7 +85,7 @@ TEST_F(VideoTest, ExtractorRuTube)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -94,7 +95,7 @@ TEST_F(VideoTest, ExtractorTwitch)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -104,7 +105,7 @@ TEST_F(VideoTest, ExtractorTikTok1)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -114,7 +115,7 @@ TEST_F(VideoTest, ExtractorTikTok2)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -124,7 +125,7 @@ TEST_F(VideoTest, ExtractorTikTok3)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -134,7 +135,7 @@ TEST_F(VideoTest, ExtractorMailRu1)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -145,7 +146,7 @@ TEST_F(VideoTest, ExtractorMailRu2)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -155,7 +156,7 @@ TEST_F(VideoTest, ExtractorVimeo)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -165,7 +166,7 @@ TEST_F(VideoTest, ExtractorBiliBili)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -175,7 +176,7 @@ TEST_F(VideoTest, ExtractorVkRu)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -185,7 +186,7 @@ TEST_F(VideoTest, ExtractorVkCom1)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -195,7 +196,7 @@ TEST_F(VideoTest, ExtractorVkCom2)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -205,7 +206,7 @@ TEST_F(VideoTest, ExtractorVkCom3)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -215,7 +216,7 @@ TEST_F(VideoTest, ExtractorXvideosCom)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }
@@ -225,7 +226,7 @@ TEST_F(VideoTest, ExtractorNineGag)
     ASSERT_TRUE(ifs.is_open());
     boost::json::value const v = boost::json::parse(ifs);
     video = boost::json::value_to<dtv::Video>(std::move(v));
-
+    ifs.close();
     // ASSERT_TRUE(v);
 
 }

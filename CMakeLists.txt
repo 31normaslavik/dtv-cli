@@ -1,17 +1,15 @@
-cmake_minimum_required(VERSION 3.24.2)
+cmake_minimum_required(VERSION 3.10.0)
 
-project(dtv-cli VERSION 2.0.1 LANGUAGES CXX)
+project(dtv-cli VERSION 2.0.2 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# if(LINUX)
-# set(CMAKE_CXX_FLAGS
-#     "${CMAKE_CXX_FLAGS} -Wall -Werror -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs "
-#     "-Wmissing-declarations -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 "
-#     "-Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option")
-# message("CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
-# endif()
+if(LINUX AND ${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -W -Wshadow -Waddress -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wconversion -Wredundant-decls -Warray-bounds=1 -O2")
+    message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
+    message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
+endif()
 
 # if(MSVC)
 # set(CMAKE_CXX_FLAGS

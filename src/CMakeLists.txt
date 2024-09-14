@@ -25,16 +25,16 @@ else()
 endif()
 
 add_library(downloader STATIC
-    command_line_parser.cpp
-    commandline.cpp
-    downloader.cpp
-    extractor.cpp
-    fs_directories.cpp
-    video.cpp
-
-    formater.h formater.cpp
-    debug.h
-    engine.h engine.cpp
+    command_line_parser.cpp command_line_parser.h
+    commandline.cpp         commandline.h
+    downloader.cpp          downloader.h
+    extractor.cpp           extractor.h
+    fs_directories.cpp      fs_directories.h
+    video.cpp               video.h
+    formater.cpp            formater.h
+    engine.cpp              engine.h
+                            debug.h
+                            helper.h
 )
 
 configure_file(version.cpp.in version.cpp @ONLY)
@@ -42,13 +42,13 @@ add_library(version STATIC ${CMAKE_CURRENT_BINARY_DIR}/version.cpp version.h)
 
 add_executable(dtv-cli main.cpp)
 
-message("CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
-message("Boost_LIBRARIES: ${Boost_LIBRARIES}")
+message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
+message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
 
-target_link_libraries(dtv-cli PUBLIC downloader ${Boost_LIBRARIES})
-target_link_libraries(dtv-cli PUBLIC version)
+target_link_libraries(dtv-cli PRIVATE downloader ${Boost_LIBRARIES})
+target_link_libraries(dtv-cli PRIVATE version)
 
-target_include_directories(downloader PUBLIC .)
+target_include_directories(downloader PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(version PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 include(GNUInstallDirs)

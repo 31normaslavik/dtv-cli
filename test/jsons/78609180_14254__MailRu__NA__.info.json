@@ -1,1 +1,88 @@
-{"id": "78609180_14254", "title": "One More Dungeon 2 - Trailer", "thumbnail": "http://filed6-16.my.mail.ru/pic?url=http%3A%2F%2Fmy.mail.ru%2F%2B%2Fvideo%2Furl%2Fsc03%2F-5317169498194&sigt=c631a08c2bcd07a122d832f1993ebb5f&ts=1717593482", "timestamp": 1716755232, "uploader": "mir", "uploader_id": "mir", "duration": 95, "formats": [{"url": "http://cdn8.my.mail.ru/v/78609180.mp4?slave[]=s%3Ahttp%3A%2F%2F10.146.243.3%3A9090%2Fvideo4%2F78609180-v&p=f&expire_at=1717603200&touch=1716755235&reg=188&sign=617597eb409fcbb8e1b2fa2684f717735b9d8299", "format_id": "360p", "height": 360, "ext": "mp4", "protocol": "http", "resolution": "360p", "dynamic_range": "SDR", "cookies": "video_key=de1b54972f586943b498328787e9be192fe743cb; Domain=cdn8.my.mail.ru; Path=/", "http_headers": {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.54 Safari/537.36", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language": "en-us,en;q=0.5", "Sec-Fetch-Mode": "navigate"}, "video_ext": "mp4", "audio_ext": "none", "format": "360p - 360p"}, {"url": "http://cdn8.my.mail.ru/hv/78609180.mp4?slave[]=s%3Ahttp%3A%2F%2F10.146.243.4%3A9090%2Fvideo4%2F78609180-hv&p=f&expire_at=1717603200&touch=1716755235&reg=188&sign=3a9d219390418045e66730665ac74d1ba4c56003", "format_id": "720p", "height": 720, "ext": "mp4", "protocol": "http", "resolution": "720p", "dynamic_range": "SDR", "cookies": "video_key=de1b54972f586943b498328787e9be192fe743cb; Domain=cdn8.my.mail.ru; Path=/", "http_headers": {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.54 Safari/537.36", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language": "en-us,en;q=0.5", "Sec-Fetch-Mode": "navigate"}, "video_ext": "mp4", "audio_ext": "none", "format": "720p - 720p"}], "webpage_url": "https://my.mail.ru/community/mir/video/_groupvideo/14254.html", "webpage_url_basename": "14254.html", "webpage_url_domain": "my.mail.ru", "extractor": "mailru", "extractor_key": "MailRu", "thumbnails": [{"url": "http://filed6-16.my.mail.ru/pic?url=http%3A%2F%2Fmy.mail.ru%2F%2B%2Fvideo%2Furl%2Fsc03%2F-5317169498194&sigt=c631a08c2bcd07a122d832f1993ebb5f&ts=1717593482", "id": "0"}], "display_id": "78609180_14254", "fulltitle": "One More Dungeon 2 - Trailer", "duration_string": "1:35", "upload_date": "20240526", "epoch": 1717589882, "url": "http://cdn8.my.mail.ru/hv/78609180.mp4?slave[]=s%3Ahttp%3A%2F%2F10.146.243.4%3A9090%2Fvideo4%2F78609180-hv&p=f&expire_at=1717603200&touch=1716755235&reg=188&sign=3a9d219390418045e66730665ac74d1ba4c56003", "format_id": "720p", "height": 720, "ext": "mp4", "protocol": "http", "resolution": "720p", "dynamic_range": "SDR", "cookies": "video_key=de1b54972f586943b498328787e9be192fe743cb; Domain=cdn8.my.mail.ru; Path=/", "http_headers": {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.54 Safari/537.36", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language": "en-us,en;q=0.5", "Sec-Fetch-Mode": "navigate"}, "video_ext": "mp4", "audio_ext": "none", "format": "720p - 720p", "_type": "video", "_version": {"version": "2024.05.26", "release_git_head": "ae2af1104f80caf2f47544763a33db2c17a3e1de", "repository": "yt-dlp/yt-dlp"}}
+{
+    "id": "78609180_14254",
+    "title": "One More Dungeon 2 - Trailer",
+    "thumbnail": "http://filed6-16.my.mail.ru/pic?url=http%3A%2F%2Fmy.mail.ru%2F%2B%2Fvideo%2Furl%2Fsc03%2F-5317169498194&sigt=c631a08c2bcd07a122d832f1993ebb5f&ts=1717593482",
+    "timestamp": 1716755232,
+    "uploader": "mir",
+    "uploader_id": "mir",
+    "duration": 95,
+    "formats": [
+        {
+            "url": "http://cdn8.my.mail.ru/v/78609180.mp4?slave[]=s%3Ahttp%3A%2F%2F10.146.243.3%3A9090%2Fvideo4%2F78609180-v&p=f&expire_at=1717603200&touch=1716755235&reg=188&sign=617597eb409fcbb8e1b2fa2684f717735b9d8299",
+            "format_id": "360p",
+            "height": 360,
+            "ext": "mp4",
+            "protocol": "http",
+            "resolution": "360p",
+            "dynamic_range": "SDR",
+            "cookies": "video_key=de1b54972f586943b498328787e9be192fe743cb; Domain=cdn8.my.mail.ru; Path=/",
+            "http_headers": {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.54 Safari/537.36",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                "Accept-Language": "en-us,en;q=0.5",
+                "Sec-Fetch-Mode": "navigate"
+            },
+            "video_ext": "mp4",
+            "audio_ext": "none",
+            "format": "360p - 360p"
+        },
+        {
+            "url": "http://cdn8.my.mail.ru/hv/78609180.mp4?slave[]=s%3Ahttp%3A%2F%2F10.146.243.4%3A9090%2Fvideo4%2F78609180-hv&p=f&expire_at=1717603200&touch=1716755235&reg=188&sign=3a9d219390418045e66730665ac74d1ba4c56003",
+            "format_id": "720p",
+            "height": 720,
+            "ext": "mp4",
+            "protocol": "http",
+            "resolution": "720p",
+            "dynamic_range": "SDR",
+            "cookies": "video_key=de1b54972f586943b498328787e9be192fe743cb; Domain=cdn8.my.mail.ru; Path=/",
+            "http_headers": {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.54 Safari/537.36",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                "Accept-Language": "en-us,en;q=0.5",
+                "Sec-Fetch-Mode": "navigate"
+            },
+            "video_ext": "mp4",
+            "audio_ext": "none",
+            "format": "720p - 720p"
+        }
+    ],
+    "webpage_url": "https://my.mail.ru/community/mir/video/_groupvideo/14254.html",
+    "webpage_url_basename": "14254.html",
+    "webpage_url_domain": "my.mail.ru",
+    "extractor": "mailru",
+    "extractor_key": "MailRu",
+    "thumbnails": [
+        {
+            "url": "http://filed6-16.my.mail.ru/pic?url=http%3A%2F%2Fmy.mail.ru%2F%2B%2Fvideo%2Furl%2Fsc03%2F-5317169498194&sigt=c631a08c2bcd07a122d832f1993ebb5f&ts=1717593482",
+            "id": "0"
+        }
+    ],
+    "display_id": "78609180_14254",
+    "fulltitle": "One More Dungeon 2 - Trailer",
+    "duration_string": "1:35",
+    "upload_date": "20240526",
+    "epoch": 1717589882,
+    "url": "http://cdn8.my.mail.ru/hv/78609180.mp4?slave[]=s%3Ahttp%3A%2F%2F10.146.243.4%3A9090%2Fvideo4%2F78609180-hv&p=f&expire_at=1717603200&touch=1716755235&reg=188&sign=3a9d219390418045e66730665ac74d1ba4c56003",
+    "format_id": "720p",
+    "height": 720,
+    "ext": "mp4",
+    "protocol": "http",
+    "resolution": "720p",
+    "dynamic_range": "SDR",
+    "cookies": "video_key=de1b54972f586943b498328787e9be192fe743cb; Domain=cdn8.my.mail.ru; Path=/",
+    "http_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.54 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-us,en;q=0.5",
+        "Sec-Fetch-Mode": "navigate"
+    },
+    "video_ext": "mp4",
+    "audio_ext": "none",
+    "format": "720p - 720p",
+    "_type": "video",
+    "_version": {
+        "version": "2024.05.26",
+        "release_git_head": "ae2af1104f80caf2f47544763a33db2c17a3e1de",
+        "repository": "yt-dlp/yt-dlp"
+    }
+}

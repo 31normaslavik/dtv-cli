@@ -36,9 +36,9 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         ("output,o",
          opt::value<std::string>()->default_value(fs::current_path()),
          "Path to save")
-        ("no-overwrites","Do not overwrite exist files")
+        ("no-overwrites", "Do not overwrite exist files")
         // ("write-description","")
-        ("temp-dir", opt::value<std::string>() ,"Changing temporary path")
+        ("temp-dir", opt::value<std::string>(), "Changing temporary path")
         ;
 
     verbosity.add_options()
@@ -151,7 +151,7 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         fs::path const &output = vm["output"].as<std::string>();
         line.Output(output);
     }
-    if (vm.contains("no-overwrites,w")) {
+    if (vm.contains("no-overwrites")) {
         line.No_overwrites(true);
     }
     if (vm.contains("write-description")) {
@@ -243,9 +243,17 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         line.Vol_translate(vol_translate / 100.);
     }
     if (vm.contains("save-translation")) {
-        line.Save_translation(true);
+        if(line.WithoutTranslation())
+            std::cout << "The --save-translation and --no-translate flags cannot be used together. "
+                         "The --save-translation flag will be ignored\n";
+        else
+            line.Save_translation(true);
     }
     if (vm.contains("save-translation-no-merge")) {
+        if(line.WithoutTranslation())
+            std::cout << "The --save-translation-no-merge and --no-translate flags cannot be used together. "
+                         "The --save-translation-no-merge flag will be ignored\n";
+        else
         line.Save_translation_no_merge(true);
     }
     if (vm.contains("save-translation-contaner")) {

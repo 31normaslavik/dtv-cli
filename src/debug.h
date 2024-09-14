@@ -18,16 +18,17 @@ struct Debug
 template<typename... Args>
 void debug(std::string_view rt_fmt_str, Args&&... args)
 {
-    if(Debug::debug)
+    if(Debug::debug) {
         std::cout << std::vformat(rt_fmt_str, std::make_format_args(args...));
+    }
 }
 
 template<typename... Args>
 void debugln(std::string_view rt_fmt_str, Args&&... args)
 {
-    if(Debug::debug)
+    if(Debug::debug) {
         std::cout << std::vformat(rt_fmt_str, std::make_format_args(args...)) << "\n";
+    }
 }
 
 } // namespace dtv
-

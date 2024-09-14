@@ -21,7 +21,7 @@ void CommandLine::Output(const fs::path &output)
     }
 }
 
-bool CommandLine::No_overwrites() const
+bool CommandLine::NoOverwrites() const
 {
     return _no_overwrites;
 }
@@ -31,7 +31,7 @@ void CommandLine::No_overwrites(bool no_overwrites)
     _no_overwrites = no_overwrites;
 }
 
-bool CommandLine::Write_description() const
+bool CommandLine::WriteDescription() const
 {
     return _write_description;
 }
@@ -88,7 +88,7 @@ void CommandLine::Extension(const std::string &Extension)
     _extension = Extension;
 }
 
-std::string CommandLine::Merge_output_extension() const
+std::string CommandLine::MergeOutputExtension() const
 {
     return _merge_output_extension;
 }
@@ -98,7 +98,7 @@ void CommandLine::Merge_output_extension(const std::string &Merge_output_extensi
     _merge_output_extension = Merge_output_extension;
 }
 
-bool CommandLine::Saving_original_video_resolution() const
+bool CommandLine::SavingOriginalVideoResolution() const
 {
     return _saving_original_video_resolution;
 }
@@ -128,7 +128,7 @@ void CommandLine::Fps(int fps)
     _fps = fps;
 }
 
-std::string CommandLine::Translate_from_lang() const
+std::string CommandLine::TranslateFromLang() const
 {
     return _translate_from_lang;
 }
@@ -138,7 +138,7 @@ void CommandLine::Translate_from_lang(const std::string &Translate_from_lang)
     _translate_from_lang = Translate_from_lang;
 }
 
-std::string CommandLine::Translate_to_lang() const
+std::string CommandLine::TranslateToLang() const
 {
     return _translate_to_lang;
 }
@@ -148,7 +148,7 @@ void CommandLine::Translate_to_lang(const std::string &translate_to_lang)
     _translate_to_lang = translate_to_lang;
 }
 
-bool CommandLine::No_translate() const
+bool CommandLine::WithoutTranslation() const
 {
     return _no_translate;
 }
@@ -158,7 +158,7 @@ void CommandLine::No_translate(bool no_translate)
     _no_translate = no_translate;
 }
 
-bool CommandLine::Only_translate() const
+bool CommandLine::TranslationOnly() const
 {
     return _only_translate;
 }
@@ -168,7 +168,7 @@ void CommandLine::Only_translate(bool only_translate)
     _only_translate = only_translate;
 }
 
-fs::path CommandLine::Replace_audio() const
+fs::path CommandLine::ReplaceSound() const
 {
     return _replace_audio;
 }
@@ -178,7 +178,7 @@ void CommandLine::Replace_audio(const fs::path &replace_audio)
     _replace_audio = replace_audio;
 }
 
-fs::path CommandLine::Replace_translate() const
+fs::path CommandLine::ReplaceTranslate() const
 {
     return _replace_translate;
 }

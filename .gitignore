@@ -12,6 +12,7 @@ bin/
 build/
 buildK/
 .kdev4
+_build/
 
 # CTest
 Testing/

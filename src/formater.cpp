@@ -10,7 +10,7 @@ Formater::Formater(Video const& video, CommandLine const& line): _video{video}, 
 
 std::any Formater::GetFormat(const FORMAT eformat) const
 {
-    const int closest = findClosest(_line.Height());
+    const int64_t closest = findClosest(_line.Height());
 
     std::map<std::string, Format> _mvideo;
     std::map<std::string, Format> _maudio;
@@ -60,7 +60,7 @@ std::any Formater::GetFormat(const FORMAT eformat) const
     return format_id;
 }
 
-int Formater::findClosest(int target) const
+int64_t Formater::findClosest(int64_t target) const
 {
     if (target <= _video.formats.begin()->height)
         return _video.formats.begin()->height;
@@ -89,7 +89,7 @@ int Formater::findClosest(int target) const
     return _video.formats[mid].height;
 }
 
-int dtv::Formater::getClosest(int val1, int val2, int target) const
+int64_t dtv::Formater::getClosest(int64_t val1, int64_t val2, int64_t target) const
 {
     if (target - val1 >= val2 - target)
         return val2;
