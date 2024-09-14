@@ -10,14 +10,14 @@ namespace fs = std::filesystem;
 
 class CommandLine{
 public:
-    CommandLine();
+    CommandLine() = default;
 
     [[nodiscard]] CommandLine(const CommandLine &) = default;
     CommandLine(CommandLine &&) = default;
     CommandLine &operator=(const CommandLine &) = default;
     CommandLine &operator=(CommandLine &&) = default;
 
-    std::shared_ptr<FsDirectories> Output() const;
+    [[nodiscard]] std::shared_ptr<FsDirectories> Output() const;
     [[nodiscard]] bool NoOverwrites() const;
     [[nodiscard]] bool WriteDescription() const;
     [[nodiscard]] bool Quiet() const;

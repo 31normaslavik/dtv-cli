@@ -2,21 +2,19 @@
 
 namespace dtv{
 
-CommandLine::CommandLine(){
-}
-
 std::shared_ptr<FsDirectories> CommandLine::Output() const
 {
-    if(_output == nullptr)
+    if(_output == nullptr) {
         throw std::runtime_error("Output not inicialized!!!");
+    }
     return _output;
 }
 
 void CommandLine::Output(const fs::path &output)
 {
-    if(!_output)
+    if(!_output) {
         _output = std::make_shared<FsDirectories>(output);
-    else{
+    } else{
         _output->ChangeTempPath(output);
     }
 }
@@ -43,8 +41,9 @@ void CommandLine::Write_description(bool Write_description)
 
 void CommandLine::Temp_dir(const fs::path &temp_dir)
 {
-    if(!_output)
+    if(!_output) {
         throw std::runtime_error("FsDirectories not initialized!");
+    }
     _output->ChangeTempPath(temp_dir);
 }
 
@@ -369,4 +368,3 @@ void CommandLine::Test(bool Test)
 }
 
 } // namespace dtv
-
