@@ -4,15 +4,15 @@
 
 namespace dtv {
 
-    class FsDirectories {
+    class FsDir {
     public:
-        explicit FsDirectories(const std::filesystem::path &pathToSaveDir = std::filesystem::current_path());
+        explicit FsDir(const std::filesystem::path &pathToSaveDir = std::filesystem::current_path());
 
         [[nodiscard]] std::filesystem::path GetPathToSave() const noexcept;
         [[nodiscard]] std::filesystem::path GetPathToTemp() const noexcept;
         void ChangeTempPath(const std::filesystem::path& new_path);
 
-        ~FsDirectories();
+        ~FsDir();
 
     private:
         [[nodiscard]] std::filesystem::path TempDirGenerate(const std::filesystem::path& dir, std::size_t length) const noexcept;

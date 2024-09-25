@@ -1,8 +1,8 @@
 #pragma once
 
-#include "fs_directories.h"
-#include <boost/url.hpp>
+#include "fs.h"
 #include <set>
+#include <boost/url.hpp>
 #include <string>
 
 namespace dtv{
@@ -17,7 +17,7 @@ public:
     CommandLine &operator=(const CommandLine &) = default;
     CommandLine &operator=(CommandLine &&) = default;
 
-    [[nodiscard]] std::shared_ptr<FsDirectories> Output() const;
+    [[nodiscard]] std::shared_ptr<FsDir> Output() const;
     [[nodiscard]] bool NoOverwrites() const;
     [[nodiscard]] bool WriteDescription() const;
     [[nodiscard]] bool Quiet() const;
@@ -91,7 +91,7 @@ public:
     void Test(bool Test);
 
 private:
-    std::shared_ptr<dtv::FsDirectories> _output;
+    std::shared_ptr<dtv::FsDir> _output;
     bool _no_overwrites{false};
     bool _write_description{false};
     bool _quiet{false};

@@ -2,7 +2,7 @@
 
 namespace dtv{
 
-std::shared_ptr<FsDirectories> CommandLine::Output() const
+std::shared_ptr<FsDir> CommandLine::Output() const
 {
     if(_output == nullptr) {
         throw std::runtime_error("Output not inicialized!!!");
@@ -13,7 +13,7 @@ std::shared_ptr<FsDirectories> CommandLine::Output() const
 void CommandLine::Output(const fs::path &output)
 {
     if(!_output) {
-        _output = std::make_shared<FsDirectories>(output);
+        _output = std::make_shared<FsDir>(output);
     } else{
         _output->ChangeTempPath(output);
     }

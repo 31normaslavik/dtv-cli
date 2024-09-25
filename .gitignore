@@ -9,10 +9,6 @@
 
 # Binary directory
 bin/
-build/
-buildK/
-.kdev4
-_build/
 
 # CTest
 Testing/
@@ -48,10 +44,12 @@ Testing/
 
 # Build forders
 _build*
+build*
+.kdev4
 
 # Idea trash
 .idea/*
 
 CMakeLists.txt.user
-/.vs
+.vs
 dtv-cli.kdev4

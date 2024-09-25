@@ -6,7 +6,7 @@
 using namespace testing;
 
 struct FsDirectoriesTest: public Test{
-    dtv::FsDirectories fs;
+    dtv::FsDir fs;
 protected:
     void SetUp(){
     }

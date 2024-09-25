@@ -1,4 +1,4 @@
-#include "fs_directories.h"
+#include "fs.h"
 #include "debug.h"
 
 #include <iostream>
@@ -9,7 +9,7 @@ namespace dtv {
         namespace fs = std::filesystem;
     }
 
-        FsDirectories::FsDirectories(const fs::path& pathToSaveDir) {
+        FsDir::FsDir(const fs::path& pathToSaveDir) {
             _path_to_save = fs::weakly_canonical(pathToSaveDir);
             _path_to_temp = TempDirGenerate(_path_to_save / "dtv-cli", 8);
 
@@ -22,15 +22,15 @@ namespace dtv {
               _path_to_temp.string(), fs::current_path().string());
     }
 
-        fs::path FsDirectories::GetPathToSave() const noexcept {
+        fs::path FsDir::GetPathToSave() const noexcept {
             return _path_to_save;
     }
 
-        fs::path FsDirectories::GetPathToTemp() const noexcept {
+        fs::path FsDir::GetPathToTemp() const noexcept {
             return _path_to_temp;
     }
 
-    void FsDirectories::ChangeTempPath(const fs::path &new_path)
+    void FsDir::ChangeTempPath(const fs::path &new_path)
     {
         if(fs::equivalent(fs::current_path(), _path_to_temp))
             fs::current_path(_path_to_save);
@@ -44,7 +44,7 @@ namespace dtv {
               _path_to_temp.string(), fs::current_path().string());
     }
 
-    FsDirectories::~FsDirectories() {
+    FsDir::~FsDir() {
         if (fs::exists(_path_to_temp)) {
             std::error_code er;
 
@@ -65,7 +65,7 @@ namespace dtv {
         }
     }
 
-    fs::path FsDirectories::TempDirGenerate(const fs::path& path,
+    fs::path FsDir::TempDirGenerate(const fs::path& path,
                                                const std::size_t length) const noexcept {
         std::random_device rd;
         const std::string chars{"qwertyuiopasdfghjklzxcvbnm"};
