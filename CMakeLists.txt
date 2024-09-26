@@ -9,13 +9,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-try_run(run_result compile_result
-${CMAKE_BINARY_DIR}/test_output
-${CMAKE_SOURCE_DIR}/src/dtv/test_output/main.cpp
-RUN_OUTPUT_VARIABLE output)
-message(STATUS "run_result: ${run_result}")
-message(STATUS "compile_result: ${compile_result}")
-message(STATUS "output: " ${output})
+include(cmake/CheckCompiler.cmake)
 
 #if(UNIX #[[AND ${CMAKE_BUILD_TYPE} STREQUAL "Debug"]])
     # set(CMAKE_CXX_FLAGS

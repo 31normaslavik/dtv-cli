@@ -1,7 +1,5 @@
 # dtv-cli
 
-## [РУССКИЙ](https://github.com/31normaslavik/dtv-cli/blob/main/README_RU.md)
-
 ### Downloading videos, playlists with translation and subtitles from the Yandex neural network
 ### What resources are available for translation:
 ## [Resources](https://github.com/FOSWLY/vot-cli/wiki/%5BEN%5D-Supported-sites)

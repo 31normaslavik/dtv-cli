@@ -6,7 +6,7 @@
     "editor.renderWhitespace": "trailing",
     "editor.suggestSelection": "first",
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.stickyScroll.enabled": false,
     "editor.bracketPairColorization.enabled": false,
     "editor.cursorSmoothCaretAnimation": "on",
@@ -36,7 +36,7 @@
     "workbench.startupEditor": "none",
     "workbench.editorAssociations": {
         "*.md": "vscode.markdown.preview.editor",
-        "*.svg": "svgPreviewer.customEditor"
+        // "*.svg": "svgPreviewer.customEditor"
     },
     "workbench.colorTheme": "Default Dark Modern",
     "git.enableSmartCommit": true,
@@ -53,13 +53,13 @@
     "[markdown]": {
         "files.trimTrailingWhitespace": false,
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+        // "editor.defaultFormatter": "yzhang.markdown-all-in-one",
         "editor.wordWrap": "wordWrapColumn",
         "editor.wordWrapColumn": 120
     },
     "[yaml]": {
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "redhat.vscode-yaml",
+        // "editor.defaultFormatter": "redhat.vscode-yaml",
         "editor.wordWrap": "wordWrapColumn",
         "editor.wordWrapColumn": 120
     },
@@ -132,14 +132,14 @@
     "C_Cpp.formatting": "clangFormat",
     "[c]": {
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "ms-vscode.cpptools"
+        // "editor.defaultFormatter": "ms-vscode.cpptools"
     },
     "[cpp]": {
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "ms-vscode.cpptools"
+        // "editor.defaultFormatter": "ms-vscode.cpptools"
     },
     "[cuda-cpp]": {
-        "editor.defaultFormatter": "ms-vscode.cpptools"
+        // "editor.defaultFormatter": "ms-vscode.cpptools"
     },
     "cmake.configureOnOpen": false,
     "cmake.autoSelectActiveFolder": false,
