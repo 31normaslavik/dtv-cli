@@ -9,7 +9,7 @@ add_subdirectory(video)
 
 
 add_executable(dtv-cli main.cpp)
-target_include_directories(dtv-cli PRIVATE include)
+target_include_directories(dtv-cli PRIVATE ./include)
 
 message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")

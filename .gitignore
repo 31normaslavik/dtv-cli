@@ -53,3 +53,4 @@ build*
 CMakeLists.txt.user
 .vs*
 dtv-cli.kdev4
+compile_commands.json
