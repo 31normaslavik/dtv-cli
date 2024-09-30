@@ -4,7 +4,7 @@
 #include "version.h"
 #include <boost/url.hpp>
 
-const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
+dtv::CommandLine dtv::command_line_parser(std::vector<std::string> const &arguments) {
     namespace fs = std::filesystem;
     namespace opt = boost::program_options;
 
@@ -48,7 +48,7 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
 
     video.add_options()
         ("height,H",
-         opt::value<int>()->default_value(1080),
+         opt::value<int>(),
          "[4320 2160 1440 1080 720 480 360]\n"
          "The resolution of the downloaded video")
         ("extension,e", opt::value<std::string>()->default_value("mp4"),
@@ -69,8 +69,8 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         ("only-translate,T", "Save only the audio translation")
         ("replace-audio", opt::value<std::string>(),"Replace the audio in the video with your own")
         ("replace-translate", opt::value<std::string>(),"Replace the audio-to-video translation with your own")
-        ("vol-audio", opt::value<int>()->default_value(25),"The sound level of the original audio")
-        ("vol-translate", opt::value<int>()->default_value(100),"Audio translation sound level")
+        ("vol-audio", opt::value<int>(),"The sound level of the original audio")
+        ("vol-translate", opt::value<int>(),"Audio translation sound level")
         ("save-translation","Create a video with a translation and a separate translation next to the video")
         ("save-translation-no-merge","Create a video without translation and a separate translation (without merging files)")
         ("save-translation-contaner", opt::value<std::string>(),"Translation file container [mkv mp4 aac flac, etc.] (default mp3)")
@@ -106,40 +106,40 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         ;
 
     debug.add_options()
-        // ("debug","Debug")
-        ("test","Test mode. Video length limit of 10 seconds")
+        ("debug","Debug")
+        // ("test","Test mode. Video length limit of 10 seconds")
         ;
 
     all.add(general).add(filesystem).add(verbosity).add(video).add(audio).add(subtitle).add(network).add(processing).add(hide).add(debug);
     visible.add(general).add(filesystem).add(verbosity).add(video).add(audio).add(subtitle).add(network).add(processing).add(debug);
 
-    opt::positional_options_description p;
-    p.add("urls", -1);
+    opt::positional_options_description positional;
+    positional.add("urls", -1);
 
-    opt::variables_map vm;
-    opt::store(opt::command_line_parser(argc, argv).options(all).positional(p).run(), vm);
-    opt::notify(vm);
+    opt::variables_map _vm;
+    opt::store(opt::command_line_parser(arguments).options(all).positional(positional).run(), _vm);
+    opt::notify(_vm);
 
     /**
      * GENERAL
      */
-    if (vm.contains("help")) {
+    if (_vm.contains("help")) {
         std::cout << visible << "\n";
         exit(EXIT_SUCCESS);
     }
-    if (vm.contains("version")) {
+    if (_vm.contains("version")) {
         std::cout << getName() << " " << getVersion() << "\n";
         exit(EXIT_SUCCESS);
     }
-    if (vm.contains("update")) {
+    if (_vm.contains("update")) {
         exit(EXIT_SUCCESS);
     }
-    if (vm.contains("code-country")) {
+    if (_vm.contains("code-country")) {
         std::cout << Helper::codes_country << "\n";
         exit(EXIT_SUCCESS);
     }
 
-    if (vm.contains("examples")) {
+    if (_vm.contains("examples")) {
         std::cout << Helper::exampes << "\n";
         exit(EXIT_SUCCESS);
     }
@@ -147,36 +147,36 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
     /*
      * FILESYSTEM
      */
-    if (vm.contains("output")) {
-        fs::path const &output = vm["output"].as<std::string>();
+    if (_vm.contains("output")) {
+        fs::path const &output = _vm["output"].as<std::string>();
         line.Output(output);
     }
-    if (vm.contains("no-overwrites")) {
+    if (_vm.contains("no-overwrites")) {
         line.No_overwrites(true);
     }
-    if (vm.contains("write-description")) {
+    if (_vm.contains("write-description")) {
         line.Write_description(true);
     }
-    if (vm.contains("temp-dir")) {
-        fs::path const &temp_dir_path = vm["temp-dir"].as<std::string>();
+    if (_vm.contains("temp-dir")) {
+        fs::path const &temp_dir_path = _vm["temp-dir"].as<std::string>();
         line.Output(temp_dir_path);
     }
 
     /*
      * VERBOSITY
      */
-    if (vm.contains("quiet")) {
+    if (_vm.contains("quiet")) {
         line.Quiet(true);
     }
-    if (vm.contains("progress")) {
+    if (_vm.contains("progress")) {
         line.Progress(true);
     }
 
     /*
      * VIDEO
      */
-    if (vm.contains("height")) {
-        int const height = vm["height"].as<int>();
+    if (_vm.contains("height")) {
+        int const height = _vm["height"].as<int>();
 
         if (height < 0 || height > 5000) {
             std::cerr << "The video resolution is incorrectly specified\n";
@@ -185,149 +185,152 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
         }
         line.Height(height);
     }
-    if (vm.contains("extension")) {
-        std::string const &extension = vm["extension"].as<std::string>();
+    if (_vm.contains("extension")) {
+        auto const &extension = _vm["extension"].as<std::string>();
         line.Extension(extension);
     }
-    if (vm.contains("merge-output-extension")) {
-        std::string const &merge_output_extension =
-            vm["merge-output-extension"].as<std::string>();
+    if (_vm.contains("merge-output-extension")) {
+        auto const &merge_output_extension =
+            _vm["merge-output-extension"].as<std::string>();
         line.Merge_output_extension(merge_output_extension);
     }
-    if (vm.contains("saving-original-video-resolution")) {
+    if (_vm.contains("saving-original-video-resolution")) {
         line.Saving_original_video_resolution(true);
     }
-    if (vm.contains("yes-playlist")) {
+    if (_vm.contains("yes-playlist")) {
         line.YesPlaylist(true);
     }
-    if (vm.contains("fps")) {
-        int fps = vm["fps"].as<int>();
-        if(fps > 15)
+    if (_vm.contains("fps")) {
+        int fps = _vm["fps"].as<int>();
+        if(fps > 15) {
             line.Fps(fps);
+        }
     }
 
     /*
      * AUDIO
      */
-    if (vm.contains("translate-from-lang")) {
-        std::string const &translate_from_lang =
-            vm["translate-from-lang"].as<std::string>();
+    if (_vm.contains("translate-from-lang")) {
+        auto const &translate_from_lang =
+            _vm["translate-from-lang"].as<std::string>();
         line.Translate_from_lang(translate_from_lang);
     }
-    if (vm.contains("translate-to-lang")) {
-        std::string const &translate_to_lang =
-            vm["translate-to-lang"].as<std::string>();
+    if (_vm.contains("translate-to-lang")) {
+        auto const &translate_to_lang =
+            _vm["translate-to-lang"].as<std::string>();
         line.Translate_to_lang(translate_to_lang);
     }
-    if (vm.contains("no-translate")) {
+    if (_vm.contains("no-translate")) {
         line.No_translate(true);
     }
-    if (vm.contains("only-translate")) {
+    if (_vm.contains("only-translate")) {
         line.Only_translate(true);
     }
-    if (vm.contains("replace-audio")) {
-        fs::path const &replace_audio = vm["replace-audio"].as<std::string>();
+    if (_vm.contains("replace-audio")) {
+        fs::path const &replace_audio = _vm["replace-audio"].as<std::string>();
         line.Replace_audio(replace_audio);
     }
-    if (vm.contains("replace-translate")) {
+    if (_vm.contains("replace-translate")) {
         fs::path const &replace_translate =
-            vm["replace-translate"].as<std::string>();
+            _vm["replace-translate"].as<std::string>();
         line.Replace_translate(replace_translate);
     }
-    if (vm.contains("vol-audio")) {
-        int const vol_audio = vm["vol-audio"].as<int>();
+    if (_vm.contains("vol-audio")) {
+        int const vol_audio = _vm["vol-audio"].as<int>();
         line.Vol_audio(vol_audio / 100.);
     }
-    if (vm.contains("vol-translate")) {
-        int const vol_translate = vm["vol-translate"].as<int>();
+    if (_vm.contains("vol-translate")) {
+        int const vol_translate = _vm["vol-translate"].as<int>();
         line.Vol_translate(vol_translate / 100.);
     }
-    if (vm.contains("save-translation")) {
-        if(line.WithoutTranslation())
+    if (_vm.contains("save-translation")) {
+        if(line.WithoutTranslation()) {
             std::cout << "The --save-translation and --no-translate flags cannot be used together. "
                          "The --save-translation flag will be ignored\n";
-        else
+        } else {
             line.Save_translation(true);
+        }
     }
-    if (vm.contains("save-translation-no-merge")) {
-        if(line.WithoutTranslation())
+    if (_vm.contains("save-translation-no-merge")) {
+        if(line.WithoutTranslation()) {
             std::cout << "The --save-translation-no-merge and --no-translate flags cannot be used together. "
                          "The --save-translation-no-merge flag will be ignored\n";
-        else
-        line.Save_translation_no_merge(true);
+        } else {
+            line.Save_translation_no_merge(true);
+        }
     }
-    if (vm.contains("save-translation-contaner")) {
-        std::string const &save_translation_contaner =
-            vm["save-translation-contaner"].as<std::string>();
+    if (_vm.contains("save-translation-contaner")) {
+        auto const &save_translation_contaner =
+            _vm["save-translation-contaner"].as<std::string>();
         line.Save_translation_contaner(save_translation_contaner);
     }
 
     /**
      * SUBTITLES
      */
-    if (vm.contains("write-subs")) {
+    if (_vm.contains("write-subs")) {
         line.Write_subs(true);
     }
-    if (vm.contains("sub-lang")) {
-        std::string const &sub_lang = vm["sub-lang"].as<std::string>();
+    if (_vm.contains("sub-lang")) {
+        auto const &sub_lang = _vm["sub-lang"].as<std::string>();
         line.Sub_lang(sub_lang);
     }
-    if (vm.contains("write-auto-subs")) {
+    if (_vm.contains("write-auto-subs")) {
         line.Write_auto_subs(true);
     }
-    if (vm.contains("sub-format")) {
-        std::string const &sub_format = vm["sub-format"].as<std::string>();
+    if (_vm.contains("sub-format")) {
+        auto const &sub_format = _vm["sub-format"].as<std::string>();
         line.Sub_format(sub_format);
     }
-    if (vm.contains("sub-langs")) {
+    if (_vm.contains("sub-langs")) {
         std::cout << Helper::subtitles_langs << "\n";
     }
-    if (vm.contains("embed-subs")) {
+    if (_vm.contains("embed-subs")) {
         line.Embed_subs(true);
     }
-    if (vm.contains("convert-subs")) {
-        std::string const &convert_subs = vm["convert-subs"].as<std::string>();
+    if (_vm.contains("convert-subs")) {
+        auto const &convert_subs = _vm["convert-subs"].as<std::string>();
         line.Convert_subs(convert_subs);
     }
-    if (vm.contains("transcription")) {
+    if (_vm.contains("transcription")) {
         line.Transcription(true);
     }
 
     /*
      * NETWORK
      */
-    if (vm.contains("proxy")) {
-        std::string const &proxy = vm["proxy"].as<std::string>();
+    if (_vm.contains("proxy")) {
+        auto const &proxy = _vm["proxy"].as<std::string>();
         line.Proxy(proxy);
     }
 
     /*
      * PROCESSING
      */
-    if (vm.contains("exec-after")) {
-        std::string const &exec_after = vm["exec-after"].as<std::string>();
+    if (_vm.contains("exec-after")) {
+        auto const &exec_after = _vm["exec-after"].as<std::string>();
         line.Exec_after(exec_after);
     }
-    if (vm.contains("exec-before")) {
-        std::string const &exec_before = vm["exec-before"].as<std::string>();
+    if (_vm.contains("exec-before")) {
+        auto const &exec_before = _vm["exec-before"].as<std::string>();
         line.Exec_before(exec_before);
     }
 
     /*
      * HIDE
      */
-    if (vm.contains("urls")) {
-        std::vector<std::string> const &urls =
-            vm["urls"].as<std::vector<std::string>>();
+    if (_vm.contains("urls")) {
+        auto const &urls =
+            _vm["urls"].as<std::vector<std::string>>();
         std::set<std::string> urls_s;
 
         for (const auto &url : urls) {
             boost::system::result<boost::urls::url_view> r =
                 boost::urls::parse_uri(url);
 
-            if (r.has_value())
+            if (r.has_value()) {
                 urls_s.insert(r.value().buffer());
-            else {
+            } else {
                 std::cerr << "The link to the video is incorrect: " << r.value()
                           << "\n";
                 continue;
@@ -343,10 +346,10 @@ const dtv::CommandLine dtv::command_line_parser(int argc, char *argv[]) {
     /*
      * DEBUG
      */
-    if (vm.contains("debug")) {
+    if (_vm.contains("debug")) {
         Debug::debug = true;
     }
-    if (vm.contains("test")) {
+    if (_vm.contains("test")) {
         line.Test(true);
     }
     return line;

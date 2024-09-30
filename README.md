@@ -1,5 +1,4 @@
 # dtv-cli
-
 ### Downloading videos, playlists with translation and subtitles from the Yandex neural network
 ### What resources are available for translation:
 ## [Resources](https://github.com/FOSWLY/vot-cli/wiki/%5BEN%5D-Supported-sites)
@@ -19,11 +18,11 @@
 ```
 git clone https://github.com/31normaslavik/dtv-cli.git && \
 cd dtv-cli && \
-cmake -H. -B_build && \
-sudo cmake --build _build --target install --config Release
+cmake -S . -B _build -D CMAKE_BUILD_TYPE=Release && \
+sudo cmake --build _build --target install -j8 && \
+cd .. && rm -rf dtv-cli
 
 ```
-
 ### HOW USE
 ```
 If the specified path does not exist, the program will try to create the missing directories.
@@ -65,6 +64,11 @@ Usage: dtv-cli [Options] urls
 
 #Format mp4, 1080p, fps 30, translate audio from en to ru, ru subtitles, replace main audio stream with volume 50, path current
  dtv-cli "url" --output /disk_2/Videos/ --replace-audio Brimstone_-_In_One_Breath.flac --vol-audio 50 --write-subs
+
 ```
-
-
+### DEV VC-CODE
+#### At the root of the project, enter the command
+```
+ rm -rf _build && bear -- cmake -S . -B _build && bear -- cmake --build _build -j8
+```
+#### Next, if the vc code was running at that moment, restart it, or click Help -> Show all commands -> enter "Reload Window" in the terminal and press Enter. The project is ready for development.

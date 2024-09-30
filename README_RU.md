@@ -14,13 +14,13 @@
 
 ### УСТАНОВКА
 
-
 #### LINUX WINDOWS
 ```
 git clone https://github.com/31normaslavik/dtv-cli.git && \
 cd dtv-cli && \
-cmake -H. -B_build && \
-sudo cmake --build _build --target install --config Release
+cmake -S . -B _build -D CMAKE_BUILD_TYPE=Release && \
+sudo cmake --build _build --target install -j8 && \
+cd .. && rm -rf dtv-cli
 
 ```
 ### КАК ИСПОЛЬЗОВАТЬ
@@ -64,6 +64,13 @@ Usage: dtv-cli [Options] urls
 
 #Format mp4, 1080p, fps 30, translate audio from en to ru, ru subtitles, replace main audio stream with volume 50, path current
  dtv-cli "url" --output /disk_2/Videos/ --replace-audio Brimstone_-_In_One_Breath.flac --vol-audio 50 --write-subs
+
 ```
+### DEV VC-CODE
+#### В корне проекта введите команду
+```
+ rm -rf _build && bear -- cmake -S . -B _build && bear -- cmake --build _build -j8
+```
+#### Далее, если vc code был в этот момент запущен, перезапустить его, либо нажмите Help -> Show all commands -> введите в терминале "Reload Window" и нажмите Еnter. Проект готов к разработке.
 
 
