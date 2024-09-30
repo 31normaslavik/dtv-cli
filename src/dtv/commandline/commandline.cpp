@@ -34,9 +34,9 @@ bool CommandLine::WriteDescription() const
     return _write_description;
 }
 
-void CommandLine::Write_description(bool Write_description)
+void CommandLine::Write_description(bool write_description)
 {
-    _write_description = Write_description;
+    _write_description = write_description;
 }
 
 void CommandLine::Temp_dir(const fs::path &temp_dir)
@@ -52,9 +52,9 @@ bool CommandLine::Quiet() const
     return _quiet;
 }
 
-void CommandLine::Quiet(bool Quiet)
+void CommandLine::Quiet(bool quiet)
 {
-    _quiet = Quiet;
+    _quiet = quiet;
 }
 
 bool CommandLine::Progress() const
@@ -62,9 +62,9 @@ bool CommandLine::Progress() const
     return _progress;
 }
 
-void CommandLine::Progress(bool Progress)
+void CommandLine::Progress(bool progress)
 {
-    _progress = Progress;
+    _progress = progress;
 }
 
 int CommandLine::Height() const
@@ -72,9 +72,9 @@ int CommandLine::Height() const
     return _height;
 }
 
-void CommandLine::Height(int Height)
+void CommandLine::Height(int height)
 {
-    _height = Height;
+    _height = height;
 }
 
 std::string CommandLine::Extension() const
@@ -82,9 +82,9 @@ std::string CommandLine::Extension() const
     return _extension;
 }
 
-void CommandLine::Extension(const std::string &Extension)
+void CommandLine::Extension(const std::string &extension)
 {
-    _extension = Extension;
+    _extension = extension;
 }
 
 std::string CommandLine::MergeOutputExtension() const
@@ -92,9 +92,9 @@ std::string CommandLine::MergeOutputExtension() const
     return _merge_output_extension;
 }
 
-void CommandLine::Merge_output_extension(const std::string &Merge_output_extension)
+void CommandLine::Merge_output_extension(const std::string &merge_output_extension)
 {
-    _merge_output_extension = Merge_output_extension;
+    _merge_output_extension = merge_output_extension;
 }
 
 bool CommandLine::SavingOriginalVideoResolution() const
@@ -102,14 +102,14 @@ bool CommandLine::SavingOriginalVideoResolution() const
     return _saving_original_video_resolution;
 }
 
-void CommandLine::Saving_original_video_resolution(bool Saving_original_video_resolution)
+void CommandLine::Saving_original_video_resolution(bool saving_original_video_resolution)
 {
-    _saving_original_video_resolution = Saving_original_video_resolution;
+    _saving_original_video_resolution = saving_original_video_resolution;
 }
 
 bool CommandLine::YesPlaylist() const
 {
-    return _yesPlaylist;
+    return _yes_playlist;
 }
 
 int CommandLine::Fps() const
@@ -117,9 +117,9 @@ int CommandLine::Fps() const
     return _fps;
 }
 
-void CommandLine::YesPlaylist(bool yesPlaylist)
+void CommandLine::YesPlaylist(bool yes_playlist)
 {
-    _yesPlaylist = yesPlaylist;
+    _yes_playlist = yes_playlist;
 }
 
 void CommandLine::Fps(int fps)
@@ -132,9 +132,9 @@ std::string CommandLine::TranslateFromLang() const
     return _translate_from_lang;
 }
 
-void CommandLine::Translate_from_lang(const std::string &Translate_from_lang)
+void CommandLine::Translate_from_lang(const std::string &translate_from_lang)
 {
-    _translate_from_lang = Translate_from_lang;
+    _translate_from_lang = translate_from_lang;
 }
 
 std::string CommandLine::TranslateToLang() const
@@ -182,9 +182,9 @@ fs::path CommandLine::ReplaceTranslate() const
     return _replace_translate;
 }
 
-void CommandLine::Replace_translate(const fs::path &Replace_translate)
+void CommandLine::Replace_translate(const fs::path &replace_translate)
 {
-    _replace_translate = Replace_translate;
+    _replace_translate = replace_translate;
 }
 
 double CommandLine::Vol_audio() const
@@ -192,9 +192,9 @@ double CommandLine::Vol_audio() const
     return _vol_audio;
 }
 
-void CommandLine::Vol_audio(double Vol_audio)
+void CommandLine::Vol_audio(double vol_audio)
 {
-    _vol_audio = Vol_audio;
+    _vol_audio = vol_audio;
 }
 
 double CommandLine::Vol_translate() const
@@ -202,9 +202,9 @@ double CommandLine::Vol_translate() const
     return _vol_translate;
 }
 
-void CommandLine::Vol_translate(double Vol_translate)
+void CommandLine::Vol_translate(double vol_translate)
 {
-    _vol_translate = Vol_translate;
+    _vol_translate = vol_translate;
 }
 
 bool CommandLine::Save_translation() const
@@ -212,9 +212,9 @@ bool CommandLine::Save_translation() const
     return _save_translation;
 }
 
-void CommandLine::Save_translation(bool Save_translation)
+void CommandLine::Save_translation(bool save_translation)
 {
-    _save_translation = Save_translation;
+    _save_translation = save_translation;
 }
 
 bool CommandLine::Save_translation_no_merge() const
@@ -222,9 +222,9 @@ bool CommandLine::Save_translation_no_merge() const
     return _save_translation_no_merge;
 }
 
-void CommandLine::Save_translation_no_merge(bool Save_translation_no_merge)
+void CommandLine::Save_translation_no_merge(bool save_translation_no_merge)
 {
-    _save_translation_no_merge = Save_translation_no_merge;
+    _save_translation_no_merge = save_translation_no_merge;
 }
 
 std::string CommandLine::Save_translation_contaner() const
@@ -232,9 +232,9 @@ std::string CommandLine::Save_translation_contaner() const
     return _save_translation_contaner;
 }
 
-void CommandLine::Save_translation_contaner(const std::string &Save_translation_contaner)
+void CommandLine::Save_translation_contaner(const std::string &save_translation_contaner)
 {
-    _save_translation_contaner = Save_translation_contaner;
+    _save_translation_contaner = save_translation_contaner;
 }
 
 bool CommandLine::Write_subs() const
@@ -242,9 +242,9 @@ bool CommandLine::Write_subs() const
     return _write_subs;
 }
 
-void CommandLine::Write_subs(bool Write_subs)
+void CommandLine::Write_subs(bool write_subs)
 {
-    _write_subs = Write_subs;
+    _write_subs = write_subs;
 }
 
 std::string CommandLine::Sub_lang() const
@@ -252,9 +252,9 @@ std::string CommandLine::Sub_lang() const
     return _sub_lang;
 }
 
-void CommandLine::Sub_lang(const std::string &Sub_lang)
+void CommandLine::Sub_lang(const std::string &sub_lang)
 {
-    _sub_lang = Sub_lang;
+    _sub_lang = sub_lang;
 }
 
 bool CommandLine::Write_auto_subs() const
@@ -262,9 +262,9 @@ bool CommandLine::Write_auto_subs() const
     return _write_auto_subs;
 }
 
-void CommandLine::Write_auto_subs(bool Write_auto_subs)
+void CommandLine::Write_auto_subs(bool write_auto_subs)
 {
-    _write_auto_subs = Write_auto_subs;
+    _write_auto_subs = write_auto_subs;
 }
 
 std::string CommandLine::Sub_format() const
@@ -272,9 +272,9 @@ std::string CommandLine::Sub_format() const
     return _sub_format;
 }
 
-void CommandLine::Sub_format(const std::string &Sub_format)
+void CommandLine::Sub_format(const std::string &sub_format)
 {
-    _sub_format = Sub_format;
+    _sub_format = sub_format;
 }
 
 std::string CommandLine::Sub_langs() const
@@ -282,9 +282,9 @@ std::string CommandLine::Sub_langs() const
     return _sub_langs;
 }
 
-void CommandLine::Sub_langs(const std::string &Sub_langs)
+void CommandLine::Sub_langs(const std::string &sub_langs)
 {
-    _sub_langs = Sub_langs;
+    _sub_langs = sub_langs;
 }
 
 bool CommandLine::Embed_subs() const
@@ -292,9 +292,9 @@ bool CommandLine::Embed_subs() const
     return _embed_subs;
 }
 
-void CommandLine::Embed_subs(bool Embed_subs)
+void CommandLine::Embed_subs(bool embed_subs)
 {
-    _embed_subs = Embed_subs;
+    _embed_subs = embed_subs;
 }
 
 std::string CommandLine::Convert_subs() const
@@ -302,9 +302,9 @@ std::string CommandLine::Convert_subs() const
     return _convert_subs;
 }
 
-void CommandLine::Convert_subs(const std::string &Convert_subs)
+void CommandLine::Convert_subs(const std::string &convert_subs)
 {
-    _convert_subs = Convert_subs;
+    _convert_subs = convert_subs;
 }
 
 bool CommandLine::Transcription() const
@@ -312,9 +312,9 @@ bool CommandLine::Transcription() const
     return _transcription;
 }
 
-void CommandLine::Transcription(bool Transcription)
+void CommandLine::Transcription(bool transcription)
 {
-    _transcription = Transcription;
+    _transcription = transcription;
 }
 
 std::string CommandLine::Proxy() const
@@ -322,9 +322,9 @@ std::string CommandLine::Proxy() const
     return _proxy;
 }
 
-void CommandLine::Proxy(const std::string &Proxy)
+void CommandLine::Proxy(const std::string &proxy)
 {
-    _proxy = Proxy;
+    _proxy = proxy;
 }
 
 std::string CommandLine::Exec_after() const
@@ -332,9 +332,9 @@ std::string CommandLine::Exec_after() const
     return _exec_after;
 }
 
-void CommandLine::Exec_after(const std::string &Exec_after)
+void CommandLine::Exec_after(const std::string &exec_after)
 {
-    _exec_after = Exec_after;
+    _exec_after = exec_after;
 }
 
 std::string CommandLine::Exec_before() const
@@ -342,9 +342,9 @@ std::string CommandLine::Exec_before() const
     return _exec_before;
 }
 
-void CommandLine::Exec_before(const std::string &Exec_before)
+void CommandLine::Exec_before(const std::string &exec_before)
 {
-    _exec_before = Exec_before;
+    _exec_before = exec_before;
 }
 
 std::set<std::string> CommandLine::Urls() const
@@ -362,9 +362,9 @@ bool CommandLine::Test() const
     return _test;
 }
 
-void CommandLine::Test(bool Test)
+void CommandLine::Test(bool test)
 {
-    _test = Test;
+    _test = test;
 }
 
 } // namespace dtv

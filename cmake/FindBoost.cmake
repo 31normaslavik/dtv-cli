@@ -1,23 +1,25 @@
-if(UNIX)
-    set(Boost_USE_STATIC_LIBS ON) # only find static libs
-    #set(Boost_USE_DEBUG_LIBS OFF) # ignore debug libs and
-    set(Boost_USE_RELEASE_LIBS ON) # only find release libs
-    set(Boost_USE_MULTITHREADED ON)
-    #set(Boost_USE_STATIC_RUNTIME OFF)
-endif()
+set(BOOST_ENABLE_CMAKE ON)
 
-# if(MSVC) set(BOOST_JSON_NO_LIB ON) endif()
+include(FetchContent)
+set(FETCHCONTENT_QUIET FALSE)
+set(BOOST_INCLUDE_LIBRARIES program_options json url)
 
-if(MSVC)
-    set(BOOST_ROOT C:/local/boost-1_86)
-endif()
+FetchContent_Declare(
+    Boost
+    URL https://github.com/boostorg/boost/releases/download/boost-1.86.0/boost-1.86.0-cmake.7z
+    USES_TERMINAL_DOWNLOAD TRUE
+    GIT_PROGRESS TRUE
+    URL_HASH SHA256=ee6e0793b5ec7d13e7181ec05d3b1aaa23615947295080e4b9930324488e078f
+    DOWNLOAD_EXTRACT_TIMESTAMP ON
+    EXCLUDE_FROM_ALL
+    FIND_PACKAGE_ARGS COMPONENTS ${BOOST_INCLUDE_LIBRARIES}
+)
+FetchContent_MakeAvailable(Boost)
 
-# cmake_policy(SET CMP0167 OLD)
-find_package(Boost REQUIRED COMPONENTS program_options json url)
-if(Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS})
-    message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
-else()
-    message(FATAL_ERROR "Boost not found!")
-    return()
-endif()
+message("Boost_LIBRARIES : ${Boost_LIBRARIES}")
+message("BOOST_INCLUDE_LIBRARIES: ${BOOST_INCLUDE_LIBRARIES}")
+message("Boost_INCLUDE_DIRS : ${Boost_INCLUDE_DIRS}")
+message("Boost_FOUND : ${Boost_FOUND}")
+
+list(TRANSFORM BOOST_INCLUDE_LIBRARIES PREPEND "Boost::")
+message("BOOST_INCLUDE_LIBRARIES after transform: ${BOOST_INCLUDE_LIBRARIES}")
