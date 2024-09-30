@@ -1,0 +1,21 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "dev" ]
+  pull_request:
+    branches: [ "dev" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: install cmake gcc
+      run: sudo apt-get install cmake gcc
+    - name: cmake configure
+      run: cmake -S . -B _build
+    - name: cmake build
+      run: cmake --build _build -j8    
