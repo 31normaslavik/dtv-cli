@@ -2,7 +2,7 @@
 #include "debug.h"
 #include "helper.h"
 #include "version.h"
-#include <boost/url.hpp>
+#include <boost/url/url_view.hpp>
 
 dtv::CommandLine dtv::command_line_parser(std::vector<std::string> const &arguments) {
     namespace fs = std::filesystem;
