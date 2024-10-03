@@ -1,6 +1,7 @@
 #pragma once
 #include "commandline.h"
 #include "video.h"
+#include <boost/url/url_view.hpp>
 
 namespace dtv {
 

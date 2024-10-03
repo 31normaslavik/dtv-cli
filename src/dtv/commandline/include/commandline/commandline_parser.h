@@ -1,10 +1,9 @@
 #pragma once
 
 #include "commandline.h"
-
 #include <iostream>
+#include <iterator>
 #include <vector>
-#include <boost/program_options.hpp>
 
 template <class T>
 std::ostream &operator<<(std::ostream &oss, const std::vector<T> &vec) {

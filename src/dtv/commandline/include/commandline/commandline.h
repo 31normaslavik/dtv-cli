@@ -2,7 +2,6 @@
 
 #include "fs.h"
 #include <set>
-#include <boost/url.hpp>
 #include <string>
 
 namespace dtv{
