@@ -1,6 +1,7 @@
 #include "engine.h"
 #include "debug.h"
 #include "formater.h"
+#include <locale>
 
 dtv::Engine::Engine(const Video &video, const CommandLine &line) {
     _pYtdlpEngine = std::make_unique<YtdlpEngine>(video, line);
@@ -179,14 +180,14 @@ void dtv::FfmpegEngine::Merge() {
             return 0;
         }
 
-        Formater format(_video, _line);
-        std::any a = format.GetFormat(FORMAT::FirstClosestVideo);
+        Formater _format(_video, _line);
+        std::any a = _format.GetFormat(FORMAT::FirstClosestVideo);
         Format f;
         if (a.has_value())
             f = std::any_cast<Format>(a);
 
         const std::string subtitles{_line.Write_subs() && !_mediaParts.subtitles.filename().string().empty() ? "-b:v " +
-            (a.has_value() ? std::format(std::locale("en_US.utf8"), "{}", f.size > 0 ? f.size * 8 : f.tbr * 8) : "2M") +
+            (a.has_value() ? format(std::locale("en_US.utf8"), "{}", f.size > 0 ? f.size * 8 : f.tbr * 8) : "2M") +
             " -vf subtitles=" + _mediaParts.subtitles.filename().string() : "-c:v copy"};
 
         if (_line.WithoutTranslation()) {
@@ -195,7 +196,7 @@ void dtv::FfmpegEngine::Merge() {
 
             if (!_line.ReplaceSound().empty() && !_mediaParts.output.empty()) {
                 std::string const command{
-                    std::format(
+                    format(
                                 "ffmpeg -i \"{0}\" -i \"{1}\" -map 0 -map -0:a -map 1:a {4} -b:a 180K -shortest -y \"{2}.{3}\"",
                                 _mediaParts.video.string(),
                                 _mediaParts.audio.string(),
@@ -222,13 +223,13 @@ void dtv::FfmpegEngine::Merge() {
                 !_mediaParts.output.empty() && _line.ReplaceSound().empty() &&
                 !_line.Save_translation_no_merge()) {
             std::string const command{
-                std::format(
+                format(
                             "ffmpeg -i \"{0}\" -i \"{1}\" {5} -filter_complex "
                             "amix=inputs=2:duration=first:dropout_transition=0:weights=\"{2}\":"
                             "normalize=1 -y \"{3}.{4}\"",
                             _mediaParts.video.string(),
                             !_line.ReplaceTranslate().empty() ? _line.ReplaceTranslate().string() : _mediaParts.voice.string(),
-                            std::format(std::locale("en_US.utf8"), "{} {}", _line.Vol_audio(), _line.Vol_translate()),
+                            format(std::locale("en_US.utf8"), "{} {}", _line.Vol_audio(), _line.Vol_translate()),
                             _mediaParts.output.string(),
                             extensionVideo,
                             subtitles
@@ -252,14 +253,14 @@ void dtv::FfmpegEngine::Merge() {
                 !_mediaParts.output.empty() && !_line.ReplaceSound().empty() &&
                 !_line.Save_translation_no_merge()) {
             std::string const command{
-                std::format(
+                format(
                             "ffmpeg -i \"{0}\" -i \"{1}\" -i \"{2}\" -filter_complex \"[1:a]volume={4}[a1]; [2:a]volume={3}[a2]; "
                             "[a1][a2]amix=inputs=2:duration=first:dropout_transition=0:normalize=1[a]\" -map 0:v -map \"[a]\" {7} -y \"{5}.{6}\"",
                             _mediaParts.video.string(),
                             !_line.ReplaceTranslate().empty() ? _line.ReplaceTranslate().string() : _mediaParts.voice.string(),
                             _line.ReplaceSound().string(),
-                            std::format(std::locale("en_US.utf8"), "{}", _line.Vol_audio()),
-                            std::format(std::locale("en_US.utf8"), "{}", _line.Vol_translate()),
+                            format(std::locale("en_US.utf8"), "{}", _line.Vol_audio()),
+                            format(std::locale("en_US.utf8"), "{}", _line.Vol_translate()),
                             _mediaParts.output.string(),
                             extensionVideo,
                             subtitles
@@ -282,11 +283,11 @@ void dtv::FfmpegEngine::Merge() {
         if (!_mediaParts.video.empty() && !_mediaParts.output.empty() &&
                 !_line.ReplaceSound().empty() && _line.Save_translation_no_merge()) {
             std::string const command{
-                std::format(
+                format(
                             "ffmpeg -i \"{0}\" -i \"{1}\" -map 0:v -map 1:a -filter:a \"volume={2}\" {5} -shortest -y \"{3}.{4}\"",
                             _mediaParts.video.string(),
                             _line.ReplaceSound().string(),
-                            std::format(std::locale("en_US.utf8"), "{}", _line.Vol_audio()),
+                            format(std::locale("en_US.utf8"), "{}", _line.Vol_audio()),
                             _mediaParts.output.string(),
                             extensionVideo,
                             subtitles
@@ -310,13 +311,13 @@ void dtv::FfmpegEngine::Merge() {
                 !_mediaParts.subtitles.empty() && !_line.ReplaceSound().empty() &&
                 _line.Save_translation_no_merge()) {
             std::string const command{
-                std::format(
+                format(
                             "ffmpeg -i \"{0}\" {3} -y \"{1}.{2}\"",
                             _mediaParts.video.string(),
                             _mediaParts.output.string(),
                             extensionVideo,
                             _line.Write_subs() && !_mediaParts.subtitles.filename().string().empty() ? "-b:v " +
-                                (a.has_value() ? std::format(std::locale("en_US.utf8"), "{}", f.size > 0 ? f.size * 8 : f.tbr * 8) : "2M") +
+                                (a.has_value() ? format(std::locale("en_US.utf8"), "{}", f.size > 0 ? f.size * 8 : f.tbr * 8) : "2M") +
                               " -vf subtitles=" + _mediaParts.subtitles.filename().string() : "-c copy"
                             )};
 
@@ -338,7 +339,7 @@ void dtv::FfmpegEngine::Merge() {
                 && _mediaParts.voice.filename().extension() != "." + _line.Save_translation_contaner()){
 
             std::string const command{
-                std::format("ffmpeg -i \"{0}\" -map 0:a -b:a 180K -y \"{1}_translate_.{2}\"",
+                format("ffmpeg -i \"{0}\" -map 0:a -b:a 180K -y \"{1}_translate_.{2}\"",
                         _mediaParts.voice.string(),
                         _mediaParts.output.string(),
                         _line.Save_translation_contaner()

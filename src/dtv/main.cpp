@@ -4,7 +4,6 @@
 #include "engine.h"
 #include <iostream>
 #include <span>
-#include <string_view>
 #include <vector>
 
 int main(int argc, char **argv) try {
@@ -13,7 +12,7 @@ int main(int argc, char **argv) try {
     dtv::debugln("Current locale: {}", setlocale(LC_ALL, nullptr));
 
     auto const arguments = std::span(argv, static_cast<size_t>(argc));
-    const std::vector<std::string> args(arguments.cbegin(), arguments.cend());
+    const std::vector<std::string> args(arguments.begin(), arguments.end());
 
     // TODO: переделать на std::span
     dtv::CommandLine const &line = dtv::command_line_parser(args);

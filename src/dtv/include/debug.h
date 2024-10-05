@@ -42,7 +42,7 @@ void debugln(std::string_view rt_fmt_str, Args&&... args)
     }
 }
 
-// using std::format;
+using std::format;
 
 #else
 

@@ -12,7 +12,7 @@ add_subdirectory(video)
 
 add_executable(dtv-cli main.cpp)
 
-target_link_libraries(dtv-cli PUBLIC fmt::fmt-header-only PRIVATE commandline_parser downloader engine)
+target_link_libraries(dtv-cli PRIVATE commandline_parser downloader engine)
 
 include(GNUInstallDirs)
 install(
