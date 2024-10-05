@@ -12,7 +12,7 @@ dtv::Engine::Engine(const Video &video, const CommandLine &line) {
 void dtv::Engine::DownloadJson(boost::urls::url_view url) {
     // TODO желательно тут менять url на работающий
     std::string const command{
-        std::format("yt-dlp \"{}\" --write-info-json "
+        format("yt-dlp \"{}\" --write-info-json "
                     "--no-write-playlist-metafiles --skip-download",
                     std::string(url.buffer()))};
 
@@ -42,7 +42,7 @@ void dtv::YtdlpEngine::DownloadVideo() {
     if (_line.TranslationOnly())
         return;
 
-    std::string commandVideo = std::format(
+    std::string commandVideo = format(
                 "yt-dlp -f "
                 "\"(bv*[fps<={0}]/bv*)[height<={1}]+ba/(b[fps<={0}]/b)[height<={1}]\" "
                 "\"{2}\" -o \"%(id)s.___{3}___.___Video___.%(format_id)s.%(ext)s\"",
@@ -65,7 +65,7 @@ void dtv::VotcliEngine::DownloadVoice() {
     if (!_line.WithoutTranslation()) {
         std::cout << std::flush;
         std::string const commandVoice{
-            std::format("vot-cli --lang \"{}\" --reslang \"{}\" --output=\".\" "
+            format("vot-cli --lang \"{}\" --reslang \"{}\" --output=\".\" "
                         "--output-file=\"{}.___Voice___.\" \"{}\"",
                         _line.TranslateFromLang(), _line.TranslateToLang(),
                         _video.id, _video.webpage_url)};
@@ -79,7 +79,7 @@ void dtv::VotcliEngine::DownloadVoice() {
 void dtv::VotcliEngine::DownloadSubtitles() {
     if (_line.Write_subs()) {
         std::cout << std::flush;
-        std::string const commandSub{std::format(
+        std::string const commandSub{format(
                         "vot-cli --lang \"{}\" --reslang \"{}\" --subs --subs-srt "
                         "--output=\".\" --output-file=\"{}.___Subtitles___.\" \"{}\"",
                         _line.TranslateFromLang(), _line.Sub_lang(), _video.id,
@@ -338,12 +338,11 @@ void dtv::FfmpegEngine::Merge() {
                 && _mediaParts.voice.filename().extension() != "." + _line.Save_translation_contaner()){
 
             std::string const command{
-                std::format(
-                            "ffmpeg -i \"{0}\" -map 0:a -b:a 180K -y \"{1}_translate_.{2}\"",
-                            _mediaParts.voice.string(),
-                            _mediaParts.output.string(),
-                            _line.Save_translation_contaner()
-                            )};
+                std::format("ffmpeg -i \"{0}\" -map 0:a -b:a 180K -y \"{1}_translate_.{2}\"",
+                        _mediaParts.voice.string(),
+                        _mediaParts.output.string(),
+                        _line.Save_translation_contaner()
+                        )};
 
             debugln("Command merge [change translation contaner]: {}", command);
             result = std::system(command.c_str());

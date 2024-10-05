@@ -9,9 +9,10 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-include(cmake/CheckCompiler.cmake)
+# include(cmake/CheckCompiler.cmake)
 
 include(cmake/CheckDepedencies.cmake)
+include(cmake/FindFMT.cmake)
 include(cmake/CheckDir.cmake)
 include(cmake/FindBoost.cmake)
 include(cmake/FindYtDlp.cmake)
