@@ -6,6 +6,7 @@ target_include_directories(commandline PUBLIC include/commandline/)
 target_include_directories(commandline_parser PUBLIC include/commandline/)
 target_include_directories(fs PUBLIC include/)
 
+target_link_libraries(fs PUBLIC debug_t)
 target_link_libraries(commandline PUBLIC fs)
 target_link_libraries(commandline_parser PRIVATE commandline version Boost::url Boost::program_options)
 
