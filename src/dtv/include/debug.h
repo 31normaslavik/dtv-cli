@@ -5,7 +5,6 @@
     #include <format>
     #include <string_view>
 #else
-    #include <fmt/core.h>
     #include <fmt/format.h>
     #include <fmt/printf.h>
 #endif
