@@ -11,8 +11,8 @@ int main(int argc, char **argv) try {
     setlocale(LC_ALL, "ru_RU.utf8");
     dtv::debugln("Current locale: {}", setlocale(LC_ALL, nullptr));
 
-    auto const arguments = std::span(argv, static_cast<size_t>(argc));
-    const std::vector<std::string> args(arguments.begin(), arguments.end());
+    auto arguments = std::span(argv, static_cast<size_t>(argc));
+    const std::vector<std::string> args(arguments.begin() + 1, arguments.end());
 
     // TODO: переделать на std::span
     dtv::CommandLine const &line = dtv::command_line_parser(args);

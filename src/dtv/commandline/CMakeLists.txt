@@ -8,5 +8,5 @@ target_include_directories(fs PUBLIC include/)
 
 target_link_libraries(fs PUBLIC debug_t)
 target_link_libraries(commandline PUBLIC fs)
-target_link_libraries(commandline_parser PRIVATE commandline version Boost::url Boost::program_options)
+target_link_libraries(commandline_parser PUBLIC commandline version Boost::url Boost::program_options)
 

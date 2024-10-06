@@ -321,19 +321,19 @@ dtv::CommandLine dtv::command_line_parser(std::vector<std::string> const &argume
      * HIDE
      */
     if (_vm.contains("urls")) {
-        auto const &urls =
-            _vm["urls"].as<std::vector<std::string>>();
+        auto const &urls = _vm["urls"].as<std::vector<std::string>>();
+
         std::set<std::string> urls_s;
 
         for (const auto &url : urls) {
-            boost::system::result<boost::urls::url_view> r =
+            boost::system::result<boost::urls::url_view> result_url =
                 boost::urls::parse_uri(url);
 
-            if (r.has_value()) {
-                urls_s.insert(r.value().buffer());
+            if (result_url.has_value()) {
+                urls_s.insert(result_url.value().buffer());
             } else {
-                std::cerr << "The link to the video is incorrect: " << r.value()
-                          << "\n";
+                std::cerr << "The link to the video is incorrect: "
+                          << result_url.value() << " [" << result_url.error() << "]\n";
                 continue;
             }
         }
