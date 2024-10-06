@@ -2,11 +2,60 @@
 
 find_program(MAKE make)
 message("MAKE: ${MAKE}")
+
 find_program(PYTHON3 python3)
 message("PYTHON3: ${PYTHON3}")
+
 find_program(NODE node)
 message("NODE: ${NODE}")
+
 find_program(VOTCLI vot-cli)
 message("VOTCLI: ${VOTCLI}")
+
 find_program(YTDLP yt-dlp)
 message("YTDLP: ${YTDLP}")
+
+find_program(APT apt)
+message("APT: ${APT}")
+
+find_program(APTGET apt-get)
+message("APTGET: ${APTGET}")
+
+find_program(PAMAC pamac)
+message("PAMAC: ${PAMAC}")
+
+find_program(PACMAN pacman)
+message("PACMAN: ${PACMAN}")
+
+find_program(YAY yay)
+message("YAY: ${YAY}")
+
+find_program(FLATPAK flatpak)
+message("FLATPAK: ${FLATPAK}")
+
+find_program(RPM rpm)
+message("RPM: ${RPM}")
+
+find_program(ZYPPER zypper)
+message("ZYPPER: ${ZYPPER}")
+
+find_program(PORTAGE portage)
+message("PORTAGE: ${PORTAGE}")
+
+find_program(VCPKG vcpkg)
+message("VCPKG: ${VCPKG}")
+
+find_program(PIP pip)
+message("PIP: ${PIP}")
+
+find_program(CONAN conan)
+message("CONAN: ${CONAN}")
+
+find_program(BUILD2 build2)
+message("BUILD2: ${BUILD2}")
+
+find_program(CPM cpm)
+message("CPM: ${CPM}")
+
+find_program(SNAP snap)
+message("SNAP: ${SNAP}")
