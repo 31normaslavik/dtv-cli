@@ -31,6 +31,7 @@ message("PACMAN:    ${PACMAN}")
 find_program(YAY yay)
 message("YAY:       ${YAY}")
 
+# preinstalled in fedora
 find_program(FLATPAK flatpak)
 message("FLATPAK:   ${FLATPAK}")
 
@@ -58,6 +59,9 @@ message("BUILD2:    ${BUILD2}")
 find_program(CPM cpm)
 message("CPM:       ${CPM}")
 
-# предустановлен в ubuntu
+# preinstalled in ubuntu
 find_program(SNAP snap)
 message("SNAP:      ${SNAP}")
+
+find_program(DNF dnf)
+message("DNF:       ${DNF}")
