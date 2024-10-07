@@ -15,9 +15,11 @@ message("VOTCLI:    ${VOTCLI}")
 find_program(YTDLP yt-dlp)
 message("YTDLP:     ${YTDLP}")
 
+# debian ubuntu
 find_program(APT apt)
 message("APT:       ${APT}")
 
+# debian ubuntu
 find_program(APTGET apt-get)
 message("APTGET:    ${APTGET}")
 
@@ -25,6 +27,7 @@ message("APTGET:    ${APTGET}")
 find_program(PAMAC pamac)
 message("PAMAC:     ${PAMAC}")
 
+# arch
 find_program(PACMAN pacman)
 message("PACMAN:    ${PACMAN}")
 
@@ -35,6 +38,7 @@ message("YAY:       ${YAY}")
 find_program(FLATPAK flatpak)
 message("FLATPAK:   ${FLATPAK}")
 
+# fedora
 find_program(RPM rpm)
 message("RPM:       ${RPM}")
 
@@ -63,5 +67,10 @@ message("CPM:       ${CPM}")
 find_program(SNAP snap)
 message("SNAP:      ${SNAP}")
 
+# fedora
 find_program(DNF dnf)
 message("DNF:       ${DNF}")
+
+# debian
+find_program(DPKG dpkg)
+message("DPKG:       ${DPKG}")
