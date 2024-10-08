@@ -73,4 +73,4 @@ message("DNF:       ${DNF}")
 
 # debian
 find_program(DPKG dpkg)
-message("DPKG:       ${DPKG}")
+message("DPKG:      ${DPKG}")
