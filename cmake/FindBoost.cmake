@@ -8,7 +8,10 @@ set(BOOST_INCLUDE_LIBRARIES program_options json url)
 find_package(Boost 1.81.0 COMPONENTS program_options json url)
 if(Boost_FOUND)
   include_directories(${Boost_INCLUDE_DIRS})
+  message(STATUS "Boost found version: ${Boost_VERSION}")
 else()
+  message(STATUS "Boost not found and will be downloaded from git")
+
   include(FetchContent)
   FetchContent_Declare(
     Boost
@@ -20,10 +23,6 @@ else()
     INACTIVITY_TIMEOUT 30
   )
   FetchContent_MakeAvailable(Boost)
+
+  message(STATUS "Boost version is now: ${Boost_VERSION}")
 endif()
-
-message("Boost_LIBRARIES : ${Boost_LIBRARIES}")
-message("Boost_INCLUDE_DIRS : ${Boost_INCLUDE_DIRS}")
-
-list(TRANSFORM BOOST_INCLUDE_LIBRARIES PREPEND "Boost::")
-message("BOOST_INCLUDE_LIBRARIES after transform: ${BOOST_INCLUDE_LIBRARIES}")

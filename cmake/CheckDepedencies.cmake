@@ -77,6 +77,6 @@ message("DPKG:      ${DPKG}")
 
 # Mageia
 find_program(URPMI urpmi)
-message("URPMI:      ${URPMI}")
+message("URPMI:     ${URPMI}")
 
 
