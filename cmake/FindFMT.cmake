@@ -3,7 +3,7 @@ set(CMAKE_FIND_PACKAGE_SORT_ORDER NATURAL)
 set(CMAKE_FIND_PACKAGE_SORT_DIRECTION DEC)
 set(FETCHCONTENT_QUIET FALSE)
 
-find_package(fmt REQUIRED)
+find_package(fmt 9.1 REQUIRED)
 
 # include(FetchContent)
 #   FetchContent_Declare(
