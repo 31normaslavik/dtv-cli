@@ -74,3 +74,9 @@ message("DNF:       ${DNF}")
 # debian
 find_program(DPKG dpkg)
 message("DPKG:      ${DPKG}")
+
+# Mageia
+find_program(URPMI urpmi)
+message("URPMI:      ${URPMI}")
+
+
