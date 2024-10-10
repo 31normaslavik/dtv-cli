@@ -10,7 +10,7 @@ dtv::Engine::Engine(const Video &video, const CommandLine &line) {
     _pCmd = std::make_unique<Cmd>(line);
 }
 
-void dtv::Engine::DownloadJson(boost::urls::url_view url) {
+void dtv::Engine::DownloadJson(const boost::urls::url_view url) {
     // TODO желательно тут менять url на работающий
     std::string const command{
         format("yt-dlp \"{}\" --write-info-json "

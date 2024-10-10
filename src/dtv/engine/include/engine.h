@@ -16,7 +16,7 @@ public:
     explicit Engine(const Video& video, const CommandLine &line);
 
     // Yt-dlp
-    static void DownloadJson(boost::urls::url_view url);
+    static void DownloadJson(const boost::urls::url_view url);
     void DownloadVideo();
     void DownloadSubtitles();
     // vot-cli

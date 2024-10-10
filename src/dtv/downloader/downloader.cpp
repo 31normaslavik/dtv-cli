@@ -1,6 +1,7 @@
 #include "downloader.h"
 #include "engine.h"
 #include "extractor.h"
+#include <boost/url/parse.hpp>
 
 namespace dtv {
 
@@ -13,7 +14,7 @@ void Downloader::Start() {
 
     for(const auto& url: _line.Urls())
     {
-        Engine::DownloadJson(url);
+        Engine::DownloadJson(boost::urls::parse_uri(url).value());
 
         for(auto video = Extractor::JsonToVideo(_line); video.has_value(); video = Extractor::JsonToVideo(_line)){
             Engine engine(*video, _line);
