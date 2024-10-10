@@ -3,28 +3,16 @@ set(CMAKE_FIND_PACKAGE_SORT_ORDER NATURAL)
 set(CMAKE_FIND_PACKAGE_SORT_DIRECTION DEC)
 set(FETCHCONTENT_QUIET FALSE)
 
-if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
-    message("CURRENT CMAKE VERSION: ${CMAKE_VERSION}")
-    set(DOWN_LD_EX_TI "DOWNLOAD_EXTRACT_TIMESTAMP ON")
-	set(FND_PKG "FIND_PACKAGE_ARGS NAMES fmt")
-endif()
+find_package(fmt REQUIRED)
 
-# if (${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.24)
-#   cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
-# endif ()
-
-message("DOWN_LD_EX_TI: ${DOWN_LD_EX_TI}")
-message("FND_PKG: ${FND_PKG}")
-
-include(FetchContent)
-FetchContent_Declare(
-  fmt
-  GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-  GIT_TAG        2cb3b7c64b04fd99b700dc1a40cc5115da549359 # 11.0.2
-  USES_TERMINAL_DOWNLOAD TRUE
-  DOWNLOAD_EXTRACT_TIMESTAMP ON
-  EXCLUDE_FROM_ALL
-  INACTIVITY_TIMEOUT 30
-  FIND_PACKAGE_ARGS NAMES fmt
-)
-FetchContent_MakeAvailable(fmt)
+# include(FetchContent)
+#   FetchContent_Declare(
+#   fmt
+#   GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+#   GIT_TAG        2cb3b7c64b04fd99b700dc1a40cc5115da549359 # 11.0.2
+#   USES_TERMINAL_DOWNLOAD TRUE
+#   DOWNLOAD_EXTRACT_TIMESTAMP ON
+#   EXCLUDE_FROM_ALL
+#   INACTIVITY_TIMEOUT 30
+#   )
+# FetchContent_MakeAvailable(fmt)

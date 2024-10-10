@@ -24,7 +24,7 @@ include(cmake/CheckDepedencies.cmake)
 include(cmake/FindFMT.cmake)
 include(cmake/CheckDir.cmake)
 include(cmake/FindBoost.cmake)
-include(cmake/FindYtDlp.cmake)
+# include(cmake/FindYtDlp.cmake)
 add_subdirectory(src bin)
 
 #add_subdirectory(test EXCLUDE_FROM_ALL)
