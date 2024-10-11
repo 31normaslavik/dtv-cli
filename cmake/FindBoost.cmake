@@ -1,11 +1,12 @@
-#set(BOOST_ENABLE_CMAKE ON)
 
 set(CMAKE_FIND_PACKAGE_SORT_ORDER NATURAL)
 set(CMAKE_FIND_PACKAGE_SORT_DIRECTION DEC)
 set(FETCHCONTENT_QUIET FALSE)
-set(BOOST_INCLUDE_LIBRARIES program_options json url)
+set(BOOST_ENABLE_CMAKE ON)
 
-if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.24)
+
+find_package(Boost 1.81 COMPONENTS program_options json url)
+if(NOT Boost_FOUND)
 
   include(FetchContent)
   FetchContent_Declare(
@@ -16,9 +17,10 @@ if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.24)
     DOWNLOAD_EXTRACT_TIMESTAMP ON
     EXCLUDE_FROM_ALL
     INACTIVITY_TIMEOUT 30
-    FIND_PACKAGE_ARGS 1.81.0 COMPONENTS ${BOOST_INCLUDE_LIBRARIES}
   )
   FetchContent_MakeAvailable(Boost)
 
+else()
+    message(STATUS "Found Boost version: ${Boost_VERSION}")
 endif()
 
