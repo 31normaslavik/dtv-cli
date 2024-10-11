@@ -3,11 +3,7 @@ set(CMAKE_FIND_PACKAGE_SORT_ORDER NATURAL)
 set(CMAKE_FIND_PACKAGE_SORT_DIRECTION DEC)
 set(FETCHCONTENT_QUIET FALSE)
 
-find_package(fmt 9.1)
-if(fmt_FOUND)
-  message(STATUS "fmt found version: ${fmt_VERSION}")
-else()
-  message(STATUS "fmt not found and will be downloaded from git")
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.24)
 
   include(FetchContent)
     FetchContent_Declare(
@@ -18,8 +14,8 @@ else()
     DOWNLOAD_EXTRACT_TIMESTAMP ON
     EXCLUDE_FROM_ALL
     INACTIVITY_TIMEOUT 30
+    FIND_PACKAGE_ARGS 9
     )
   FetchContent_MakeAvailable(fmt)
 
-  message(STATUS "fmt version is now: ${fmt_VERSION}")
 endif()
