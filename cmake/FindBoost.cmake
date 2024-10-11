@@ -5,12 +5,7 @@ set(CMAKE_FIND_PACKAGE_SORT_DIRECTION DEC)
 set(FETCHCONTENT_QUIET FALSE)
 set(BOOST_INCLUDE_LIBRARIES program_options json url)
 
-find_package(Boost 1.81.0 COMPONENTS program_options json url)
-if(Boost_FOUND)
-  include_directories(${Boost_INCLUDE_DIRS})
-  message(STATUS "Boost found version: ${Boost_VERSION}")
-else()
-  message(STATUS "Boost not found and will be downloaded from git")
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.24)
 
   include(FetchContent)
   FetchContent_Declare(
@@ -21,8 +16,9 @@ else()
     DOWNLOAD_EXTRACT_TIMESTAMP ON
     EXCLUDE_FROM_ALL
     INACTIVITY_TIMEOUT 30
+    FIND_PACKAGE_ARGS 1.81.0 COMPONENTS ${BOOST_INCLUDE_LIBRARIES}
   )
   FetchContent_MakeAvailable(Boost)
 
-  message(STATUS "Boost version is now: ${Boost_VERSION}")
 endif()
+
