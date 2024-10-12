@@ -55,10 +55,6 @@ void debugln(fmt::string_view fmt, Args&&... args){
     std::cout << fmt::vformat(fmt, fmt::make_format_args(args...)) << "\n";
 }
 
-
-// template<typename... Args>
-// using format = void(fmt::string_view fmt, Args&&... args);
-// using format fmt::format;
 using fmt::format;
 
 #endif
