@@ -2,9 +2,9 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "master" ]
 
 jobs:
   build:
@@ -14,8 +14,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: install depedensity
-      run: sudo apt-get install cmake gcc g++ git
+      run: 
+          sudo apt install cmake gcc g++ git
     - name: cmake configure
-      run: cmake -S . -B _build
+      run: 
+          cmake -S . -B _build
     - name: cmake build
-      run: cmake --build _build -j8    
+      run: 
+          cmake --build _build -j8    
