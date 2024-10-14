@@ -1,7 +1,7 @@
 <!-- MANPAGE: BEGIN EXCLUDED SECTION -->
 <div align="center">
 
-[![YT-DLP](https://raw.githubusercontent.com/31normaslavik/yt-dlp/dev/.github/head.jpg)](#readme)
+[![DTV-CLI](.github/head.jpg)](#readme)
 
 [![Release version](https://img.shields.io/github/v/release/yt-dlp/yt-dlp?color=brightgreen&label=Download&style=for-the-badge)](#installation "Installation")
 [![PyPi](https://img.shields.io/badge/-PyPi-blue.svg?logo=pypi&labelColor=555555&style=for-the-badge)](https://pypi.org/project/yt-dlp "PyPi")
