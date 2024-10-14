@@ -15,6 +15,8 @@
 [![Last Commit](https://img.shields.io/github/last-commit/yt-dlp/yt-dlp/master?label=&style=for-the-badge&display_timestamp=committer)](https://github.com/yt-dlp/yt-dlp/pulse/monthly "Last activity")
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/31normaslavik/dtv-cli/total?style=flat)
 ![GitHub language count](https://img.shields.io/github/languages/count/31normaslavik/dtv-cli)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/31normaslavik/dtv-cli/.github%2Fworkflows%2Fubuntu.yml?style=for-the-badge)
+
 
 
 </div>
