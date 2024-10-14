@@ -6,9 +6,11 @@ on:
     tags:
       - v*
 
+permissions:
+  contents: write
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +23,7 @@ jobs:
         cmake -S . -B _build
     - name: cmake build
       run: |
-        cmake --build _build -j8
+        cmake --build _build -j4
     - name: Create hash
       run: |
         sha256sum _build/bin/dtv/dtv-cli > _build/bin/dtv/dtv-cli.txt
