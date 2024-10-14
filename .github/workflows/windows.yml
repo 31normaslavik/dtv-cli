@@ -20,4 +20,3 @@ jobs:
     - name: building
       run: |
         cmake --build build -j8
-    
