@@ -14,11 +14,20 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: install depedensity
-      run: 
-          sudo apt install cmake gcc g++ git
+      run: |
+        sudo apt install cmake gcc g++ git
     - name: cmake configure
-      run: 
-          cmake -S . -B _build
+      run: |
+        cmake -S . -B _build
     - name: cmake build
-      run: 
-          cmake --build _build -j8    
+      run: |
+        cmake --build _build -j8
+    - name: Create hash
+      run: |
+        sha256sum ${{ github.ref_name }}/_build/bin/dtv/dtv-cli > ${{ github.ref_name }}/_build/bin/dtv/dtv-cli.txt
+
+    - uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          ${{ github.ref_name }}/_build/bin/dtv/dtv-cli
+          ${{ github.ref_name }}/_build/bin/dtv/dtv-cli.txt
