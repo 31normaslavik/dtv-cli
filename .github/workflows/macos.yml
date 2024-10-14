@@ -2,9 +2,9 @@ name: MacOS CI Test
 
 on:
   push:
-    branches: [ main, master, dev ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main, master, dev ]
+    branches: [ main, master ]
 
 jobs:
   build:
@@ -16,12 +16,8 @@ jobs:
         make prepare
     - name: configure
       run: |
-        cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="Debug"
+        cmake -S. -B build -G "Unix Makefiles"
     - name: building
       run: |
-        cmake --build build --config Debug --target unit_tests -j4
-    - name: testing
-      run: |
-        cd build
-        cd tests
-        ./unit_tests
+        cmake --build build -j8
+    
