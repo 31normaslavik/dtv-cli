@@ -20,7 +20,7 @@ jobs:
         sudo apt install cmake gcc g++ git
     - name: cmake configure
       run: |
-        cmake -S . -B _build
+        cmake -S . -B _build -DCMAKE_BUILD_TYPE=Release
     - name: cmake build
       run: |
         cmake --build _build -j4
@@ -32,4 +32,4 @@ jobs:
       with:
         files: |
           _build/bin/dtv/dtv-cli
-          _build/bin/dtv/dtv-cli.txt
+          _build/bin/dtv/dtv-cli.sha256sum
