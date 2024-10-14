@@ -26,7 +26,7 @@ jobs:
         cmake --build _build -j4
     - name: Create hash
       run: |
-        sha256sum _build/bin/dtv/dtv-cli > _build/bin/dtv/dtv-cli.txt
+        sha256sum _build/bin/dtv/dtv-cli > _build/bin/dtv/dtv-cli.sha256sum
 
     - uses: softprops/action-gh-release@v2
       with:
