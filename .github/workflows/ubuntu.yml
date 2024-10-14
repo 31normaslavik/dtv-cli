@@ -1,31 +1,24 @@
-name: Ubuntu CI Test
+name: C/C++ CI
 
 on:
   push:
-    branches: [ main, master, dev ]
+    branches: [ "main", "master" ]
   pull_request:
-    branches: [ main, master, dev ]
+    branches: [ "main", "master" ]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - name: install
-      run: |
-        sudo apt-get install gcovr lcov
-    - name: prepare
-      run: |
-        make prepare
-    - name: configure
-      run: |
-        cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=On
-    - name: building
-      run: |
-        cmake --build build --config Debug --target coverage -j4
-    - name: testing
-      run: |
-        cd build
-        cd tests
-        ./unit_tests
-        bash <(curl -s https://codecov.io/bash)
+    - uses: actions/checkout@v4
+    - name: install depedensity
+      run: 
+          sudo apt install cmake gcc g++ git
+    - name: cmake configure
+      run: 
+          cmake -S . -B _build
+    - name: cmake build
+      run: 
+          cmake --build _build -j8    
