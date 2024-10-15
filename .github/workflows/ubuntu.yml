@@ -23,9 +23,10 @@ jobs:
         cmake -S . -B _build -DCMAKE_BUILD_TYPE=Release
     - name: cmake build
       run: |
-        cmake --build _build -j4
+        cmake --build _build -j4 --config Release --target dtv-cli
     - name: Create hash
       run: |
+        chmod +x _build/bin/dtv/dtv-cli
         sha256sum _build/bin/dtv/dtv-cli > _build/bin/dtv/dtv-cli.sha256sum
 
     - uses: softprops/action-gh-release@v2

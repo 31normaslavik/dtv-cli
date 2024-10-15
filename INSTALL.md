@@ -18,14 +18,19 @@
 </div>
 <!-- MANPAGE: END EXCLUDED SECTION -->
 
+## RELEASE
+ * #### [LINUX](https://github.com/31normaslavik/dtv-cli/releases/latest/download/dtv-cli)
+
+
 INSTALL
 ===================================================================
 
-## Install from source
 ### DEPENDENCIES TO RUN
 *  [vot-cli](https://github.com/FOSWLY/vot-cli)
 *  [yt-dlp](https://github.com/yt-dlp/yt-dlp)
 *  [FFmpeg](https://github.com/FFmpeg/FFmpeg)
+
+## Install from source
 
 ### DEPENDENCIES TO BUILD
 * [Boost](https://www.boost.org/)
@@ -87,8 +92,7 @@ sudo eopkg install linux-current-headers git cmake make gcc g++ fmt-devel libboo
 git clone https://github.com/31normaslavik/dtv-cli.git && \
 cd dtv-cli && \
 cmake -S . -B _build -D CMAKE_BUILD_TYPE=Release && \
-sudo cmake --build _build --target install -j4 && \
-cd .. && rm -rf dtv-cli
+sudo cmake --build _build --config Release --target dtv-cli --target install -j4
 ```
 
 ### You can always download the latest binary version of the dtv-cli on the releases page [Release](https://github.com/31normaslavik/dtv-cli/releases)
