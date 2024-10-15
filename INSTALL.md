@@ -27,7 +27,9 @@
 
 ## SIMPLE INSTALL
 ```
-wget --https-only -O dtv-cli https://github.com/31normaslavik/dtv-cli/releases/latest/download/dtv-cli
+curl -OL https://github.com/31normaslavik/dtv-cli/releases/latest/download/{dtv-cli,dtv-cli.sha256sum} | sha256sum -c && \
+chmod +x dtv-cli && \
+sudo mv dtv-cli /usr/local/bin/
 ```
 
 ## INSTALL FROM SOURCE
@@ -42,49 +44,58 @@ wget --https-only -O dtv-cli https://github.com/31normaslavik/dtv-cli/releases/l
 ### Arch Manjaro
 ```
 sudo pacman -Syu && \
-sudo pacman -S git cmake less boost fmt
+sudo pacman -S git cmake less boost fmt ffmpeg npm python-pip && \
+sudo npm install -g vot-cli
 ```
 
 ### Debian
 ```
 sudo apt update && sudo apt upgrade -y && \
-sudo apt install git cmake g++ libfmt-dev libboost-program-options1.81-dev libboost-json1.81-dev libboost-url1.81-dev
+sudo apt install git cmake g++ libfmt-dev libboost-program-options1.81-dev libboost-json1.81-dev libboost-url1.81-dev ffmpeg npm python3-pip -y && \
+sudo npm install -g vot-cli
 ```
 ### Ubuntu 24.04
 ```
 sudo apt update && sudo apt upgrade -y && \
-sudo apt install git cmake g++ libboost-program-options1.83-dev libboost-json1.83-dev libboost-url1.83-dev
+sudo apt install git cmake g++ libboost-program-options1.83-dev libboost-json1.83-dev libboost-url1.83-dev ffmpeg npm python3-pip -y && \
+sudo npm install -g vot-cli
 
 ```
 ### Fedora
 ```
 sudo dnf upgrade --refresh && \
-sudo dnf install kernel-devel cmake g++ boost-url boost-devel
+sudo dnf install kernel-devel cmake g++ boost-url boost-devel ffmpeg npm python3-pip && \
+sudo npm install -g vot-cli
 ```
 ### Pop Os
 ```
 sudo apt update && sudo apt upgrade -y &&
-sudo apt install git cmake g++ libfmt-dev -y
+sudo apt install git cmake g++ libfmt-dev ffmpeg npm python3-pip -y && \
+sudo npm install -g vot-cli
 ```
 ### Mageia
 ```
 sudo urpmi.update -a && \
-sudo urpmi cmake gcc git lib64fmt-devel lib64boost-devel
+sudo urpmi cmake gcc git lib64fmt-devel lib64boost-devel ffmpeg npm python3-pip && \
+sudo npm install -g vot-cli
 ```
 ### BookwormPup64
 ```
 sudo apt update && sudo apt upgrade -y && \
-sudo apt install git cmake g++ libfmt-dev libboost-program-options1.81-dev libboost-json1.81-dev libboost-url1.81-dev
+sudo apt install git cmake g++ libfmt-dev libboost-program-options1.81-dev libboost-json1.81-dev libboost-url1.81-dev ffmpeg npm python3-pip -y && \
+sudo npm install -g vot-cli
 ```
 ### ZorinOs
 ```
 sudo apt update && sudo apt upgrade && \
-sudo apt install git cmake g++ libfmt-dev
+sudo apt install git cmake g++ libfmt-dev ffmpeg npm python3-pip -y && \
+sudo npm install -g vot-cli
 ```
 ### Solus
 ```
 sudo eopkg update-repo && \
-sudo eopkg install linux-current-headers git cmake make gcc g++ fmt-devel libboost-devel system.devel
+sudo eopkg install linux-current-headers git cmake make gcc g++ fmt-devel libboost-devel system.devel ffmpeg npm && \
+sudo npm install -g vot-cli
 ```
 
 ## BUILD WITH CMAKE AND INSTALL
