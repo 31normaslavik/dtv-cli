@@ -18,21 +18,21 @@
 </div>
 <!-- MANPAGE: END EXCLUDED SECTION -->
 
-## RELEASE
- * #### [LINUX](https://github.com/31normaslavik/dtv-cli/releases/latest/download/dtv-cli)
-
-
-INSTALL
-===================================================================
+# INSTALL
 
 ### DEPENDENCIES TO RUN
-*  [vot-cli](https://github.com/FOSWLY/vot-cli)
-*  [yt-dlp](https://github.com/yt-dlp/yt-dlp)
-*  [FFmpeg](https://github.com/FFmpeg/FFmpeg)
+* [vot-cli](https://github.com/FOSWLY/vot-cli)
+* [yt-dlp](https://github.com/yt-dlp/yt-dlp)
+* [FFmpeg](https://github.com/FFmpeg/FFmpeg)
 
-## Install from source
+## SIMPLE INSTALL
+```
+wget --https-only -O dtv-cli https://github.com/31normaslavik/dtv-cli/releases/latest/download/dtv-cli
+```
 
-### DEPENDENCIES TO BUILD
+## INSTALL FROM SOURCE
+
+  ### DEPENDENCIES TO BUILD
 * [Boost](https://www.boost.org/)
 * #### Optionaly
   * [fmt](https://fmt.dev) The compiler version is lower than GNU 13.1 or Clang 17.0.1 or MSVC 19.29 or AppleClang 15.0

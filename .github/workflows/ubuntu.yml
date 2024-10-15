@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: install depedensity
       run: |
-        sudo apt install cmake gcc g++ git
+        sudo apt install cmake gcc g++ git libboost-all-dev
     - name: cmake configure
       run: |
         cmake -S . -B _build -DCMAKE_BUILD_TYPE=Release
@@ -26,11 +26,11 @@ jobs:
         cmake --build _build -j4 --config Release --target dtv-cli
     - name: Create hash
       run: |
-        chmod +x _build/bin/dtv/dtv-cli
-        sha256sum _build/bin/dtv/dtv-cli > _build/bin/dtv/dtv-cli.sha256sum
+        cd _build/bin/dtv
+        sha256sum dtv-cli > dtv-cli.sha256sum
 
     - uses: softprops/action-gh-release@v2
       with:
         files: |
-          _build/bin/dtv/dtv-cli
-          _build/bin/dtv/dtv-cli.sha256sum
+          dtv-cli
+          dtv-cli.sha256sum

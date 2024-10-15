@@ -23,6 +23,10 @@
 ### AVAILABLE TRANSLATION SITES [![Supported Sites](https://img.shields.io/badge/-push_me-187795.svg?style=for-the-badge)](https://github.com/FOSWLY/vot-cli/wiki/%5BEN%5D-Supported-sites "Supported Sites")
 ### AVAILABLE SITES FOR SIMPLE DOWNLOAD [![Supported Sites](https://img.shields.io/badge/-push_me-187795.svg?style=for-the-badge)](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md "Supported Sites")
 
+## RELEASE
+File|Description
+:---|:---
+[dtv-cli](https://github.com/31normaslavik/dtv-cli/releases/latest/download/dtv-cli)|**Linux/BSD**
 
 ## [INSTALL](INSTALL.md) 🔗
 
