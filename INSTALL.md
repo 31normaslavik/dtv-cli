@@ -1,7 +1,7 @@
 <!-- MANPAGE: BEGIN EXCLUDED SECTION -->
 <div align="center">
 
-[![DTV-CLI](https://github.com/31normaslavik/dtv-cli/blob/dev/.github/workflows/head.jpg)](#readme)
+![DTV-CLI](https://github.com/31normaslavik/dtv-cli/blob/dev/.github/workflows/head.jpg)
 
 ![GitHub Release](https://img.shields.io/github/v/release/31normaslavik/dtv-cli?sort=date&display_name=tag&style=for-the-badge&labelColor=green)
 [![Supported Sites](https://img.shields.io/badge/-Supported_Sites-brightgreen.svg?style=for-the-badge)](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md "Supported Sites")
