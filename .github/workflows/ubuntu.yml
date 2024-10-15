@@ -32,5 +32,5 @@ jobs:
     - uses: softprops/action-gh-release@v2
       with:
         files: |
-          dtv-cli
-          dtv-cli.sha256sum
+          _build/bin/dtv/dtv-cli
+          _build/bin/dtv/dtv-cli.sha256sum
