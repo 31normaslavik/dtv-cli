@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.22...3.30.2)
 cmake_policy(VERSION ${CMAKE_VERSION})
 
-#cmake_policy(SET CMP0107 OLD)
-
 project(
     dtv-cli
     VERSION 2.0.2
