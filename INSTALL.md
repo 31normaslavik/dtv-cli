@@ -39,62 +39,62 @@ sudo mv dtv-cli /usr/local/bin/
 * #### Optionaly
   * [fmt](https://fmt.dev) The compiler version is lower than GNU 13.1 or Clang 17.0.1 or MSVC 19.29 or AppleClang 15.0
 
-## Install binary dependencies
+## Binary dependencies to build
 
 ### Arch Manjaro
 ```
 sudo pacman -Syu && \
-sudo pacman -S git cmake less boost fmt ffmpeg npm python-pip && \
+sudo pacman -S git cmake less boost fmt ffmpeg npm yt-dlp && \
 sudo npm install -g vot-cli
 ```
 
 ### Debian
 ```
 sudo apt update && sudo apt upgrade -y && \
-sudo apt install git cmake g++ libfmt-dev libboost-program-options1.81-dev libboost-json1.81-dev libboost-url1.81-dev ffmpeg npm python3-pip -y && \
+sudo apt install git cmake g++ libfmt-dev libboost-program-options1.81-dev libboost-json1.81-dev libboost-url1.81-dev ffmpeg npm yt-dlp -y && \
 sudo npm install -g vot-cli
 ```
 ### Ubuntu 24.04
 ```
 sudo apt update && sudo apt upgrade -y && \
-sudo apt install git cmake g++ libboost-program-options1.83-dev libboost-json1.83-dev libboost-url1.83-dev ffmpeg npm python3-pip -y && \
+sudo apt install git cmake g++ libboost-program-options1.83-dev libboost-json1.83-dev libboost-url1.83-dev ffmpeg npm yt-dlp -y && \
 sudo npm install -g vot-cli
 
 ```
 ### Fedora
 ```
 sudo dnf upgrade --refresh && \
-sudo dnf install kernel-devel cmake g++ boost-url boost-devel ffmpeg npm python3-pip && \
+sudo dnf install kernel-devel cmake g++ boost-url boost-devel ffmpeg npm yt-dlp && \
 sudo npm install -g vot-cli
 ```
 ### Pop Os
 ```
 sudo apt update && sudo apt upgrade -y &&
-sudo apt install git cmake g++ libfmt-dev ffmpeg npm python3-pip -y && \
+sudo apt install git cmake g++ libfmt-dev ffmpeg npm yt-dlp -y && \
 sudo npm install -g vot-cli
 ```
 ### Mageia
 ```
 sudo urpmi.update -a && \
-sudo urpmi cmake gcc git lib64fmt-devel lib64boost-devel ffmpeg npm python3-pip && \
+sudo urpmi cmake gcc git lib64fmt-devel lib64boost-devel ffmpeg npm yt-dlp && \
 sudo npm install -g vot-cli
 ```
 ### BookwormPup64
 ```
 sudo apt update && sudo apt upgrade -y && \
-sudo apt install git cmake g++ libfmt-dev libboost-program-options1.81-dev libboost-json1.81-dev libboost-url1.81-dev ffmpeg npm python3-pip -y && \
+sudo apt install git cmake g++ libfmt-dev libboost-program-options1.81-dev libboost-json1.81-dev libboost-url1.81-dev ffmpeg npm yt-dlp -y && \
 sudo npm install -g vot-cli
 ```
 ### ZorinOs
 ```
-sudo apt update && sudo apt upgrade && \
-sudo apt install git cmake g++ libfmt-dev ffmpeg npm python3-pip -y && \
+sudo apt update && sudo apt upgrade -y && \
+sudo apt install git cmake g++ libfmt-dev ffmpeg npm yt-dlp -y && \
 sudo npm install -g vot-cli
 ```
 ### Solus
 ```
 sudo eopkg update-repo && \
-sudo eopkg install linux-current-headers git cmake make gcc g++ fmt-devel libboost-devel system.devel ffmpeg npm && \
+sudo eopkg install linux-current-headers git cmake make gcc g++ fmt-devel libboost-devel system.devel ffmpeg npm yt-dlp && \
 sudo npm install -g vot-cli
 ```
 
@@ -111,7 +111,7 @@ sudo cmake --build _build --config Release --target dtv-cli --target install -j4
 ### FOR DEVELOP ON VC-CODE
 * #### Install bear on your OS
   ```
-  sudo pacman -S bear
+  sudo pacman -Syu bear
   sudo apt install bear
   ```
 * #### At the root of the project, enter the command

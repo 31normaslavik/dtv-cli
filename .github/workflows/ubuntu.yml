@@ -11,13 +11,13 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v4
     - name: install depedensity
       run: |
-        sudo apt install cmake gcc g++ git
+        sudo apt install cmake gcc g++ git libfmt-dev libboost-program-options1.81-dev libboost-json1.81-dev libboost-url1.81-dev
     - name: cmake configure
       run: |
         cmake -S . -B _build -DCMAKE_BUILD_TYPE=Release
