@@ -22,7 +22,6 @@ struct Debug
 #endif
 };
 
-
 #ifdef __cpp_lib_format
 
 template<typename... Args>
@@ -47,12 +46,16 @@ using std::format;
 
 template <typename... Args>
 void debug(fmt::string_view fmt, Args&&... args){
-    std::cout << fmt::vformat(fmt, fmt::make_format_args(args...));
+    if(Debug::debug) {
+        std::cout << fmt::vformat(fmt, fmt::make_format_args(args...));
+    }
 }
 
 template <typename... Args>
 void debugln(fmt::string_view fmt, Args&&... args){
-    std::cout << fmt::vformat(fmt, fmt::make_format_args(args...)) << "\n";
+    if(Debug::debug){
+        std::cout << fmt::vformat(fmt, fmt::make_format_args(args...)) << "\n";
+    }
 }
 
 using fmt::format;

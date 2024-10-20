@@ -61,6 +61,8 @@ namespace dtv {
             if (er) {
                 std::cerr << " Can't remove dir: " << _path_to_temp << "\n"
                     << "Value code: " << er.value() << " [" << er.message() << "]\n";
+            }else {
+                debug("Func: {}\nRemove path {}\nCurrent path: {}\n", __func__, _path_to_temp.string(), fs::current_path().string());
             }
         }
     }

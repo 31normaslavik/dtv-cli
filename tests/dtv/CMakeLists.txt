@@ -42,7 +42,8 @@ add_test(NAME dtv-cli-test COMMAND dtv-cli-test)
 target_link_libraries(
   dtv-cli-test
   PRIVATE GTest::GTest
-  PRIVATE downloader)
+  PRIVATE downloader video fs)
+
 if(GMock_FOUND)
   target_link_libraries(dtv-cli-test INTERFACE GTest::GMock)
 endif()
@@ -50,15 +51,16 @@ endif()
 include(GoogleTest)
 gtest_discover_tests(dtv-cli-test)
 
+message("CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
+message("CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
+
 message(
   STATUS
-    "copying ${CMAKE_SOURCE_DIR}/test/jsons to ${CMAKE_BINARY_DIR}/test/jsons")
+    "copying ${CMAKE_CURRENT_SOURCE_DIR}/jsons to ${CMAKE_CURRENT_BINARY_DIR}/")
 
 add_custom_target(
   jsonsdir
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/test/jsons
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/test/jsons
-          ${CMAKE_BINARY_DIR}/test/jsons
-  COMMENT
-    "copying ${CMAKE_SOURCE_DIR}/test/jsons to ${CMAKE_BINARY_DIR}/test/jsons"
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+  # COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/jsons
+  COMMAND ${CMAKE_COMMAND} -E copy_directory jsons ${CMAKE_CURRENT_BINARY_DIR}/jsons
+  COMMENT "copying ${CMAKE_CURRENT_SOURCE_DIR}/jsons to ${CMAKE_CURRENT_BINARY_DIR}/jsons"
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})

@@ -146,6 +146,33 @@ dtv::CommandLine dtv::command_line_parser(std::vector<std::string> const &argume
     }
 
     /*
+     * HIDE
+     */
+    if (_vm.contains("urls")) {
+        auto const &urls = _vm["urls"].as<std::vector<std::string>>();
+
+        std::set<std::string> urls_s;
+
+        for (const auto &url : urls) {
+            boost::system::result<boost::urls::url_view> result_url =
+                boost::urls::parse_uri(url);
+
+            if (result_url.has_value()) {
+                urls_s.insert(result_url.value().buffer());
+            } else {
+                std::cerr << "The link to the video is incorrect: "
+                          << result_url.value() << " [" << result_url.error() << "]\n";
+                continue;
+            }
+        }
+        line.Urls(urls_s);
+
+    } else {
+        std::cout << Helper::exampes << "\n";
+        std::exit(EXIT_SUCCESS);
+    }
+
+    /*
      * FILESYSTEM
      */
     if (_vm.contains("output")) {
@@ -316,34 +343,7 @@ dtv::CommandLine dtv::command_line_parser(std::vector<std::string> const &argume
         auto const &exec_before = _vm["exec-before"].as<std::string>();
         line.Exec_before(exec_before);
     }
-
-    /*
-     * HIDE
-     */
-    if (_vm.contains("urls")) {
-        auto const &urls = _vm["urls"].as<std::vector<std::string>>();
-
-        std::set<std::string> urls_s;
-
-        for (const auto &url : urls) {
-            boost::system::result<boost::urls::url_view> result_url =
-                boost::urls::parse_uri(url);
-
-            if (result_url.has_value()) {
-                urls_s.insert(result_url.value().buffer());
-            } else {
-                std::cerr << "The link to the video is incorrect: "
-                          << result_url.value() << " [" << result_url.error() << "]\n";
-                continue;
-            }
-        }
-        line.Urls(urls_s);
-
-    } else {
-        std::cout << Helper::exampes << "\n";
-        exit(EXIT_FAILURE);
-    }
-
+  
     /*
      * DEBUG
      */

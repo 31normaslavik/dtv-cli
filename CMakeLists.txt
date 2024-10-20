@@ -12,10 +12,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # include(cmake/CheckCompiler.cmake)
 include(cmake/CheckDir.cmake)
-include(cmake/CheckDepedencies.cmake)
+# include(cmake/CheckDepedencies.cmake)
 include(cmake/FindFMT.cmake)
 include(cmake/FindBoost.cmake)
 # include(cmake/FindYtDlp.cmake)
-add_subdirectory(src bin)
 
-#add_subdirectory(test EXCLUDE_FROM_ALL)
+add_subdirectory(src bin)
+add_subdirectory(tests EXCLUDE_FROM_ALL)
+    
+include(cmake/RunCheckTest.cmake)
+
+
