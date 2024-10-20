@@ -35,7 +35,7 @@ dtv::CommandLine dtv::command_line_parser(std::vector<std::string> const &argume
 
     filesystem.add_options()
         ("output,o",
-         opt::value<std::string>()->default_value(fs::current_path()),
+         opt::value<std::string>()->default_value(fs::current_path().string()),
          "Path to save")
         ("no-overwrites", "Do not overwrite exist files")
         // ("write-description","")
