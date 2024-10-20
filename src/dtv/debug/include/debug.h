@@ -1,5 +1,5 @@
 #pragma once
-#include<version>
+#include <version>
 
 #ifdef __cpp_lib_format
     #include <format>
