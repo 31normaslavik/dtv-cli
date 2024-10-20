@@ -59,8 +59,7 @@ add_test(NAME dtv-cli-test COMMAND dtv-cli-test)
 
 target_link_libraries(
   dtv-cli-test
-  PRIVATE GTest::gtest
-  PRIVATE downloader video fs)
+  PRIVATE GTest::gtest downloader video fs)
 
 if(GMock_FOUND)
   target_link_libraries(dtv-cli-test INTERFACE GTest::gmock)
