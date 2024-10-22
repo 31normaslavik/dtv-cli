@@ -22,7 +22,7 @@ jobs:
       matrix:
         os: [ubuntu-22.04, windows-2019, macos-12]
         build_type: [Release]
-        c_compiler: [gcc, cl]
+        c_compiler: [gcc-12, cl]
         include:
           - os: windows-2019
             c_compiler: cl
@@ -35,7 +35,7 @@ jobs:
             cpp_compiler: g++-12
         exclude:
           - os: windows-2019
-            c_compiler: gcc
+            c_compiler: gcc-12
           - os: ubuntu-22.04
             c_compiler: cl
           - os: macos-12
