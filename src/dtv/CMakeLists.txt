@@ -22,18 +22,6 @@ add_custom_command(
   WORKING_DIRECTORY $<TARGET_FILE_DIR:${PROJECT_NAME}>
   VERBATIM)
 
-if(EXISTS ${CMAKE_BINARY_DIR}/compile_commands.json)
-  message(STATUS "copying compile_commands.json to ${CMAKE_SOURCE_DIR}")
-
-  add_custom_command(
-  TARGET ${PROJECT_NAME} POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy -t ${CMAKE_SOURCE_DIR} compile_commands.json
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-  COMMENT "copying compile_commands.json to ${CMAKE_SOURCE_DIR}"
-  VERBATIM)
-
-endif()
-
 include(GNUInstallDirs)
 install(
     TARGETS dtv-cli

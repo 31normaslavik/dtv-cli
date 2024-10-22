@@ -24,7 +24,7 @@ jobs:
         build_type: [Release]
         c_compiler: [gcc-12, cl]
         include:
-          - os: windows-2019
+          - os: windows-2022
             c_compiler: cl
             cpp_compiler: cl
           - os: ubuntu-22.04
@@ -34,7 +34,7 @@ jobs:
             c_compiler: gcc-12
             cpp_compiler: g++-12
         exclude:
-          - os: windows-2019
+          - os: windows-2022
             c_compiler: gcc-12
           - os: ubuntu-22.04
             c_compiler: cl
