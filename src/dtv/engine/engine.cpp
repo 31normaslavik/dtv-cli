@@ -3,14 +3,16 @@
 #include "formater.h"
 #include <locale>
 
-dtv::Engine::Engine(const Video &video, const CommandLine &line) {
+namespace  dtv{
+
+Engine::Engine(const Video &video, const CommandLine &line) {
     _pYtdlpEngine = std::make_unique<YtdlpEngine>(video, line);
     _pVotcliEngine = std::make_unique<VotcliEngine>(video, line);
     _pFfmpegEngine = std::make_unique<FfmpegEngine>(video, line);
     _pCmd = std::make_unique<Cmd>(line);
 }
 
-void dtv::Engine::DownloadJson(const boost::urls::url_view url) {
+void Engine::DownloadJson(const boost::urls::url_view url) {
     // TODO желательно тут менять url на работающий
     std::string const command{
         format("yt-dlp \"{}\" --write-info-json "
@@ -22,22 +24,22 @@ void dtv::Engine::DownloadJson(const boost::urls::url_view url) {
     debugln("Result: {}", result);
 }
 
-void dtv::Engine::DownloadVideo() { _pYtdlpEngine->DownloadVideo(); }
+void Engine::DownloadVideo() { _pYtdlpEngine->DownloadVideo(); }
 
-void dtv::Engine::DownloadSubtitles() { _pVotcliEngine->DownloadSubtitles(); }
+void Engine::DownloadSubtitles() { _pVotcliEngine->DownloadSubtitles(); }
 
-void dtv::Engine::DownloadVoice() { _pVotcliEngine->DownloadVoice(); }
+void Engine::DownloadVoice() { _pVotcliEngine->DownloadVoice(); }
 
-void dtv::Engine::DownloadAnotation() { debugln("Func: {}", __func__); }
+void Engine::DownloadAnotation() { debugln("Func: {}", __func__); }
 
-void dtv::Engine::Merge() { _pFfmpegEngine->Merge(); }
+void Engine::Merge() { _pFfmpegEngine->Merge(); }
 
-dtv::YtdlpEngine::YtdlpEngine(const Video &video, const CommandLine &line)
+YtdlpEngine::YtdlpEngine(const Video &video, const CommandLine &line)
     : _video{video}, _line{line} {
     debugln("Func: {}", __func__);
 }
 
-void dtv::YtdlpEngine::DownloadVideo() {
+void YtdlpEngine::DownloadVideo() {
     debugln("Func: {}", __func__);
 
     if (_line.TranslationOnly())
@@ -55,14 +57,14 @@ void dtv::YtdlpEngine::DownloadVideo() {
     debugln("Video result: {}", result);
 }
 
-void dtv::YtdlpEngine::DownloadSubtitles() { debugln("Func: {}", __func__); }
+void YtdlpEngine::DownloadSubtitles() { debugln("Func: {}", __func__); }
 
-dtv::VotcliEngine::VotcliEngine(const Video &video, const CommandLine &line)
+VotcliEngine::VotcliEngine(const Video &video, const CommandLine &line)
     : _video{video}, _line{line} {
     debugln("Func: {}", __func__);
 }
 
-void dtv::VotcliEngine::DownloadVoice() {
+void VotcliEngine::DownloadVoice() {
     if (!_line.WithoutTranslation()) {
         std::cout << std::flush;
         std::string const commandVoice{
@@ -77,7 +79,7 @@ void dtv::VotcliEngine::DownloadVoice() {
     }
 }
 
-void dtv::VotcliEngine::DownloadSubtitles() {
+void VotcliEngine::DownloadSubtitles() {
     if (_line.Write_subs()) {
         std::cout << std::flush;
         std::string const commandSub{format(
@@ -92,12 +94,12 @@ void dtv::VotcliEngine::DownloadSubtitles() {
     }
 }
 
-dtv::FfmpegEngine::FfmpegEngine(const Video &video, const CommandLine &line)
+FfmpegEngine::FfmpegEngine(const Video &video, const CommandLine &line)
     : _video{video}, _line{line} {
     debugln("Func: {}", __func__);
 }
 
-void dtv::FfmpegEngine::Merge() {
+void FfmpegEngine::Merge() {
     namespace fs = std::filesystem;
 
     debugln("Func: {}", __func__);
@@ -450,9 +452,9 @@ void dtv::FfmpegEngine::Merge() {
     std::cout << "The [" + _mediaParts.output.filename().string() + "_translate_" + _mediaParts.voice.filename().extension().string() + "] file has been successfully created\n";
 }
 
-dtv::Cmd::Cmd(const CommandLine &line) : _line{line} {}
+Cmd::Cmd(const CommandLine &line) : _line{line} {}
 
-bool dtv::Cmd::ExecAfter() {
+bool Cmd::ExecAfter() {
     debugln("Func: {}", __func__);
     if (!_line.Exec_after().empty()) {
         int result{-1};
@@ -468,7 +470,7 @@ bool dtv::Cmd::ExecAfter() {
     return bool(false);
 }
 
-bool dtv::Cmd::ExecBefore() {
+bool Cmd::ExecBefore() {
     debugln("Func: {}", __func__);
     if (!_line.Exec_before().empty()) {
         int result{-1};
@@ -483,3 +485,5 @@ bool dtv::Cmd::ExecBefore() {
     }
     return bool(false);
 }
+
+} // namespace dtv

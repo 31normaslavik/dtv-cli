@@ -8,8 +8,7 @@ struct Helper{
 
 };
 
-const std::string Helper::exampes = "\nIf the specified path does not exist, the program will try to create "
-    "the missing directories\n\n"
+const std::string Helper::exampes = "\n"
     "Usage: dtv-cli [Options] urls\n\n"
     "# mp4, 1080p, path current\n"
     "dtv-cli -u \"url1\"\n\n"
@@ -37,7 +36,9 @@ const std::string Helper::exampes = "\nIf the specified path does not exist, the
     "# mp4, 1080p, fps 30, translate audio from ru to en, path current\n"
     "dtv-cli --translate-from-lang \"ru\" --translate-to-lang \"en\" -u \"url1\"\n\n"
     "# mp4, 1080p, fps 30, translate audio from ru to kk, ru subtitles, path current\n"
-    "dtv-cli --translate-from-lang \"en\" --translate-to-lang \"kk\" --write-subs --sub-lang \"ru\" -u \"url1\""
+    "dtv-cli --translate-from-lang \"en\" --translate-to-lang \"kk\" --write-subs --sub-lang \"ru\" -u \"url1\"\n\n"
+    "If the specified path does not exist, the program will try to create "
+    "the missing directories"
     ;
 
 const std::string Helper::codes_country =

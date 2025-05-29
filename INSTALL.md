@@ -35,66 +35,65 @@ sudo mv dtv-cli /usr/local/bin/
 ## INSTALL FROM SOURCE
 
   ### DEPENDENCIES TO BUILD
-* [Boost](https://www.boost.org/)
-* #### Optionaly
-  * [fmt](https://fmt.dev) The compiler version is lower than GNU 13.1 or Clang 17.0.1 or MSVC 19.29 or AppleClang 15.0
+* [Boost](https://www.boost.org/) (can be automatically downloaded)
+* [fmt](https://fmt.dev) (can be automatically downloaded)
 
 ## Binary dependencies to build
 
 ### Arch Manjaro
 ```
 sudo pacman -Syu && \
-sudo pacman -S git cmake less boost fmt ffmpeg npm yt-dlp && \
+sudo pacman -S git cmake less ffmpeg npm yt-dlp && \
 sudo npm install -g vot-cli
 ```
 
 ### Debian
 ```
 sudo apt update && sudo apt upgrade -y && \
-sudo apt install git cmake g++ libfmt-dev libboost-program-options1.81-dev libboost-json1.81-dev libboost-url1.81-dev ffmpeg npm yt-dlp -y && \
+sudo apt install git cmake g++ ffmpeg npm yt-dlp -y && \
 sudo npm install -g vot-cli
 ```
 ### Ubuntu 24.04
 ```
 sudo apt update && sudo apt upgrade -y && \
-sudo apt install git cmake g++ libboost-program-options1.83-dev libboost-json1.83-dev libboost-url1.83-dev ffmpeg npm yt-dlp -y && \
+sudo apt install git cmake g++ ffmpeg npm yt-dlp -y && \
 sudo npm install -g vot-cli
 
 ```
 ### Fedora
 ```
 sudo dnf upgrade --refresh && \
-sudo dnf install kernel-devel cmake g++ boost-url boost-devel ffmpeg npm yt-dlp && \
+sudo dnf install kernel-devel cmake g++ ffmpeg npm yt-dlp && \
 sudo npm install -g vot-cli
 ```
 ### Pop Os
 ```
 sudo apt update && sudo apt upgrade -y &&
-sudo apt install git cmake g++ libfmt-dev ffmpeg npm yt-dlp -y && \
+sudo apt install git cmake g++ ffmpeg npm yt-dlp -y && \
 sudo npm install -g vot-cli
 ```
 ### Mageia
 ```
 sudo urpmi.update -a && \
-sudo urpmi cmake gcc git lib64fmt-devel lib64boost-devel ffmpeg npm yt-dlp && \
+sudo urpmi cmake gcc git ffmpeg npm yt-dlp && \
 sudo npm install -g vot-cli
 ```
 ### BookwormPup64
 ```
 sudo apt update && sudo apt upgrade -y && \
-sudo apt install git cmake g++ libfmt-dev libboost-program-options1.81-dev libboost-json1.81-dev libboost-url1.81-dev ffmpeg npm yt-dlp -y && \
+sudo apt install git cmake g++ ffmpeg npm yt-dlp -y && \
 sudo npm install -g vot-cli
 ```
 ### ZorinOs
 ```
 sudo apt update && sudo apt upgrade -y && \
-sudo apt install git cmake g++ libfmt-dev ffmpeg npm yt-dlp -y && \
+sudo apt install git cmake g++ ffmpeg npm yt-dlp -y && \
 sudo npm install -g vot-cli
 ```
 ### Solus
 ```
 sudo eopkg update-repo && \
-sudo eopkg install linux-current-headers git cmake make gcc g++ fmt-devel libboost-devel system.devel ffmpeg npm yt-dlp && \
+sudo eopkg install linux-current-headers git cmake make gcc g++  system.devel ffmpeg npm yt-dlp && \
 sudo npm install -g vot-cli
 ```
 
@@ -102,21 +101,9 @@ sudo npm install -g vot-cli
 ```
 git clone https://github.com/31normaslavik/dtv-cli.git && \
 cd dtv-cli && \
-cmake -S . -B _build -D CMAKE_BUILD_TYPE=Release && \
-sudo cmake --build _build --config Release --target dtv-cli --target install -j4
+cmake -S . -B build -D CMAKE_BUILD_TYPE=Release && \
+sudo cmake --build build --config Release --target dtv-cli --target install -j4
 ```
 
 ### You can always download the latest binary version of the dtv-cli on the releases page [Release](https://github.com/31normaslavik/dtv-cli/releases)
 
-### FOR DEVELOP ON VC-CODE
-* #### Install bear on your OS
-  ```
-  sudo pacman -Syu bear
-  sudo apt install bear
-  ```
-* #### At the root of the project, enter the command
-
-  ```
-   rm -rf _build && bear -- cmake -S . -B _build && bear -- cmake --build _build -j4
-  ```
-  #### Next, if the vc code was running at that moment, restart it, or click Help -> Show all commands -> enter "Reload Window" in the terminal and press Enter. The project is ready for development.

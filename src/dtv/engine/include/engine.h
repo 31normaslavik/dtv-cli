@@ -2,6 +2,7 @@
 #include "commandline.h"
 #include "video.h"
 #include <boost/url.hpp>
+#include <string>
 
 namespace dtv {
 
@@ -78,4 +79,5 @@ public:
 private:
     CommandLine const& _line;
 };
+
 } // namespace dtv
