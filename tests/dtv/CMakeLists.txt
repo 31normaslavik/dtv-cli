@@ -40,7 +40,7 @@ add_test(NAME dtv-cli-test COMMAND dtv-cli-test)
 
 target_link_libraries(
   dtv-cli-test
-  PRIVATE GTest::gtest GTest::gmock downloader video fs)
+  PRIVATE GTest::gtest GTest::gmock downloader video fs formater)
 
 #include(GoogleTest)
 #gtest_discover_tests(dtv-cli-test)
